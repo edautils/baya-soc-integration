@@ -1,0 +1,105 @@
+Following are the steps to assemble IPs to create a SubSystem or SoC.
+There is no hard-and-fast rule to follow this but this could be one of
+the efficient way to manage the integrattion work systematically.
+DesignPlayer provides an unified platform with rich set of features
+to meet user requirements.
+
+    ********************************************************************
+    *   IP-XACT Component Packaging & Release Methodology              *
+    *                                                                  *
+    ********************************************************************
+
+Step-1  : Identify and create the IP-XACT Bus Definitions and Abstraction
+          definitions to be used in the organization. Mark these busdefs
+          as the global bus definitions since these are expected to get
+          referred by all the IPs in the company.
+
+Step-2  : Identify a location where all the components will get released.
+          In order to enable multi-site concurrent dvelopment, make sure that
+          this release area is visible to all the design sites.
+
+          If the release area is /design/components/ipxact/ then each released
+          Comonent must be stored as- 
+          
+                        /design/components/ipxact/V/L/N/V/N.xml  
+                         where
+              V = Vendor/IP provide name. 
+              L = Library Name
+              N = Name of this IP
+              V = Version of this IP
+              N.xml = The IP-XACT Component XML file
+
+ 
+
+Step-3  : Ask the IP provider to package their IP as IP-XACT Component with
+          proper VLNV( Vendor, Library, Name and Version ) and BusInterfaces.
+          The referred BusDefs should be available in the global BusDefinition
+          area. There might be some ports in the Component for which there is
+          no globabl busdefinition available. For those ports, the IP provider
+          should create his/her own bus definition and mark the same as local
+          BusDefinition. 
+
+          Also, IP owner should create the MemoryMap REGISTER definition of
+          the IP so the Software and DV team use the same- generate the
+          C-Model, UVM Model for the entire SoC/SS or the IP.
+
+          In addition to this, the IP should also provide the documentation
+          of the IP preferably for the integrator.
+
+          (The EDAUtils IP-XACT solution can be used to package the IP as above)
+          
+
+    ********************************************************************
+    *       SoC/SubSystem Integration Methodologies                    *
+    *                                                                  *
+    ********************************************************************
+
+Step-1  : List down the name of the components to be used to build
+          the SoC or SubSystem. 
+
+
+
+[1] Create Components and its ports through the IP-XACT wizard.
+    You can import Verilog file(s) containing the module definition
+    corresponding to this component. This way, you won't have to 
+    create the ports of this component.
+
+[2] Create BusInterfaces Make sure all its ports are mapped through
+    bus-interfaces
+        - If there is no bus-defintion for certain ports then create local
+          busdef and refer those ports through that
+        - The local bus interface creation step can be skipped if those ports
+          gets connected through adhoc connection
+
+BusDefinition
+=============
+        o Create global bus definition as applicable to the organization
+        o Create local bus definition
+        o Refer the bus definition library paths so that the tool can
+          extract bus details
+        o User can individually load the bus and abstraction defintions
+
+Component Database
+==================
+        o Set the component search paths 
+        o All the components from that path(s) will be loaded in the beginning
+                - Single database gets maintained where key is the VLNV and
+                  value is the Component
+        o User can individually load the components
+
+Bus & Abstraction Definition Database
+=====================================
+        o Set the Bus Def search paths 
+        o All the Buses from that path(s) will be loaded in the beginning
+                - Single database gets maintained where key is the VLNV and
+                  value is the BusDef
+                - Single database gets maintained where key is the VLNV and
+                  value is the AbstractionDef
+
+Howto create C-Model from Component and Design
+==============================================
+        See the example IPXACTCModel which loads an IP-XACT Design XML and 
+        all the Components in the search path. It then elaborates it and 
+        generates the C Model and also saves it as Verilog design. This C-model
+        represents the Register database of the entire design.
+

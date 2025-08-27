@@ -1,0 +1,9 @@
+PORT2PORT,CSV Module's Input Pin,Driving Instance Name,Driving Instance's Pin,Connecting Net Name,MACRO NAME,,
+,enb(0),watch_machine,clken(0),,,,
+,clk(0),clk_div,clkout(0),,,,
+PARAMETERMAP,CSV Module's Param Name,,Parameter Value,,,,
+,max_count,,10,,,,
+INTERFACE2INTERFACE,This Module's Interface name,Driving Instance Name same as above,Driving interface name,Exclude Ports,Align MSB( 1 or y or yes ),Padded Value,MACRO NAME
+AUTO,,"Other instance name, same as above",,Exclude Ports,Align MSB( 1 or y or yes ),Padded Value,
+CONSTANT,This Module's pin name,Keep This Column Blank,Constant Value,MACRO NAME,,,
+OPEN,This Module's pin name,Keep This Column Blank,Keep This Column Blank,MACRO NAME,,,

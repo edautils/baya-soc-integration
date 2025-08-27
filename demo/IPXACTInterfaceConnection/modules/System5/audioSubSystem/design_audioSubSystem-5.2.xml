@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+// Description: design_audioSubSystem-5.2.xml
+// Author:      The SPIRIT Consortium
+// Revision:    $Revision: 1.1 $
+// Date:        $Date: 2014/12/27 22:48:06 $
+//
+// Copyright (c) 2009 The SPIRIT Consortium.
+//
+// This work forms part of a deliverable of The SPIRIT Consortium.
+//
+// Use of these materials are governed by the legal terms and conditions
+// outlined in the disclaimer available from www.spiritconsortium.org.
+//
+// This source file is provided on an AS IS basis.  The SPIRIT
+// Consortium disclaims any warranty express or implied including
+// any warranty of merchantability and fitness for use for a
+// particular purpose.
+//
+// The user of the source file shall indemnify and hold The SPIRIT
+// Consortium and its members harmless from any damages or liability.
+// Users are requested to provide feedback to The SPIRIT Consortium
+// using either mailto:feedback@lists.spiritconsortium.org or the forms at
+// http://www.spiritconsortium.org/about/contact_us/
+//
+// This file may be copied, and distributed, with or without
+// modifications; this notice must be included on any copy.
+-->
+<spirit:design xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009 http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009/index.xsd">
+  <spirit:vendor>spiritconsortium.org</spirit:vendor>
+  <spirit:library>Leon2RTL</spirit:library>
+  <spirit:name>design_audioSubSystem</spirit:name>
+  <spirit:version>5.2</spirit:version>
+  <spirit:componentInstances>
+    <spirit:componentInstance>
+      <spirit:instanceName>i_ahbbus25</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="ahbbus25" spirit:version="1.3"/>
+      <spirit:configurableElementValues>
+        <spirit:configurableElementValue spirit:referenceId="defmast">1</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="range_slv0_mirror">0x00020000</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="range_slv1_mirror">0x00040000</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="range_slv2_mirror">0x00040000</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="range_slv3_mirror">0x00001000</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="range_slv4_mirror">0x80000000</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="split_slv0">false</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="split_slv1">false</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="split_slv2">false</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="split_slv3">false</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="split_slv4">false</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="start_addr_slv0_mirror">0x90000000</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="start_addr_slv1_mirror">0x80000000</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="start_addr_slv2_mirror">0xb0000000</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="start_addr_slv3_mirror">0xa0000000</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="start_addr_slv4_mirror">0x0</spirit:configurableElementValue>
+      </spirit:configurableElementValues>
+    </spirit:componentInstance>
+    <spirit:componentInstance>
+      <spirit:instanceName>i_ahbram</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="ahbliteram" spirit:version="1.2"/>
+      <spirit:configurableElementValues>
+        <spirit:configurableElementValue spirit:referenceId="addressBusSize">16</spirit:configurableElementValue>
+      </spirit:configurableElementValues>
+    </spirit:componentInstance>
+    <spirit:componentInstance>
+      <spirit:instanceName>i_ahbrom</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="ahbrom" spirit:version="1.2"/>
+      <spirit:configurableElementValues>
+        <spirit:configurableElementValue spirit:referenceId="addressBusSize">16</spirit:configurableElementValue>
+      </spirit:configurableElementValues>
+    </spirit:componentInstance>
+    <spirit:componentInstance>
+      <spirit:instanceName>i_apbbus2</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="apbbus2" spirit:version="1.3"/>
+      <spirit:configurableElementValues>
+        <spirit:configurableElementValue spirit:referenceId="rangeSlv0">4096</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="remapAddressSlv0">0x0</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="rangeSlv1">4096</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="remapAddressSlv1">0x1000</spirit:configurableElementValue>
+      </spirit:configurableElementValues>
+    </spirit:componentInstance>
+    <spirit:componentInstance>
+      <spirit:instanceName>i_apbmst</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="apbmst" spirit:version="1.2"/>
+      <spirit:configurableElementValues>
+        <spirit:configurableElementValue spirit:referenceId="masterRange">1M</spirit:configurableElementValue>
+      </spirit:configurableElementValues>
+    </spirit:componentInstance>
+    <spirit:componentInstance>
+      <spirit:instanceName>i_dma</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="dma" spirit:version="1.2"/>
+    </spirit:componentInstance>
+    <spirit:componentInstance>
+      <spirit:instanceName>i_mp3Decode</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="mp3Decode" spirit:version="1.3"/>
+    </spirit:componentInstance>
+    <spirit:componentInstance>
+      <spirit:instanceName>i_ahbmon</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="ahbstatSlave" spirit:version="1.2"/>
+    </spirit:componentInstance>
+  </spirit:componentInstances>
+  <spirit:interconnections>
+    <spirit:interconnection>
+      <spirit:name>defaultid4489998</spirit:name>
+      <spirit:activeInterface spirit:componentRef="i_dma" spirit:busRef="ambaAHB"/>
+      <spirit:activeInterface spirit:componentRef="i_ahbbus25" spirit:busRef="MirroredMaster1"/>
+    </spirit:interconnection>
+    <spirit:interconnection>
+      <spirit:name>defaultid4490015</spirit:name>
+      <spirit:activeInterface spirit:componentRef="i_apbmst" spirit:busRef="ambaAHB"/>
+      <spirit:activeInterface spirit:componentRef="i_ahbbus25" spirit:busRef="MirroredSlave0"/>
+    </spirit:interconnection>
+    <spirit:interconnection>
+      <spirit:name>defaultid4490031</spirit:name>
+      <spirit:activeInterface spirit:componentRef="i_ahbrom" spirit:busRef="AHBSlave"/>
+      <spirit:activeInterface spirit:componentRef="i_ahbbus25" spirit:busRef="MirroredSlave1"/>
+    </spirit:interconnection>
+    <spirit:interconnection>
+      <spirit:name>defaultid4490048</spirit:name>
+      <spirit:activeInterface spirit:componentRef="i_ahbram" spirit:busRef="AHBLiteSlave"/>
+      <spirit:activeInterface spirit:componentRef="i_ahbbus25" spirit:busRef="MirroredSlave2"/>
+    </spirit:interconnection>
+    <spirit:interconnection>
+      <spirit:name>defaultid4490065</spirit:name>
+      <spirit:activeInterface spirit:componentRef="i_mp3Decode" spirit:busRef="AHBLiteSlave"/>
+      <spirit:activeInterface spirit:componentRef="i_ahbbus25" spirit:busRef="MirroredSlave3"/>
+    </spirit:interconnection>
+    <spirit:interconnection>
+      <spirit:name>defaultid4490082</spirit:name>
+      <spirit:activeInterface spirit:componentRef="i_apbmst" spirit:busRef="ambaAPB"/>
+      <spirit:activeInterface spirit:componentRef="i_apbbus2" spirit:busRef="MirroredMaster"/>
+    </spirit:interconnection>
+    <spirit:interconnection>
+      <spirit:name>defaultid4490098</spirit:name>
+      <spirit:activeInterface spirit:componentRef="i_dma" spirit:busRef="ambaAPB"/>
+      <spirit:activeInterface spirit:componentRef="i_apbbus2" spirit:busRef="MirroredSlave0"/>
+    </spirit:interconnection>
+    <spirit:interconnection>
+      <spirit:name>monitorapb</spirit:name>
+      <spirit:activeInterface spirit:componentRef="i_ahbmon" spirit:busRef="ambaAPB"/>
+      <spirit:activeInterface spirit:componentRef="i_apbbus2" spirit:busRef="MirroredSlave1"/>
+    </spirit:interconnection>
+  </spirit:interconnections>
+  <spirit:adHocConnections>
+    <spirit:adHocConnection>
+      <spirit:name>i_mp3Decode_dac_clk</spirit:name>
+      <spirit:internalPortReference spirit:componentRef="i_mp3Decode" spirit:portRef="dac_clk"/>
+      <spirit:externalPortReference spirit:portRef="i_mp3Decode_dac_clk"/>
+    </spirit:adHocConnection>
+    <spirit:adHocConnection>
+      <spirit:name>i_mp3Decode_mp3_clk</spirit:name>
+      <spirit:internalPortReference spirit:componentRef="i_mp3Decode" spirit:portRef="mp3_clk"/>
+      <spirit:externalPortReference spirit:portRef="i_mp3Decode_mp3_clk"/>
+    </spirit:adHocConnection>
+    <spirit:adHocConnection>
+      <spirit:name>i_mp3Decode_mp3_rst_an</spirit:name>
+      <spirit:internalPortReference spirit:componentRef="i_mp3Decode" spirit:portRef="mp3_rst_an"/>
+      <spirit:externalPortReference spirit:portRef="i_mp3Decode_mp3_rst_an"/>
+    </spirit:adHocConnection>
+    <spirit:adHocConnection>
+      <spirit:name>i_mp3Decode_dac_data</spirit:name>
+      <spirit:internalPortReference spirit:componentRef="i_mp3Decode" spirit:portRef="dac_data" spirit:left="23" spirit:right="0"/>
+      <spirit:externalPortReference spirit:portRef="i_mp3Decode_dac_data"/>
+    </spirit:adHocConnection>
+    <spirit:adHocConnection spirit:tiedValue="0x0000">
+      <spirit:name>logic_zero</spirit:name>
+      <spirit:internalPortReference spirit:componentRef="i_ahbbus25" spirit:portRef="hsplit_slv0" spirit:left="15" spirit:right="0"/>
+      <spirit:internalPortReference spirit:componentRef="i_ahbbus25" spirit:portRef="hsplit_slv3" spirit:left="15" spirit:right="0"/>
+      <spirit:internalPortReference spirit:componentRef="i_ahbbus25" spirit:portRef="hsplit_slv4" spirit:left="15" spirit:right="0"/>
+    </spirit:adHocConnection>
+  </spirit:adHocConnections>
+  <spirit:hierConnections>
+    <spirit:hierConnection spirit:interfaceRef="i_ahbbus_slv4">
+      <spirit:interface spirit:componentRef="i_ahbbus25" spirit:busRef="MirroredSlave4"/>
+    </spirit:hierConnection>
+    <spirit:hierConnection spirit:interfaceRef="MirroredMaster0">
+      <spirit:interface spirit:componentRef="i_ahbbus25" spirit:busRef="MirroredMaster0"/>
+    </spirit:hierConnection>
+    <spirit:hierConnection spirit:interfaceRef="mp3_dma_Interrupt">
+      <spirit:interface spirit:componentRef="i_dma" spirit:busRef="interrupt"/>
+    </spirit:hierConnection>
+    <spirit:hierConnection spirit:interfaceRef="ambaAHBSlaveMonitor">
+      <spirit:interface spirit:componentRef="i_ahbmon" spirit:busRef="ambaAHBSlaveMonitor"/>
+    </spirit:hierConnection>
+  </spirit:hierConnections>
+  <spirit:description>This design exports the monitor interface, and it is connect to the ROM at a higher level</spirit:description>
+</spirit:design>

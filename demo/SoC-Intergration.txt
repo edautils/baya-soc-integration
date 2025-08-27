@@ -1,0 +1,141 @@
+    This documents gives you a brief overview of the steps involved in 
+creating SoC/SubSystem by using the EDAUtils tool(s). 
+    Following are the steps to assemble IPs to build a SubSystem or SoC.
+There is no hard-and-fast rule to follow these steps if you are expert
+in using Soc Integration tool(s). 
+
+1. Create the environment setup in the beginning
+    o Set the component search paths( separated with colon )
+        o All the components from that path(s) will be loaded in the beginning
+        o Single database gets maintained where key is the VLNV and 
+          value is the Component
+    o User can individually load a component if the same does not exist
+      in the component search path
+
+    o Set the Bus Def search paths( both global and local BusDef Libraries)
+        o All the Buses from that path(s) will be loaded in the beginning
+        o User can load any specifu Bus/Abstraction Definition XML if
+          the same does not exist in the search path(s)
+
+    o Load the RTL File(s) corresponding to those components for which
+      IP-XACT Component does not exist. No need to load the functionality
+      of the IP- just the port and parameter/generic definition should 
+      be good enough.
+
+2. Create the top module and it's ports and parameters. Alternatively, you can
+   import a Verilog/VHDL containing the module name and its ports & parameters.
+   Set this module as current design
+3. Instantiate all the components which are imported
+4. Connect the IP-XACT Interfaces between two instances if the same exists
+5. Connect SV Interfaces if the same exists 
+6. Connect ports individually which not yet connected through step 4 and 5 above
+6. Elaborate the to design
+7. Print CSV for the Connectivity Verification with VC-Formal or JasperGold
+8. Print the to design as Verilog.
+
+EDAUtils provides multiple alternative ways to assemble the IPs to
+build the subsystem. Designer(s) can adopt one specific methodolgy or
+a hybrid mthedology by mixing multiple alternatives. The methodologies are-
+
+         [1] Adhoc connections - lowest level of granularity where you can
+             connect port/bit/parts. 
+             See the methodology example Methodologies/AdhocConnections
+
+         [2] SV Interface based connections - connect SV interfaces where
+             the components contain SV interfaces.
+             See the methodology example Methodologies/SVInterfaceConnection
+
+         [3] IPXACT Interface based connections - import IP-XACT components
+             containing the bus-interfaces. Connect the IP-XACT interfaces
+             of the imported components. Please note that EDAUtils provides
+             tools to create the IP-XACT Components and BusDefintion.
+             See the methodology example Methodologies/IPXACTInterfaceConnection
+             Also, see the examples IPXACTCreateBusDef and IPXACTCreateComponent
+             to create the IP-XACT components
+
+         [4] There are two approaches - one is create one CSV capturing all 
+             sub-module connectity intents as per the templates and import that
+             CSV/XLS with the baya_import_connectivity_csv command.
+             
+             (a) Specify the connectivities in one or multiple CSV/XLS file(s)
+             and import the same to build the SoC/SS See the methodology 
+             example Methodologies/CSVBasedConnections. Make sure all the
+             instances are created before referring those.
+             
+             (b) For each module/IP, create one CSV file e.g. <module name>.csv.
+             In each row of that CSV, capture connection details only for
+             the input port of that module.  If that module is instantiated
+             multiple times then the CSV file name format should be -
+             <inst name>.<module name>.csv and provide this instance specific
+             connection details. If the module is instantiated once and
+             if you give the CSV name as <module name>.csv then it will create
+             the instance name as u_<module name> - make sure you provide
+             this instance name if the other CSV file as needed.
+             Example- Methodologies/CSVDirBasedModularConnectionsRecommended 
+
+             Tips: set_current_design -name foo
+                   This way, it was consider foo.csv as top module's CSV.
+                   The $ in the CSV will refer to 'foo' . This way you can
+                   work with multiple top CSV files or hierarchical module CSVs .
+                   
+                   Implied rules:
+                        par1.csv ==> creates instance u_par1 and '$' inside it refers to
+                                      the current modeule's pin where u_par1 is instantiated
+                        u_inst.par1.csv ==> creates instance 'u_inst' of par1 . $ is 
+                                            interpreted same way as above
+                
+                        set_current_design foo [ it should NOT be 'par1' ]
+                        par1.csv : [ ,a_i2, $, u_par2_u_D_d_o1 ]
+                            --> Before processing set current instance to something OTHER THAN 'par1' 
+                                example, module is 'foo' ( setting to 'par1' is illegal )
+                            --> creates instance 'u_par1' in the current design's scope
+                            --> connects current module's( here foo ) pin u_par2_u_D_d_o1 with u_par1.a_i2
+                        
+                        par1.csv : [ ,a_i2,u_bar,u_par2_u_D_d_o1 ]  // instance name is NOT $
+                            --> creates instance 'u_par1' in the given scope
+                            --> connects u_foo.u_par2_u_D_d_o1 port with u_pa1.a_i2
+                   
+         [5] Auto connections - in this approach, the instance-pin with same 
+             name gets connected with each other automatically. You can
+             specify exceptions disable some of the auto-connections if 
+             required. All, the unconnected instance ports gets pulled-up
+             to create the ports of the SoC/SubSystem.
+             See the methodology example Methodologies/AutoConnectAutoTopPort
+             
+         [6] Helper utilities
+                (a) Create empty CSV for the 4.b when you want to follow way of integration.
+                    After reading/importing the verilog in the in the baya-shell, run following
+                    command with the example usage as below-
+                        baya_import_verilog -file foo.sv [ Refer command reference for other options ]
+                                OR
+                        baya_import_verilog_filelist filelist rtl.f [ Refer command reference for other options ]
+                        
+                        baya_print_csv_for_integration -module foo  -file foo.csv
+
+                (b) Create empty stubbed verilog from a IP - this makes integrtion cleaner and faster.
+                    After reading/importing the verilog in the in the baya-shell, run following
+                    command with the example usage as below and later use this stubbed file for integration.
+                     
+                        baya_print_empty_module -module foo  -file foo.nobody.v         
+                        
+                (c) Get connections between 2 instances in the current design/module-
+                
+                        baya_get_connections_between_two_instances -inst_1 u_clkgen -inst_2 u_dma
+                        
+                (d) Get connections between the current design/module and an instance inside it-
+                
+                        baya_get_connections_between_instance_and_top -inst u_dma
+                        
+                (e) Save the SOC module as IP-XACT Design XML
+                    
+                        baya_save_as_ipxact_design -module chip_top -xml chip_top.xml
+                        
+                (f) Utility to semantically compare/diff 2 releases of an IP from the integration perspective.
+                    You can compare verilog as well and IP-XACT components. It is different from unix-diff since
+                    it compares the datamodel as opposed to unix diff which will show differences if comment is
+                    modified or if there is change in order of te lines.
+                    
+                (g) Generate CSV and run Tcl file for the Connectivity Check with VC-Formal and/or JasperGold
+                        $baya saveConnectionDBAsCSV conn.vcf.csv vcf
+                        $baya saveConnectionDBAsCSV conn.jg.csv jg
+

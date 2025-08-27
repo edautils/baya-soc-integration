@@ -1,0 +1,763 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+// 
+// Revision:    $Revision: 1.1 $
+// Date:        $Date: 2014/12/27 22:48:33 $
+// 
+// Copyright (c) 2005, 2006, 2007, 2008, 2009 The SPIRIT Consortium.
+// 
+// This work forms part of a deliverable of The SPIRIT Consortium.
+// 
+// Use of these materials are governed by the legal terms and conditions
+// outlined in the disclaimer available from www.spiritconsortium.org.
+// 
+// This source file is provided on an AS IS basis.  The SPIRIT
+// Consortium disclaims any warranty express or implied including
+// any warranty of merchantability and fitness for use for a
+// particular purpose.
+// 
+// The user of the source file shall indemnify and hold The SPIRIT
+// Consortium and its members harmless from any damages or liability.
+// Users are requested to provide feedback to The SPIRIT Consortium
+// using either mailto:feedback@lists.spiritconsortium.org or the forms at 
+// http://www.spiritconsortium.org/about/contact_us/
+// 
+// This file may be copied, and distributed, with or without
+// modifications; this notice must be included on any copy.
+-->
+<spirit:component xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009 http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009/index.xsd">
+  <spirit:vendor>spiritconsortium.org</spirit:vendor>
+  <spirit:library>Leon2RTL</spirit:library>
+  <spirit:name>i2c</spirit:name>
+  <spirit:version>1.0</spirit:version>
+  <spirit:busInterfaces>
+    <spirit:busInterface>
+      <spirit:name>IPClk</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.clock" spirit:name="clock" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.clock" spirit:name="clock_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>CLK</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>ip_clk</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>IPReset</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.reset" spirit:name="reset" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.reset" spirit:name="reset_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>RESETn</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>rst_an</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>APBClk</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.clock" spirit:name="clock" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.clock" spirit:name="clock_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>CLK</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>pclk</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>APBReset</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.reset" spirit:name="reset" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.reset" spirit:name="reset_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>RESETn</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>presetn</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>ambaAPB</spirit:name>
+      <spirit:busType spirit:vendor="amba.com" spirit:library="AMBA2" spirit:name="APB" spirit:version="r2p0_4"/>
+      <spirit:abstractionType spirit:vendor="amba.com" spirit:library="AMBA2" spirit:name="APB_rtl" spirit:version="r2p0_4"/>
+      <spirit:slave>
+        <spirit:memoryMapRef spirit:memoryMapRef="ambaAPB"/>
+      </spirit:slave>
+      <spirit:connectionRequired>true</spirit:connectionRequired>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>PSELx</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>psel</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>PENABLE</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>penable</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>PADDR</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>paddr</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>PWRITE</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>pwrite</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>PWDATA</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>pwdata</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>PRDATA</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>prdata</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>PCLK</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>pclk</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>PRESETn</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>presetn</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>i2c_internal</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.nxp" spirit:name="i2c_internal" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.nxp" spirit:name="i2c_internal_rtl" spirit:version="1.0"/>
+      <spirit:master/>
+      <spirit:connectionRequired>true</spirit:connectionRequired>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>SCL_IN</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>sclIn</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>SCL_OEN</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>sclOut</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>SDA_IN</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>sdaIn</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>SDA_OEN</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>sdaOut</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>interrupt</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt_rtl" spirit:version="1.0"/>
+      <spirit:master/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>IRQ</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>intr</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+  </spirit:busInterfaces>
+  <spirit:memoryMaps>
+    <spirit:memoryMap>
+      <spirit:name>ambaAPB</spirit:name>
+      <spirit:addressBlock>
+        <spirit:name>registers</spirit:name>
+        <spirit:baseAddress>0</spirit:baseAddress>
+        <spirit:range>4k</spirit:range>
+        <spirit:width>32</spirit:width>
+        <spirit:register>
+          <spirit:name>rxfifo</spirit:name>
+          <spirit:description>Recieve FIFO</spirit:description>
+          <spirit:addressOffset>0x0</spirit:addressOffset>
+          <spirit:size>32</spirit:size>
+          <spirit:access>read-only</spirit:access>
+          <spirit:reset>
+            <spirit:value>0x00000000</spirit:value>
+          </spirit:reset>
+          <spirit:field>
+            <spirit:name>reserved</spirit:name>
+            <spirit:description>Reserved for future use</spirit:description>
+            <spirit:bitOffset>8</spirit:bitOffset>
+            <spirit:bitWidth>24</spirit:bitWidth>
+            <spirit:access>read-only</spirit:access>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>Data_byte</spirit:name>
+            <spirit:description>Bit 7 is the MSB</spirit:description>
+            <spirit:bitOffset>0</spirit:bitOffset>
+            <spirit:bitWidth>8</spirit:bitWidth>
+            <spirit:access>read-only</spirit:access>
+          </spirit:field>
+        </spirit:register>
+        <spirit:register>
+          <spirit:name>txfifo</spirit:name>
+          <spirit:description>Transmit FIFO</spirit:description>
+          <spirit:addressOffset>0x0</spirit:addressOffset>
+          <spirit:size>32</spirit:size>
+          <spirit:access>write-only</spirit:access>
+          <spirit:reset>
+            <spirit:value>0x00000000</spirit:value>
+          </spirit:reset>
+          <spirit:field>
+            <spirit:name>reserved</spirit:name>
+            <spirit:description>Reserved for future use</spirit:description>
+            <spirit:bitOffset>10</spirit:bitOffset>
+            <spirit:bitWidth>22</spirit:bitWidth>
+            <spirit:access>write-only</spirit:access>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>STOP_bit</spirit:name>
+            <spirit:description>Issue a STOP condition after transmitting this data byte</spirit:description>
+            <spirit:bitOffset>9</spirit:bitOffset>
+            <spirit:bitWidth>1</spirit:bitWidth>
+            <spirit:access>write-only</spirit:access>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>START_bit</spirit:name>
+            <spirit:description>Issue a START condition before transmitting this data byte</spirit:description>
+            <spirit:bitOffset>8</spirit:bitOffset>
+            <spirit:bitWidth>1</spirit:bitWidth>
+            <spirit:access>write-only</spirit:access>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>Data_byte</spirit:name>
+            <spirit:description>Bit 7 is the MSB</spirit:description>
+            <spirit:bitOffset>0</spirit:bitOffset>
+            <spirit:bitWidth>8</spirit:bitWidth>
+            <spirit:access>write-only</spirit:access>
+          </spirit:field>
+        </spirit:register>
+        <spirit:register>
+          <spirit:name>status</spirit:name>
+          <spirit:description>Status register</spirit:description>
+          <spirit:addressOffset>0x4</spirit:addressOffset>
+          <spirit:size>32</spirit:size>
+          <spirit:access>read-write</spirit:access>
+          <spirit:reset>
+            <spirit:value>0x180</spirit:value>
+          </spirit:reset>
+          <spirit:field>
+            <spirit:name>transmitDone</spirit:name>
+            <spirit:description>Indicates that the current transmission is complete. Write a 1 to clear this bit.</spirit:description>
+            <spirit:bitOffset>0</spirit:bitOffset>
+            <spirit:bitWidth>1</spirit:bitWidth>
+            <spirit:volatile>true</spirit:volatile>
+            <spirit:access>read-write</spirit:access>
+	    <spirit:modifiedWriteValue>oneToClear</spirit:modifiedWriteValue>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>arbitrationFailure</spirit:name>
+            <spirit:description>Indicates an arbitration failure. Wite a 1 to clear this bit.</spirit:description>
+            <spirit:bitOffset>1</spirit:bitOffset>
+            <spirit:bitWidth>1</spirit:bitWidth>
+            <spirit:volatile>true</spirit:volatile>
+            <spirit:access>read-write</spirit:access>
+	    <spirit:modifiedWriteValue>oneToClear</spirit:modifiedWriteValue>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>noAcknowledge</spirit:name>
+            <spirit:description>Indicates that no acknowledge was recieved on the current transmission. This bit is reset when a new transmission starts.</spirit:description>
+            <spirit:bitOffset>2</spirit:bitOffset>
+            <spirit:bitWidth>1</spirit:bitWidth>
+            <spirit:volatile>true</spirit:volatile>
+            <spirit:access>read-only</spirit:access>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>active</spirit:name>
+            <spirit:description>Indicates that I2C bus is active</spirit:description>
+            <spirit:bitOffset>3</spirit:bitOffset>
+            <spirit:bitWidth>1</spirit:bitWidth>
+            <spirit:volatile>true</spirit:volatile>
+            <spirit:access>read-only</spirit:access>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>scl</spirit:name>
+            <spirit:description>Indicates the current state of the scl line</spirit:description>
+            <spirit:bitOffset>4</spirit:bitOffset>
+            <spirit:bitWidth>1</spirit:bitWidth>
+            <spirit:volatile>true</spirit:volatile>
+            <spirit:access>read-only</spirit:access>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>sda</spirit:name>
+            <spirit:description>Indicates the current state of the sda line</spirit:description>
+            <spirit:bitOffset>5</spirit:bitOffset>
+            <spirit:bitWidth>1</spirit:bitWidth>
+            <spirit:volatile>true</spirit:volatile>
+            <spirit:access>read-only</spirit:access>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>receiveFifoFull</spirit:name>
+            <spirit:description>Indicates that the receive FIFO is full</spirit:description>
+            <spirit:bitOffset>6</spirit:bitOffset>
+            <spirit:bitWidth>1</spirit:bitWidth>
+            <spirit:volatile>true</spirit:volatile>
+            <spirit:access>read-only</spirit:access>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>receiveFifoEmpty</spirit:name>
+            <spirit:description>Indicates that the receive FIFO is empty</spirit:description>
+            <spirit:bitOffset>7</spirit:bitOffset>
+            <spirit:bitWidth>1</spirit:bitWidth>
+            <spirit:volatile>true</spirit:volatile>
+            <spirit:access>read-only</spirit:access>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>trasmitFifoFull</spirit:name>
+            <spirit:description>Indicates that the trasmit FIFO is full</spirit:description>
+            <spirit:bitOffset>8</spirit:bitOffset>
+            <spirit:bitWidth>1</spirit:bitWidth>
+            <spirit:volatile>true</spirit:volatile>
+            <spirit:access>read-only</spirit:access>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>trasmitFifoEmpty</spirit:name>
+            <spirit:description>Indicates that the trasmit FIFO is empty</spirit:description>
+            <spirit:bitOffset>9</spirit:bitOffset>
+            <spirit:bitWidth>1</spirit:bitWidth>
+            <spirit:volatile>true</spirit:volatile>
+            <spirit:access>read-only</spirit:access>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>reserved</spirit:name>
+            <spirit:description>Reserved</spirit:description>
+            <spirit:bitOffset>10</spirit:bitOffset>
+            <spirit:bitWidth>22</spirit:bitWidth>
+            <spirit:access>read-only</spirit:access>
+          </spirit:field>
+        </spirit:register>
+        <spirit:register>
+          <spirit:name>control</spirit:name>
+          <spirit:description>Control register</spirit:description>
+          <spirit:addressOffset>0x8</spirit:addressOffset>
+          <spirit:size>32</spirit:size>
+          <spirit:access>read-write</spirit:access>
+          <spirit:reset>
+            <spirit:value>0x0</spirit:value>
+          </spirit:reset>
+          <spirit:field>
+            <spirit:name>transactionDoneIntEnable</spirit:name>
+            <spirit:description>Transaction done interrupt enable</spirit:description>
+            <spirit:bitOffset>0</spirit:bitOffset>
+            <spirit:bitWidth>1</spirit:bitWidth>
+            <spirit:access>read-write</spirit:access>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>arbFailIntEnable</spirit:name>
+            <spirit:description>Abatration failure interrupt enable</spirit:description>
+            <spirit:bitOffset>1</spirit:bitOffset>
+            <spirit:bitWidth>1</spirit:bitWidth>
+            <spirit:access>read-write</spirit:access>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>noAckIntEnable</spirit:name>
+            <spirit:description>No ackowledge interrupt enable</spirit:description>
+            <spirit:bitOffset>2</spirit:bitOffset>
+            <spirit:bitWidth>1</spirit:bitWidth>
+            <spirit:access>read-write</spirit:access>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>softReset</spirit:name>
+            <spirit:description>Soft reset of the IP</spirit:description>
+            <spirit:bitOffset>3</spirit:bitOffset>
+            <spirit:bitWidth>1</spirit:bitWidth>
+            <spirit:access>read-write</spirit:access>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>reserved</spirit:name>
+            <spirit:description>Reserved</spirit:description>
+            <spirit:bitOffset>5</spirit:bitOffset>
+            <spirit:bitWidth>27</spirit:bitWidth>
+            <spirit:access>read-write</spirit:access>
+          </spirit:field>
+        </spirit:register>
+        <spirit:register>
+          <spirit:name>clkDivHi</spirit:name>
+          <spirit:description>Clock high time divide register</spirit:description>
+          <spirit:addressOffset>0xc</spirit:addressOffset>
+          <spirit:size>6</spirit:size>
+          <spirit:access>read-write</spirit:access>
+          <spirit:reset>
+            <spirit:value>0x30</spirit:value>
+          </spirit:reset>
+          <spirit:field>
+            <spirit:name>clkDivHi</spirit:name>
+            <spirit:description>Clock high time divide field</spirit:description>
+            <spirit:bitOffset>0</spirit:bitOffset>
+            <spirit:bitWidth>6</spirit:bitWidth>
+            <spirit:access>read-write</spirit:access>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>reserved</spirit:name>
+            <spirit:description>Reserved</spirit:description>
+            <spirit:bitOffset>7</spirit:bitOffset>
+            <spirit:bitWidth>25</spirit:bitWidth>
+            <spirit:access>read-only</spirit:access>
+          </spirit:field>
+        </spirit:register>
+        <spirit:register>
+          <spirit:name>clkDivLo</spirit:name>
+          <spirit:description>Clock low time divide register</spirit:description>
+          <spirit:addressOffset>0x10</spirit:addressOffset>
+          <spirit:size>6</spirit:size>
+          <spirit:access>read-write</spirit:access>
+          <spirit:reset>
+            <spirit:value>0x30</spirit:value>
+          </spirit:reset>
+          <spirit:field>
+            <spirit:name>clkDivLo</spirit:name>
+            <spirit:description>Clock low time divide field</spirit:description>
+            <spirit:bitOffset>0</spirit:bitOffset>
+            <spirit:bitWidth>6</spirit:bitWidth>
+            <spirit:access>read-write</spirit:access>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>reserved</spirit:name>
+            <spirit:description>Reserved</spirit:description>
+            <spirit:bitOffset>7</spirit:bitOffset>
+            <spirit:bitWidth>25</spirit:bitWidth>
+            <spirit:access>read-only</spirit:access>
+          </spirit:field>
+        </spirit:register>
+        <spirit:register>
+          <spirit:name>Module_ID</spirit:name>
+          <spirit:description>Contains the ID number of the IP</spirit:description>
+          <spirit:addressOffset>0xFFC</spirit:addressOffset>
+          <spirit:size>32</spirit:size>
+          <spirit:access>read-only</spirit:access>
+          <spirit:reset>
+            <spirit:value>0x00000D02</spirit:value>
+          </spirit:reset>
+          <spirit:field>
+            <spirit:name>ID</spirit:name>
+            <spirit:description>Unique identification number</spirit:description>
+            <spirit:bitOffset>0</spirit:bitOffset>
+            <spirit:bitWidth>16</spirit:bitWidth>
+            <spirit:access>read-only</spirit:access>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>reserved</spirit:name>
+            <spirit:description>Reserved</spirit:description>
+            <spirit:bitOffset>16</spirit:bitOffset>
+            <spirit:bitWidth>16</spirit:bitWidth>
+            <spirit:access>read-only</spirit:access>
+          </spirit:field>
+        </spirit:register>
+      </spirit:addressBlock>
+    </spirit:memoryMap>
+  </spirit:memoryMaps>
+  <spirit:model>
+    <spirit:views>
+      <spirit:view>
+        <spirit:name>verilogsource</spirit:name>
+        <spirit:envIdentifier>:modelsim.mentor.com:</spirit:envIdentifier>
+        <spirit:envIdentifier>:vcs.synopsys.com:</spirit:envIdentifier>
+        <spirit:envIdentifier>:designcompiler.synopsys.com:</spirit:envIdentifier>
+        <spirit:language>verilog</spirit:language>
+        <spirit:modelName>i2c</spirit:modelName>
+        <spirit:fileSetRef>
+          <spirit:localName>fs-verilogSource</spirit:localName>
+        </spirit:fileSetRef>
+      </spirit:view>
+      <spirit:view>
+        <spirit:name>vhdlwrapper</spirit:name>
+        <spirit:envIdentifier>:ncsim.cadence.com:</spirit:envIdentifier>
+        <spirit:language>vhdl</spirit:language>
+        <spirit:modelName>i2c</spirit:modelName>
+        <spirit:fileSetRef>
+          <spirit:localName>fs-verilogSource</spirit:localName>
+        </spirit:fileSetRef>
+        <spirit:fileSetRef>
+          <spirit:localName>fs-vhdlWrapper</spirit:localName>
+        </spirit:fileSetRef>
+      </spirit:view>
+    </spirit:views>
+    <spirit:ports>
+      <spirit:port>
+        <spirit:name>pclk</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:driver>
+            <spirit:clockDriver spirit:clockName="clk">
+              <spirit:clockPeriod spirit:id="ClockPeriod" spirit:prompt="Clock Pulse Period:" spirit:resolve="user">8</spirit:clockPeriod>
+              <spirit:clockPulseOffset spirit:id="ClockPulseOffset" spirit:prompt="Clock Pulse Offset:" spirit:resolve="user">4</spirit:clockPulseOffset>
+              <spirit:clockPulseValue spirit:id="ClockPulseValue" spirit:prompt="Clock Pulse Value:" spirit:resolve="user">1</spirit:clockPulseValue>
+              <spirit:clockPulseDuration spirit:id="ClockPulseDuration" spirit:prompt="Clock Pulse Duration:" spirit:resolve="user">4</spirit:clockPulseDuration>
+            </spirit:clockDriver>
+          </spirit:driver>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>presetn</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>psel</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>penable</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>paddr</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left>11</spirit:left>
+            <spirit:right>0</spirit:right>
+          </spirit:vector>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>pwrite</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>pwdata</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left>31</spirit:left>
+            <spirit:right>0</spirit:right>
+          </spirit:vector>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>prdata</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:vector>
+            <spirit:left>31</spirit:left>
+            <spirit:right>0</spirit:right>
+          </spirit:vector>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>sclIn</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:driver>
+            <spirit:defaultValue>1</spirit:defaultValue>
+          </spirit:driver>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>sclOut</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>sdaIn</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:driver>
+            <spirit:defaultValue>1</spirit:defaultValue>
+          </spirit:driver>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>sdaOut</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>ip_clk</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:driver>
+            <spirit:clockDriver spirit:clockName="ipclk">
+              <spirit:clockPeriod spirit:id="ipClockPeriod" spirit:prompt="IP Clock Pulse Period:" spirit:resolve="user">1000</spirit:clockPeriod>
+              <spirit:clockPulseOffset spirit:id="ipClockPulseOffset" spirit:prompt="IP Clock Pulse Offset:" spirit:resolve="user">500</spirit:clockPulseOffset>
+              <spirit:clockPulseValue spirit:id="ipClockPulseValue" spirit:prompt="IP Clock Pulse Value:" spirit:resolve="user">1</spirit:clockPulseValue>
+              <spirit:clockPulseDuration spirit:id="ipClockPulseDuration" spirit:prompt="IP Clock Pulse Duration:" spirit:resolve="user">500</spirit:clockPulseDuration>
+            </spirit:clockDriver>
+          </spirit:driver>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>rst_an</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>intr</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+    </spirit:ports>
+  </spirit:model>
+  <spirit:fileSets>
+    <spirit:fileSet>
+      <spirit:name>fs-verilogSource</spirit:name>
+      <spirit:file>
+        <spirit:name>data/i2c/RTL/i2c_apb_read_mux.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:logicalName>i2c_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>data/i2c/RTL/i2c_apb_write_decode.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:logicalName>i2c_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>data/i2c/RTL/i2c_clkcnt.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:logicalName>i2c_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>data/i2c/RTL/i2c_control.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:logicalName>i2c_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>data/i2c/RTL/i2c_intr.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:logicalName>i2c_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>data/i2c/RTL/i2c_master.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:logicalName>i2c_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>data/i2c/RTL/i2c_risefall.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:logicalName>i2c_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>data/i2c/RTL/i2c_rx.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:logicalName>i2c_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>data/i2c/RTL/i2c_rxfifo.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:logicalName>i2c_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>data/i2c/RTL/i2c_shift.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:logicalName>i2c_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>data/i2c/RTL/i2c_status.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:logicalName>i2c_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>data/i2c/RTL/i2c_transitions.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:logicalName>i2c_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>data/i2c/RTL/i2c_tx.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:logicalName>i2c_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>data/i2c/RTL/i2c_txfifo.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:logicalName>i2c_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>data/i2c/RTL/i2c.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:logicalName>i2c_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:dependency>data/i2c/RTL</spirit:dependency>
+    </spirit:fileSet>
+    <spirit:fileSet>
+      <spirit:name>fs-vhdlWrapper</spirit:name>
+      <spirit:file>
+        <spirit:name>data/i2c/RTL/i2c.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>i2c_lib</spirit:logicalName>
+      </spirit:file>
+    </spirit:fileSet>
+  </spirit:fileSets>
+  <spirit:description>I2C master controller - with enhanced register descriptions</spirit:description>
+</spirit:component>

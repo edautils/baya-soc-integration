@@ -4,9 +4,8 @@ A framework for designers to integrate IPs/SubSystems to build System-on-Chip (S
 
 This repository provides:
 - A place to upload Baya tool releases (`baya_releases/`)
-- Example SoC integration projects (`examples/`)
+- Example SoC integration projects (`baya-shell/<REL-VER>/examples/`)
 - Scripts for automatic installation and setup (`scripts/`)
-
 ---
 
 ## Getting Started
@@ -36,7 +35,7 @@ scripts\install.bat
 
 ### 3. Example Projects
 
-- Example SoC projects are under `examples/`, each in its own folder.
+- Example SoC projects are under `baya-shell/<REL-VER>/examples/`, each in its own folder.
 - Each example can contain a run script:
   - `runme.csh` for Linux/macOS (UNIX shell)
   - `runme.bat` for Windows (`cmd`)
@@ -55,7 +54,7 @@ scripts\install.bat
 
 ```
 baya_releases/      # Place Baya tool releases here (.zip, .tar.gz, etc.)
-examples/           # SoC integration example projects (each with runme.csh and/or runme.bat)
+demo/               # SoC integration example projects (each with runme.csh and/or runme.bat)
 scripts/            # Installation and helper scripts (install.sh, install.bat)
 README.md           # This file
 ```
@@ -64,7 +63,7 @@ README.md           # This file
 
 ## Contributing
 
-- Add new examples under `examples/` as separate folders.
+- Add new examples under `demo/` as separate folders.
 - Example folders should include either a `runme.csh` (Linux/macOS) or `runme.bat` (Windows) script for automated execution.
 - Update this README with a short description of your example if you contribute one.
 - If you are a maintainer, upload new Baya releases into `baya_releases/`.

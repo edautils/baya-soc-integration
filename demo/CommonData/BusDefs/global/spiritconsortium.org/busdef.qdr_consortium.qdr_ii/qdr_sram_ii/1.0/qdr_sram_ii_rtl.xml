@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Christophe Amerijckx (STMicroelectronics) -->
+<!-- 
+// Description : qdr_sram_ii.xml
+// Version: 1.0
+// 
+// Revision:    $Revision: 1.1 $
+// Date:        $Date: 2014/12/27 22:45:58 $
+// 
+// Copyright (c) 2007, 2009 The SPIRIT Consortium.
+// 
+// This work forms part of a deliverable of The SPIRIT Consortium.
+// 
+// Use of these materials are governed by the legal terms and conditions
+// outlined in the disclaimer available from www.spiritconsortium.org.
+// 
+// This source file is provided on an AS IS basis.  The SPIRIT
+// Consortium disclaims any warranty express or implied including
+// any warranty of merchantability and fitness for use for a
+// particular purpose.
+// 
+// The user of the source file shall indemnify and hold The SPIRIT
+// Consortium and its members harmless from any damages or liability.
+// Users are requested to provide feedback to The SPIRIT Consortium
+// using either mailto:feedback@lists.spiritconsortium.org or the forms at 
+// http://www.spiritconsortium.org/about/contact_us/
+// 
+// This file may be copied, and distributed, WITHOUT
+// modifications; this notice must be included on any copy.
+-->
+<spirit:abstractionDefinition xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009 http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009/index.xsd">
+  <spirit:vendor>spiritconsortium.org</spirit:vendor>
+  <spirit:library>busdef.qdr_consortium.qdr_ii</spirit:library>
+  <spirit:name>qdr_sram_ii_rtl</spirit:name>
+  <spirit:version>1.0</spirit:version>
+  <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.qdr_consortium.qdr_ii" spirit:name="qdr_sram_ii" spirit:version="1.0"/>
+  <spirit:ports>
+    <spirit:port>
+      <spirit:logicalName>addr</spirit:logicalName>
+      <spirit:wire>
+        <spirit:qualifier>
+          <spirit:isAddress>true</spirit:isAddress>
+        </spirit:qualifier>
+        <spirit:onMaster>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+    <spirit:port>
+      <spirit:logicalName>d</spirit:logicalName>
+      <spirit:wire>
+        <spirit:qualifier>
+          <spirit:isData>true</spirit:isData>
+        </spirit:qualifier>
+        <spirit:onMaster>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+    <spirit:port>
+      <spirit:logicalName>wps_n</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+    <spirit:port>
+      <spirit:logicalName>bws_n</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+    <spirit:port>
+      <spirit:logicalName>k</spirit:logicalName>
+      <spirit:wire>
+        <spirit:qualifier>
+          <spirit:isClock>true</spirit:isClock>
+        </spirit:qualifier>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+    <spirit:port>
+      <spirit:logicalName>k_n</spirit:logicalName>
+      <spirit:wire>
+        <spirit:qualifier>
+          <spirit:isClock>true</spirit:isClock>
+        </spirit:qualifier>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+    <spirit:port>
+      <spirit:logicalName>q</spirit:logicalName>
+      <spirit:wire>
+        <spirit:qualifier>
+          <spirit:isData>true</spirit:isData>
+        </spirit:qualifier>
+        <spirit:onMaster>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+    <spirit:port>
+      <spirit:logicalName>rps_n</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+    <spirit:port>
+      <spirit:logicalName>c</spirit:logicalName>
+      <spirit:wire>
+        <spirit:qualifier>
+          <spirit:isClock>true</spirit:isClock>
+        </spirit:qualifier>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+    <spirit:port>
+      <spirit:logicalName>c_n</spirit:logicalName>
+      <spirit:wire>
+        <spirit:qualifier>
+          <spirit:isClock>true</spirit:isClock>
+        </spirit:qualifier>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+    <spirit:port>
+      <spirit:logicalName>cq</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+    <spirit:port>
+      <spirit:logicalName>cq_n</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+    <spirit:port>
+      <spirit:logicalName>doff_n</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+  </spirit:ports>
+</spirit:abstractionDefinition>

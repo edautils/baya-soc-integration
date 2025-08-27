@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+// Description: design_Leon2Platform.xml
+// Author:      The SPIRIT Consortium
+// Revision:    $Revision: 1.1 $
+// Date:        $Date: 2014/12/27 22:47:54 $
+//
+// Copyright (c) 2009 The SPIRIT Consortium.
+//
+// This work forms part of a deliverable of The SPIRIT Consortium.
+//
+// Use of these materials are governed by the legal terms and conditions
+// outlined in the disclaimer available from www.spiritconsortium.org.
+//
+// This source file is provided on an AS IS basis.  The SPIRIT
+// Consortium disclaims any warranty express or implied including
+// any warranty of merchantability and fitness for use for a
+// particular purpose.
+//
+// The user of the source file shall indemnify and hold The SPIRIT
+// Consortium and its members harmless from any damages or liability.
+// Users are requested to provide feedback to The SPIRIT Consortium
+// using either mailto:feedback@lists.spiritconsortium.org or the forms at
+// http://www.spiritconsortium.org/about/contact_us/
+//
+// This file may be copied, and distributed, with or without
+// modifications; this notice must be included on any copy.
+-->
+
+<spirit:design xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009 http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009/index.xsd">
+  <spirit:vendor>spiritconsortium.org</spirit:vendor>
+  <spirit:library>Leon2RTL</spirit:library>
+  <spirit:name>design_Leon2Platform</spirit:name>
+  <spirit:version>1.0</spirit:version>
+  <spirit:componentInstances>
+    <spirit:componentInstance>
+      <spirit:instanceName>uahbbus</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="ahbbus22" spirit:version="1.3"/>
+      <spirit:configurableElementValues>
+        <spirit:configurableElementValue spirit:referenceId="defmast">0</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="range_slv0_mirror">0x00040000</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="range_slv1_mirror">0x00009000</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="split_slv0">false</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="split_slv1">false</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="start_addr_slv0_mirror">0x0</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="start_addr_slv1_mirror">0x30000000</spirit:configurableElementValue>
+      </spirit:configurableElementValues>
+    </spirit:componentInstance>
+    <spirit:componentInstance>
+      <spirit:instanceName>uahbram</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="ahbram" spirit:version="1.2"/>
+      <spirit:configurableElementValues>
+        <spirit:configurableElementValue spirit:referenceId="addressBusSize">16</spirit:configurableElementValue>
+      </spirit:configurableElementValues>
+    </spirit:componentInstance>
+    <spirit:componentInstance>
+      <spirit:instanceName>uapbSubSystem</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="apbSubSystem" spirit:version="3.0"/>
+    </spirit:componentInstance>
+    <spirit:componentInstance>
+      <spirit:instanceName>ucgu</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="cgu" spirit:version="1.2"/>
+      <spirit:configurableElementValues>
+        <spirit:configurableElementValue spirit:referenceId="ClockPeriod">20</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="ClockPulseDuration">10</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="ClockPulseOffset">10</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="ClockPulseValue">1</spirit:configurableElementValue>
+      </spirit:configurableElementValues>
+    </spirit:componentInstance>
+    <spirit:componentInstance>
+      <spirit:instanceName>udma</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="dma" spirit:version="1.2"/>
+    </spirit:componentInstance>
+    <spirit:componentInstance>
+      <spirit:instanceName>uproc</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="processor" spirit:version="1.2"/>
+    </spirit:componentInstance>
+    <spirit:componentInstance>
+      <spirit:instanceName>urgu</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="rgu" spirit:version="1.2"/>
+      <spirit:configurableElementValues>
+        <spirit:configurableElementValue spirit:referenceId="ClockPeriod">100</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="ClockPulseDuration">90</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="ClockPulseOffset">0</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="ClockPulseValue">0</spirit:configurableElementValue>
+      </spirit:configurableElementValues>
+    </spirit:componentInstance>
+  </spirit:componentInstances>
+  <spirit:interconnections>
+    <spirit:interconnection>
+      <spirit:name>defaultid4489931</spirit:name>
+      <spirit:activeInterface spirit:componentRef="uproc" spirit:busRef="AHBmaster"/>
+      <spirit:activeInterface spirit:componentRef="uahbbus" spirit:busRef="MirroredMaster0"/>
+    </spirit:interconnection>
+    <spirit:interconnection>
+      <spirit:name>defaultid4489948</spirit:name>
+      <spirit:activeInterface spirit:componentRef="udma" spirit:busRef="ambaAHB"/>
+      <spirit:activeInterface spirit:componentRef="uahbbus" spirit:busRef="MirroredMaster1"/>
+    </spirit:interconnection>
+    <spirit:interconnection>
+      <spirit:name>defaultid4489964</spirit:name>
+      <spirit:activeInterface spirit:componentRef="uahbram" spirit:busRef="AHBSlave"/>
+      <spirit:activeInterface spirit:componentRef="uahbbus" spirit:busRef="MirroredSlave0"/>
+    </spirit:interconnection>
+    <spirit:interconnection>
+      <spirit:name>defaultid4489981</spirit:name>
+      <spirit:activeInterface spirit:componentRef="uapbSubSystem" spirit:busRef="ex_ambaAHB"/>
+      <spirit:activeInterface spirit:componentRef="uahbbus" spirit:busRef="MirroredSlave1"/>
+    </spirit:interconnection>
+    <spirit:interconnection>
+      <spirit:name>defaultid4489998</spirit:name>
+      <spirit:activeInterface spirit:componentRef="uproc" spirit:busRef="SlaveIntController"/>
+      <spirit:activeInterface spirit:componentRef="uapbSubSystem" spirit:busRef="Interrupt"/>
+    </spirit:interconnection>
+    <spirit:interconnection>
+      <spirit:name>defaultid4490014</spirit:name>
+      <spirit:activeInterface spirit:componentRef="ucgu" spirit:busRef="ambaAPB"/>
+      <spirit:activeInterface spirit:componentRef="uapbSubSystem" spirit:busRef="i_apbbus_slv4"/>
+    </spirit:interconnection>
+    <spirit:interconnection>
+      <spirit:name>defaultid4490031</spirit:name>
+      <spirit:activeInterface spirit:componentRef="urgu" spirit:busRef="ambaAPB"/>
+      <spirit:activeInterface spirit:componentRef="uapbSubSystem" spirit:busRef="i_apbbus_slv5"/>
+    </spirit:interconnection>
+    <spirit:interconnection>
+      <spirit:name>defaultid4490048</spirit:name>
+      <spirit:activeInterface spirit:componentRef="uproc" spirit:busRef="APBslave"/>
+      <spirit:activeInterface spirit:componentRef="uapbSubSystem" spirit:busRef="i_apbbus_slv6"/>
+    </spirit:interconnection>
+    <spirit:interconnection>
+      <spirit:name>defaultid4490065</spirit:name>
+      <spirit:activeInterface spirit:componentRef="udma" spirit:busRef="ambaAPB"/>
+      <spirit:activeInterface spirit:componentRef="uapbSubSystem" spirit:busRef="i_apbbus_slv7"/>
+    </spirit:interconnection>
+  </spirit:interconnections>
+  <spirit:adHocConnections>
+    <spirit:adHocConnection>
+      <spirit:name>clkin</spirit:name>
+      <spirit:internalPortReference spirit:componentRef="urgu" spirit:portRef="ipclk"/>
+      <spirit:internalPortReference spirit:componentRef="ucgu" spirit:portRef="clkin"/>
+      <spirit:externalPortReference spirit:portRef="clkin"/>
+    </spirit:adHocConnection>
+    <spirit:adHocConnection>
+      <spirit:name>rstin_an</spirit:name>
+      <spirit:internalPortReference spirit:componentRef="urgu" spirit:portRef="rstin_an"/>
+      <spirit:externalPortReference spirit:portRef="rstin_an"/>
+    </spirit:adHocConnection>
+    <spirit:adHocConnection>
+      <spirit:name>SimDone</spirit:name>
+      <spirit:internalPortReference spirit:componentRef="uproc" spirit:portRef="SimDone"/>
+      <spirit:externalPortReference spirit:portRef="SimDone"/>
+    </spirit:adHocConnection>
+    <spirit:adHocConnection>
+      <spirit:name>id4490279</spirit:name>
+      <spirit:internalPortReference spirit:componentRef="uproc" spirit:portRef="clk"/>
+      <spirit:internalPortReference spirit:componentRef="ucgu" spirit:portRef="clkout" spirit:left="2" spirit:right="2"/>
+    </spirit:adHocConnection>
+    <spirit:adHocConnection>
+      <spirit:name>id4490299</spirit:name>
+      <spirit:internalPortReference spirit:componentRef="ucgu" spirit:portRef="clkout" spirit:left="0" spirit:right="0"/>
+      <spirit:internalPortReference spirit:componentRef="uahbbus" spirit:portRef="clk"/>
+    </spirit:adHocConnection>
+    <spirit:adHocConnection>
+      <spirit:name>id4490346</spirit:name>
+      <spirit:internalPortReference spirit:componentRef="urgu" spirit:portRef="rstout_an" spirit:left="0" spirit:right="0"/>
+      <spirit:internalPortReference spirit:componentRef="uahbbus" spirit:portRef="rst"/>
+    </spirit:adHocConnection>
+    <spirit:adHocConnection>
+      <spirit:name>id4490392</spirit:name>
+      <spirit:internalPortReference spirit:componentRef="uproc" spirit:portRef="rst_an"/>
+      <spirit:internalPortReference spirit:componentRef="urgu" spirit:portRef="rstout_an" spirit:left="1" spirit:right="1"/>
+    </spirit:adHocConnection>
+    <spirit:adHocConnection spirit:tiedValue="0">
+      <spirit:name>logic_zero</spirit:name>
+      <spirit:internalPortReference spirit:componentRef="uahbbus" spirit:portRef="hlock_mst0"/>
+      <spirit:internalPortReference spirit:componentRef="uahbbus" spirit:portRef="hsplit_slv1" spirit:left="15" spirit:right="15"/>
+      <spirit:internalPortReference spirit:componentRef="uahbbus" spirit:portRef="hsplit_slv1" spirit:left="14" spirit:right="14"/>
+      <spirit:internalPortReference spirit:componentRef="uahbbus" spirit:portRef="hsplit_slv1" spirit:left="13" spirit:right="13"/>
+      <spirit:internalPortReference spirit:componentRef="uahbbus" spirit:portRef="hsplit_slv1" spirit:left="12" spirit:right="12"/>
+      <spirit:internalPortReference spirit:componentRef="uahbbus" spirit:portRef="hsplit_slv1" spirit:left="11" spirit:right="11"/>
+      <spirit:internalPortReference spirit:componentRef="uahbbus" spirit:portRef="hsplit_slv1" spirit:left="10" spirit:right="10"/>
+      <spirit:internalPortReference spirit:componentRef="uahbbus" spirit:portRef="hsplit_slv1" spirit:left="9" spirit:right="9"/>
+      <spirit:internalPortReference spirit:componentRef="uahbbus" spirit:portRef="hsplit_slv1" spirit:left="8" spirit:right="8"/>
+      <spirit:internalPortReference spirit:componentRef="uahbbus" spirit:portRef="hsplit_slv1" spirit:left="7" spirit:right="7"/>
+      <spirit:internalPortReference spirit:componentRef="uahbbus" spirit:portRef="hsplit_slv1" spirit:left="6" spirit:right="6"/>
+      <spirit:internalPortReference spirit:componentRef="uahbbus" spirit:portRef="hsplit_slv1" spirit:left="5" spirit:right="5"/>
+      <spirit:internalPortReference spirit:componentRef="uahbbus" spirit:portRef="hsplit_slv1" spirit:left="4" spirit:right="4"/>
+      <spirit:internalPortReference spirit:componentRef="uahbbus" spirit:portRef="hsplit_slv1" spirit:left="3" spirit:right="3"/>
+      <spirit:internalPortReference spirit:componentRef="uahbbus" spirit:portRef="hsplit_slv1" spirit:left="2" spirit:right="2"/>
+      <spirit:internalPortReference spirit:componentRef="uahbbus" spirit:portRef="hsplit_slv1" spirit:left="1" spirit:right="1"/>
+      <spirit:internalPortReference spirit:componentRef="uahbbus" spirit:portRef="hsplit_slv1" spirit:left="0" spirit:right="0"/>
+      <spirit:internalPortReference spirit:componentRef="uproc" spirit:portRef="clkn"/>
+      <spirit:internalPortReference spirit:componentRef="uahbram" spirit:portRef="hmaster_s" spirit:left="3" spirit:right="3"/>
+      <spirit:internalPortReference spirit:componentRef="uahbram" spirit:portRef="hmaster_s" spirit:left="2" spirit:right="2"/>
+      <spirit:internalPortReference spirit:componentRef="uahbram" spirit:portRef="hmaster_s" spirit:left="1" spirit:right="1"/>
+      <spirit:internalPortReference spirit:componentRef="uahbram" spirit:portRef="hmaster_s" spirit:left="0" spirit:right="0"/>
+    </spirit:adHocConnection>
+  </spirit:adHocConnections>
+</spirit:design>

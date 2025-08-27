@@ -1,0 +1,8 @@
+src/axi_bus.sv
+src/apb_bus.sv
+src/bus.v
+src/buswrp.sv
+src/dmx.v
+src/dmxwrp.sv
+src/top.blackbox.sv
+

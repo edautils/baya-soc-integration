@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Christophe Amerijckx (STMicroelectronics) -->
+<!--
+// Description : uartHier.xml
+// Author : SPIRIT Schema Working Group - Christophe Amerijckx
+// Version: 1.0
+//
+// Copyright (c) 2007 SPIRIT.  All rights reserved.
+// www.spiritconsortium.com
+//
+// THIS WORK FORMS PART OF A SPIRIT CONSORTIUM SPECIFICATION.  
+// THIS WORK CONTAINS TRADE SECRETS AND PROPRIETARY INFORMATION 
+// WHICH IS THE EXCLUSIVE PROPERTY OF INDIVIDUAL MEMBERS OF THE 
+// SPIRIT CONSORTIUM. USE OF THESE MATERIALS ARE GOVERNED BY 
+// THE LEGAL TERMS AND CONDITIONS OUTLINED IN THE THE SPIRIT 
+// SPECIFICATION DISCLAIMER AVAILABLE FROM
+// www.spiritconsortium.org
+-->
+<spirit:component xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009 http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009/index.xsd">
+  <spirit:vendor>spiritconsortium.org</spirit:vendor>
+  <spirit:library>Leon2RTL</spirit:library>
+  <spirit:name>uartHier</spirit:name>
+  <spirit:version>1.0</spirit:version>
+  <spirit:busInterfaces>
+    <spirit:busInterface>
+      <spirit:name>APBClk</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.clock" spirit:name="clock" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.clock" spirit:name="clock_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>CLK</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>clk</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>APBReset</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.reset" spirit:name="reset" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.reset" spirit:name="reset_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>RESETn</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>rst</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>ambaAPB</spirit:name>
+      <spirit:busType spirit:vendor="amba.com" spirit:library="AMBA2" spirit:name="APB" spirit:version="r2p0_4"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.amba" spirit:name="APB_rtl" spirit:version="1.0"/>
+      <spirit:slave>
+			</spirit:slave>
+      <spirit:connectionRequired>true</spirit:connectionRequired>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>Select</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>psel</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>Enable</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>penable</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>Address</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>paddr</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>Write</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>pwrite</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>WriteData</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>pwdata</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>ReadData</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>prdata</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>Clock</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>clk</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>Resetn</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>rst</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>Interrupt</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt_rtl" spirit:version="1.0"/>
+      <spirit:master/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>IRQ</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>irq</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>serial</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.generic" spirit:name="serial" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.generic" spirit:name="serial_rtl" spirit:version="1.0"/>
+      <spirit:master/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>RxD</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>rxd</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>TxD</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>txd</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>CTSn</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>ctsn</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>RTSn</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>rtsn</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>DTRn</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>rxen</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+  </spirit:busInterfaces>
+  <spirit:model>
+    <spirit:views>
+      <spirit:view>
+        <spirit:name>RTLHierarchical</spirit:name>
+        <spirit:envIdentifier>:modelsim.mentor.com:</spirit:envIdentifier>
+        <spirit:envIdentifier>:ncsim.cadence.com:</spirit:envIdentifier>
+        <spirit:envIdentifier>:vcs.synopsys.com:</spirit:envIdentifier>
+        <spirit:hierarchyRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="uartHierDesignConfig" spirit:version="1.0"/>
+      </spirit:view>
+<!-- Not a valid view, the fileSet is not complete.
+      <spirit:view>
+        <spirit:name>RTL</spirit:name>
+        <spirit:envIdentifier>:*Synthesis:</spirit:envIdentifier>
+        <spirit:language spirit:strict="true">vhdl</spirit:language>
+        <spirit:modelName>uartHier(struct)</spirit:modelName>
+        <spirit:fileSetRef>source-code</spirit:fileSetRef>
+      </spirit:view>
+      -->
+    </spirit:views>
+    <spirit:ports>
+      <spirit:port>
+        <spirit:name>clk</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:driver>
+            <spirit:clockDriver spirit:clockName="clk">
+              <spirit:clockPeriod spirit:id="ClockPeriod" spirit:prompt="Clock Pulse Period:" spirit:resolve="user">8</spirit:clockPeriod>
+              <spirit:clockPulseOffset spirit:id="ClockPulseOffset" spirit:prompt="Clock Pulse Offset:" spirit:resolve="user">4</spirit:clockPulseOffset>
+              <spirit:clockPulseValue spirit:id="ClockPulseValue" spirit:prompt="Clock Pulse Value:" spirit:resolve="user">1</spirit:clockPulseValue>
+              <spirit:clockPulseDuration spirit:id="ClockPulseDuration" spirit:prompt="Clock Pulse Duration:" spirit:resolve="user">4</spirit:clockPulseDuration>
+            </spirit:clockDriver>
+          </spirit:driver>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>rst</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:constraintSets>
+            <spirit:constraintSet spirit:constraintSetId="default">
+              <spirit:timingConstraint spirit:clockName="virtual_clk">50</spirit:timingConstraint>
+            </spirit:constraintSet>
+          </spirit:constraintSets>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>psel</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:constraintSets>
+            <spirit:constraintSet spirit:constraintSetId="default">
+              <spirit:timingConstraint spirit:clockName="virtual_clk">50</spirit:timingConstraint>
+            </spirit:constraintSet>
+          </spirit:constraintSets>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>penable</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:constraintSets>
+            <spirit:constraintSet spirit:constraintSetId="default">
+              <spirit:timingConstraint spirit:clockName="virtual_clk">50</spirit:timingConstraint>
+            </spirit:constraintSet>
+          </spirit:constraintSets>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>paddr</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left>31</spirit:left>
+            <spirit:right>0</spirit:right>
+          </spirit:vector>
+          <spirit:constraintSets>
+            <spirit:constraintSet spirit:constraintSetId="default">
+              <spirit:timingConstraint spirit:clockName="virtual_clk">50</spirit:timingConstraint>
+            </spirit:constraintSet>
+          </spirit:constraintSets>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>pwrite</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:constraintSets>
+            <spirit:constraintSet spirit:constraintSetId="default">
+              <spirit:timingConstraint spirit:clockName="virtual_clk">50</spirit:timingConstraint>
+            </spirit:constraintSet>
+          </spirit:constraintSets>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>pwdata</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left>31</spirit:left>
+            <spirit:right>0</spirit:right>
+          </spirit:vector>
+          <spirit:constraintSets>
+            <spirit:constraintSet spirit:constraintSetId="default">
+              <spirit:timingConstraint spirit:clockName="virtual_clk">50</spirit:timingConstraint>
+            </spirit:constraintSet>
+          </spirit:constraintSets>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>prdata</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:vector>
+            <spirit:left>31</spirit:left>
+            <spirit:right>0</spirit:right>
+          </spirit:vector>
+          <spirit:constraintSets>
+            <spirit:constraintSet spirit:constraintSetId="default">
+              <spirit:timingConstraint spirit:clockName="virtual_clk">90</spirit:timingConstraint>
+            </spirit:constraintSet>
+          </spirit:constraintSets>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>irq</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:constraintSets>
+            <spirit:constraintSet spirit:constraintSetId="default">
+              <spirit:timingConstraint spirit:clockName="virtual_clk">80</spirit:timingConstraint>
+            </spirit:constraintSet>
+          </spirit:constraintSets>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>scaler</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left>7</spirit:left>
+            <spirit:right>0</spirit:right>
+          </spirit:vector>
+          <spirit:driver>
+            <spirit:defaultValue spirit:format="long" spirit:id="sigdefVal_scaler">0x0</spirit:defaultValue>
+          </spirit:driver>
+          <spirit:constraintSets>
+            <spirit:constraintSet spirit:constraintSetId="default">
+              <spirit:timingConstraint spirit:clockName="virtual_clk">75</spirit:timingConstraint>
+            </spirit:constraintSet>
+          </spirit:constraintSets>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>rxd</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:driver>
+            <spirit:defaultValue spirit:format="long" spirit:id="sigdefVal_rxd">0</spirit:defaultValue>
+          </spirit:driver>
+          <spirit:constraintSets>
+            <spirit:constraintSet spirit:constraintSetId="default">
+              <spirit:timingConstraint spirit:clockName="virtual_clk">75</spirit:timingConstraint>
+            </spirit:constraintSet>
+          </spirit:constraintSets>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>rxen</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:constraintSets>
+            <spirit:constraintSet spirit:constraintSetId="default">
+              <spirit:timingConstraint spirit:clockName="virtual_clk">60</spirit:timingConstraint>
+            </spirit:constraintSet>
+          </spirit:constraintSets>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>txd</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:constraintSets>
+            <spirit:constraintSet spirit:constraintSetId="default">
+              <spirit:timingConstraint spirit:clockName="virtual_clk">60</spirit:timingConstraint>
+            </spirit:constraintSet>
+          </spirit:constraintSets>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>txen</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:constraintSets>
+            <spirit:constraintSet spirit:constraintSetId="default">
+              <spirit:timingConstraint spirit:clockName="virtual_clk">60</spirit:timingConstraint>
+            </spirit:constraintSet>
+          </spirit:constraintSets>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>flow</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:constraintSets>
+            <spirit:constraintSet spirit:constraintSetId="default">
+              <spirit:timingConstraint spirit:clockName="virtual_clk">60</spirit:timingConstraint>
+            </spirit:constraintSet>
+          </spirit:constraintSets>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>rtsn</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:constraintSets>
+            <spirit:constraintSet spirit:constraintSetId="default">
+              <spirit:timingConstraint spirit:clockName="virtual_clk">60</spirit:timingConstraint>
+            </spirit:constraintSet>
+          </spirit:constraintSets>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>ctsn</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:driver>
+            <spirit:defaultValue spirit:format="long" spirit:id="sigdefVal_ctsn">0</spirit:defaultValue>
+          </spirit:driver>
+          <spirit:constraintSets>
+            <spirit:constraintSet spirit:constraintSetId="default">
+              <spirit:timingConstraint spirit:clockName="virtual_clk">75</spirit:timingConstraint>
+            </spirit:constraintSet>
+          </spirit:constraintSets>
+        </spirit:wire>
+      </spirit:port>
+    </spirit:ports>
+  </spirit:model>
+  <spirit:fileSets>
+    <spirit:fileSet>
+      <spirit:name>source-code</spirit:name>
+      <spirit:file>
+        <spirit:name>hdlsrc/uartHier.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>work</spirit:logicalName>
+      </spirit:file>
+    </spirit:fileSet>
+  </spirit:fileSets>
+  <spirit:otherClockDrivers>
+    <spirit:otherClockDriver spirit:clockName="virtual_clock">
+      <spirit:clockPeriod spirit:id="VirtualClockPeriod" spirit:prompt="Virtual Clock Period:" spirit:resolve="user">8</spirit:clockPeriod>
+      <spirit:clockPulseOffset spirit:id="VirtualClockPulseOffset" spirit:prompt="Virtual Clock Pulse Offset:" spirit:resolve="user">4</spirit:clockPulseOffset>
+      <spirit:clockPulseValue spirit:id="VirtualClockPulseValue" spirit:prompt="Virtual Clock Pulse Value:" spirit:resolve="user">1</spirit:clockPulseValue>
+      <spirit:clockPulseDuration spirit:id="VirtualClockPulseDuration" spirit:prompt="Virtual Clock Pulse Duration:" spirit:resolve="user">4</spirit:clockPulseDuration>
+    </spirit:otherClockDriver>
+  </spirit:otherClockDrivers>
+</spirit:component>

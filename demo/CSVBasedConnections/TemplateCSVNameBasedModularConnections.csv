@@ -1,0 +1,11 @@
+PORT2PORT,Input Ports,"Driving Instance Name or
+If this column is empty then it is assumed drivibg value is constant
+If module name is given with colon then the instance will be created for this module",Driving Pin Name or Driving Value,Connecting Net Name,MACRO NAME,,
+,clkin(0),$,CLK(0),,,,
+,cdrst(0),reset_db,clean(0) ,,,,
+PARAMETERMAP,Parameter Name,Keep This Column Blank,Constant Value,,,,
+,divider,,5000000,,,,
+INTERFACE2INTERFACE,This Module's Interface name,Driving Instance Name same as above,Driving interface name,Exclude Ports,Align MSB( 1 or y or yes ),Padded Value,MACRO NAME
+AUTO,,"Other instance name, same as above",,Exclude Ports,Align MSB( 1 or y or yes ),Padded Value,
+CONSTANT,This Module's pin name,Keep This Column Blank,Constant Value,MACRO NAME,,,
+OPEN,This Module's pin name,Keep This Column Blank,Keep This Column Blank,MACRO NAME,,,

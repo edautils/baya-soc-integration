@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+// Description: design_i2cSubSystem.xml
+// Author:      The SPIRIT Consortium
+// Revision:    $Revision: 1.1 $
+// Date:        $Date: 2014/12/27 22:47:59 $
+//
+// Copyright (c) 2009 The SPIRIT Consortium.
+//
+// This work forms part of a deliverable of The SPIRIT Consortium.
+//
+// Use of these materials are governed by the legal terms and conditions
+// outlined in the disclaimer available from www.spiritconsortium.org.
+//
+// This source file is provided on an AS IS basis.  The SPIRIT
+// Consortium disclaims any warranty express or implied including
+// any warranty of merchantability and fitness for use for a
+// particular purpose.
+//
+// The user of the source file shall indemnify and hold The SPIRIT
+// Consortium and its members harmless from any damages or liability.
+// Users are requested to provide feedback to The SPIRIT Consortium
+// using either mailto:feedback@lists.spiritconsortium.org or the forms at
+// http://www.spiritconsortium.org/about/contact_us/
+//
+// This file may be copied, and distributed, with or without
+// modifications; this notice must be included on any copy.
+-->
+<spirit:design xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009 http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009/index.xsd">
+  <spirit:vendor>spiritconsortium.org</spirit:vendor>
+  <spirit:library>Leon2RTL</spirit:library>
+  <spirit:name>design_i2cSubSystem</spirit:name>
+  <spirit:version>2.0</spirit:version>
+  <spirit:componentInstances>
+    <spirit:componentInstance>
+      <spirit:instanceName>i_i2c</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="i2c" spirit:version="1.0"/>
+      <spirit:configurableElementValues>
+        <spirit:configurableElementValue spirit:referenceId="ClockPeriod">8</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="ClockPulseDuration">4</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="ClockPulseOffset">4</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="ClockPulseValue">1</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="ipClockPeriod">1000</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="ipClockPulseDuration">500</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="ipClockPulseOffset">500</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="ipClockPulseValue">1</spirit:configurableElementValue>
+      </spirit:configurableElementValues>
+    </spirit:componentInstance>
+    <spirit:componentInstance>
+      <spirit:instanceName>i_i2c_io</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="i2c_io" spirit:version="1.0"/>
+    </spirit:componentInstance>
+  </spirit:componentInstances>
+  <spirit:interconnections>
+    <spirit:interconnection>
+      <spirit:name>defaultid4489761</spirit:name>
+      <spirit:activeInterface spirit:componentRef="i_i2c_io" spirit:busRef="i2c_internal"/>
+      <spirit:activeInterface spirit:componentRef="i_i2c" spirit:busRef="i2c_internal"/>
+    </spirit:interconnection>
+  </spirit:interconnections>
+  <spirit:adHocConnections>
+    <spirit:adHocConnection>
+      <spirit:name>i_i2c_ip_clk</spirit:name>
+      <spirit:internalPortReference spirit:componentRef="i_i2c" spirit:portRef="ip_clk"/>
+      <spirit:externalPortReference spirit:portRef="i_i2c_ip_clk"/>
+    </spirit:adHocConnection>
+    <spirit:adHocConnection>
+      <spirit:name>i_i2c_rst_an</spirit:name>
+      <spirit:internalPortReference spirit:componentRef="i_i2c" spirit:portRef="rst_an"/>
+      <spirit:externalPortReference spirit:portRef="i_i2c_rst_an"/>
+    </spirit:adHocConnection>
+    <spirit:adHocConnection spirit:tiedValue="0">
+      <spirit:name>logic_zero</spirit:name>
+      <spirit:internalPortReference spirit:componentRef="i_i2c_io" spirit:portRef="scl_out"/>
+      <spirit:internalPortReference spirit:componentRef="i_i2c_io" spirit:portRef="sda_out"/>
+    </spirit:adHocConnection>
+  </spirit:adHocConnections>
+  <spirit:hierConnections>
+    <spirit:hierConnection spirit:interfaceRef="i2c_interrupt">
+      <spirit:interface spirit:componentRef="i_i2c" spirit:busRef="interrupt"/>
+    </spirit:hierConnection>
+    <spirit:hierConnection spirit:interfaceRef="i2c">
+      <spirit:interface spirit:componentRef="i_i2c_io" spirit:busRef="i2c"/>
+    </spirit:hierConnection>
+    <spirit:hierConnection spirit:interfaceRef="i2c_ambaAPB">
+      <spirit:interface spirit:componentRef="i_i2c" spirit:busRef="ambaAPB"/>
+    </spirit:hierConnection>
+  </spirit:hierConnections>
+</spirit:design>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+// Description : i2c_gpio_addr.xml simple 1-8 bit GPIO register on I2C bus
+// that uses 1 byte for register address
+// Author : 
+// Version: 1.0
+//
+// 
+// Revision:    $Revision: 1.1 $
+// Date:        $Date: 2014/12/27 22:48:38 $
+// 
+// Copyright (c) 2005, 2006, 2007, 2008, 2009 The SPIRIT Consortium.
+// 
+// This work forms part of a deliverable of The SPIRIT Consortium.
+// 
+// Use of these materials are governed by the legal terms and conditions
+// outlined in the disclaimer available from www.spiritconsortium.org.
+// 
+// This source file is provided on an AS IS basis.  The SPIRIT
+// Consortium disclaims any warranty express or implied including
+// any warranty of merchantability and fitness for use for a
+// particular purpose.
+// 
+// The user of the source file shall indemnify and hold The SPIRIT
+// Consortium and its members harmless from any damages or liability.
+// Users are requested to provide feedback to The SPIRIT Consortium
+// using either mailto:feedback@lists.spiritconsortium.org or the forms at 
+// http://www.spiritconsortium.org/about/contact_us/
+// 
+// This file may be copied, and distributed, with or without
+// modifications; this notice must be included on any copy.
+-->
+<spirit:component xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009 http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009/index.xsd">
+  <spirit:vendor>spiritconsortium.org</spirit:vendor>
+  <spirit:library>Leon2RTL</spirit:library>
+  <spirit:name>i2c_gpio_addr</spirit:name>
+  <spirit:version>1.0</spirit:version>
+  <spirit:busInterfaces>
+    <spirit:busInterface>
+      <spirit:name>i2c_slave</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.nxp" spirit:name="i2c" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.nxp" spirit:name="i2c_rtl" spirit:version="1.0"/>
+      <spirit:slave>
+        <spirit:memoryMapRef spirit:memoryMapRef="memory"/>
+      </spirit:slave>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>SCL</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>scl</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>SDA</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>sda</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+  </spirit:busInterfaces>
+  <spirit:memoryMaps>
+    <spirit:memoryMap>
+      <spirit:name>memory</spirit:name>
+      <spirit:addressBlock>
+        <spirit:name>defaultid4489720</spirit:name>
+        <spirit:baseAddress>0</spirit:baseAddress>
+        <spirit:range>2</spirit:range>
+        <spirit:width>8</spirit:width>
+        <spirit:register>
+          <spirit:name>inputreg</spirit:name>
+          <spirit:addressOffset>0x0</spirit:addressOffset>
+          <spirit:size>8</spirit:size>
+          <spirit:access>read-only</spirit:access>
+          <spirit:field>
+            <spirit:name>inputreg_field</spirit:name>
+            <spirit:bitOffset>0</spirit:bitOffset>
+            <spirit:bitWidth spirit:resolve="dependent" spirit:dependency="id('gpi')">4</spirit:bitWidth>
+            <spirit:volatile>true</spirit:volatile>
+            <spirit:access>read-only</spirit:access>
+          </spirit:field>
+        </spirit:register>
+        <spirit:register>
+          <spirit:name>outputreg</spirit:name>
+          <spirit:addressOffset>0x1</spirit:addressOffset>
+          <spirit:size>8</spirit:size>
+          <spirit:access>read-write</spirit:access>
+          <spirit:reset>
+            <spirit:value>0x00</spirit:value>
+          </spirit:reset>
+          <spirit:field>
+            <spirit:name>outputreg_field</spirit:name>
+            <spirit:bitOffset>0</spirit:bitOffset>
+            <spirit:bitWidth spirit:resolve="dependent" spirit:dependency="id('gpo')">4</spirit:bitWidth>
+            <spirit:access>read-write</spirit:access>
+          </spirit:field>
+        </spirit:register>
+      </spirit:addressBlock>
+    </spirit:memoryMap>
+  </spirit:memoryMaps>
+  <spirit:model>
+    <spirit:views>
+      <spirit:view>
+        <spirit:name>verilogSource</spirit:name>
+        <spirit:envIdentifier>:modelsim.mentor.com:</spirit:envIdentifier>
+        <spirit:envIdentifier>:vcs.synopsys.com:</spirit:envIdentifier>
+        <spirit:envIdentifier>:designcompiler.synopsys.com:</spirit:envIdentifier>
+        <spirit:language>verilog</spirit:language>
+        <spirit:modelName>i2c_gpio_addr</spirit:modelName>
+        <spirit:fileSetRef>
+          <spirit:localName>fs-verilogSource</spirit:localName>
+        </spirit:fileSetRef>
+      </spirit:view>
+      <spirit:view>
+        <spirit:name>vhdlSource</spirit:name>
+        <spirit:envIdentifier>:ncsim.cadence.com:</spirit:envIdentifier>
+        <spirit:language>vhdl</spirit:language>
+        <spirit:modelName>i2c_gpio_addr</spirit:modelName>
+        <spirit:fileSetRef>
+          <spirit:localName>fs-verilogSource</spirit:localName>
+        </spirit:fileSetRef>
+        <spirit:fileSetRef>
+          <spirit:localName>fs-vhdlWrapper</spirit:localName>
+        </spirit:fileSetRef>
+      </spirit:view>
+    </spirit:views>
+    <spirit:ports>
+      <spirit:port>
+        <spirit:name>scl</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>sda</spirit:name>
+        <spirit:wire>
+          <spirit:direction>inout</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>address</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left>9</spirit:left>
+            <spirit:right>0</spirit:right>
+          </spirit:vector>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>gpi</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:resolve="dependent" spirit:dependency="id('gpi')-1">3</spirit:left>
+            <spirit:right>0</spirit:right>
+          </spirit:vector>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>gpo</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:resolve="dependent" spirit:dependency="id('gpo')-1">3</spirit:left>
+            <spirit:right>0</spirit:right>
+          </spirit:vector>
+        </spirit:wire>
+      </spirit:port>
+    </spirit:ports>
+    <spirit:modelParameters>
+      <spirit:modelParameter spirit:dataType="integer">
+        <spirit:name>gpibits</spirit:name>
+        <spirit:value spirit:resolve="user" spirit:id="gpi" spirit:minimum="1" spirit:maximum="8" spirit:rangeType="unsigned int" spirit:prompt="Number input bits:">4</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="integer">
+        <spirit:name>gpobits</spirit:name>
+        <spirit:value spirit:resolve="user" spirit:id="gpo" spirit:minimum="1" spirit:maximum="8" spirit:rangeType="unsigned int" spirit:prompt="Number output bits:">4</spirit:value>
+      </spirit:modelParameter>
+    </spirit:modelParameters>
+  </spirit:model>
+  <spirit:fileSets>
+    <spirit:fileSet>
+      <spirit:name>fs-verilogSource</spirit:name>
+      <spirit:file>
+        <spirit:name>data/i2c_gpio/RTL/i2c_gpio_addr.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:logicalName>i2c_gpio_lib</spirit:logicalName>
+      </spirit:file>
+    </spirit:fileSet>
+    <spirit:fileSet>
+      <spirit:name>fs-vhdlWrapper</spirit:name>
+      <spirit:file>
+        <spirit:name>data/i2c_gpio/RTL/i2c_gpio_addr.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>i2c_gpio_lib</spirit:logicalName>
+      </spirit:file>
+    </spirit:fileSet>
+  </spirit:fileSets>
+</spirit:component>

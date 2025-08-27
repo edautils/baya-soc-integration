@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+// Description: design_Leon2PlatformSystem.xml
+// Author:      The SPIRIT Consortium
+// Revision:    $Revision: 1.1 $
+// Date:        $Date: 2014/12/27 22:48:04 $
+//
+// Copyright (c) 2009 The SPIRIT Consortium.
+//
+// This work forms part of a deliverable of The SPIRIT Consortium.
+//
+// Use of these materials are governed by the legal terms and conditions
+// outlined in the disclaimer available from www.spiritconsortium.org.
+//
+// This source file is provided on an AS IS basis.  The SPIRIT
+// Consortium disclaims any warranty express or implied including
+// any warranty of merchantability and fitness for use for a
+// particular purpose.
+//
+// The user of the source file shall indemnify and hold The SPIRIT
+// Consortium and its members harmless from any damages or liability.
+// Users are requested to provide feedback to The SPIRIT Consortium
+// using either mailto:feedback@lists.spiritconsortium.org or the forms at
+// http://www.spiritconsortium.org/about/contact_us/
+//
+// This file may be copied, and distributed, with or without
+// modifications; this notice must be included on any copy.
+-->
+<spirit:design xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009 http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009/index.xsd">
+  <spirit:vendor>spiritconsortium.org</spirit:vendor>
+  <spirit:library>Leon2RTL</spirit:library>
+  <spirit:name>design_Leon2PlatformSystem</spirit:name>
+  <spirit:version>5.0</spirit:version>
+  <spirit:componentInstances>
+    <spirit:componentInstance>
+      <spirit:instanceName>i_Leon2Platform</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="Leon2Platform" spirit:version="5.0"/>
+    </spirit:componentInstance>
+    <spirit:componentInstance>
+      <spirit:instanceName>i_dac</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="dac" spirit:version="1.3"/>
+    </spirit:componentInstance>
+    <spirit:componentInstance>
+      <spirit:instanceName>i_i2c_channel_1m_2s</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="i2c_channel_1m_2s" spirit:version="1.0"/>
+    </spirit:componentInstance>
+    <spirit:componentInstance>
+      <spirit:instanceName>i_i2c_gpio</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="i2c_gpio" spirit:version="1.0"/>
+      <spirit:configurableElementValues>
+        <spirit:configurableElementValue spirit:referenceId="gpi">4</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="gpo">4</spirit:configurableElementValue>
+      </spirit:configurableElementValues>
+    </spirit:componentInstance>
+    <spirit:componentInstance>
+      <spirit:instanceName>i_i2c_memory</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="i2c_memory" spirit:version="1.0"/>
+      <spirit:configurableElementValues>
+        <spirit:configurableElementValue spirit:referenceId="bytes">2</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="range">4096</spirit:configurableElementValue>
+      </spirit:configurableElementValues>
+    </spirit:componentInstance>
+  </spirit:componentInstances>
+  <spirit:interconnections>
+    <spirit:interconnection>
+      <spirit:name>defaultid4489793</spirit:name>
+      <spirit:activeInterface spirit:componentRef="i_Leon2Platform" spirit:busRef="i2c"/>
+      <spirit:activeInterface spirit:componentRef="i_i2c_channel_1m_2s" spirit:busRef="i2c_master1"/>
+    </spirit:interconnection>
+    <spirit:interconnection>
+      <spirit:name>defaultid4489810</spirit:name>
+      <spirit:activeInterface spirit:componentRef="i_i2c_gpio" spirit:busRef="i2c_slave"/>
+      <spirit:activeInterface spirit:componentRef="i_i2c_channel_1m_2s" spirit:busRef="i2c_slave1"/>
+    </spirit:interconnection>
+    <spirit:interconnection>
+      <spirit:name>defaultid4489826</spirit:name>
+      <spirit:activeInterface spirit:componentRef="i_i2c_memory" spirit:busRef="i2c_slave"/>
+      <spirit:activeInterface spirit:componentRef="i_i2c_channel_1m_2s" spirit:busRef="i2c_slave2"/>
+    </spirit:interconnection>
+  </spirit:interconnections>
+  <spirit:adHocConnections>
+    <spirit:adHocConnection>
+      <spirit:name>clkin</spirit:name>
+      <spirit:internalPortReference spirit:componentRef="i_Leon2Platform" spirit:portRef="clkin"/>
+      <spirit:externalPortReference spirit:portRef="clkin"/>
+    </spirit:adHocConnection>
+    <spirit:adHocConnection>
+      <spirit:name>dac_clk</spirit:name>
+      <spirit:internalPortReference spirit:componentRef="i_dac" spirit:portRef="clk"/>
+      <spirit:externalPortReference spirit:portRef="dac_clk"/>
+    </spirit:adHocConnection>
+    <spirit:adHocConnection>
+      <spirit:name>rstin_an</spirit:name>
+      <spirit:internalPortReference spirit:componentRef="i_Leon2Platform" spirit:portRef="rstin_an"/>
+      <spirit:externalPortReference spirit:portRef="rstin_an"/>
+    </spirit:adHocConnection>
+    <spirit:adHocConnection>
+      <spirit:name>gpi</spirit:name>
+      <spirit:internalPortReference spirit:componentRef="i_i2c_gpio" spirit:portRef="gpi" spirit:left="3" spirit:right="0"/>
+      <spirit:externalPortReference spirit:portRef="gpi"/>
+    </spirit:adHocConnection>
+    <spirit:adHocConnection>
+      <spirit:name>i2c_gpio_address</spirit:name>
+      <spirit:internalPortReference spirit:componentRef="i_i2c_gpio" spirit:portRef="address" spirit:left="9" spirit:right="0"/>
+      <spirit:externalPortReference spirit:portRef="i2c_gpio_address"/>
+    </spirit:adHocConnection>
+    <spirit:adHocConnection>
+      <spirit:name>i2c_memory_address</spirit:name>
+      <spirit:internalPortReference spirit:componentRef="i_i2c_memory" spirit:portRef="address" spirit:left="9" spirit:right="0"/>
+      <spirit:externalPortReference spirit:portRef="i2c_memory_address"/>
+    </spirit:adHocConnection>
+    <spirit:adHocConnection>
+      <spirit:name>SimDone</spirit:name>
+      <spirit:internalPortReference spirit:componentRef="i_Leon2Platform" spirit:portRef="SimDone"/>
+      <spirit:externalPortReference spirit:portRef="SimDone"/>
+    </spirit:adHocConnection>
+    <spirit:adHocConnection>
+      <spirit:name>id4489985</spirit:name>
+      <spirit:internalPortReference spirit:componentRef="i_dac" spirit:portRef="data" spirit:left="23" spirit:right="0"/>
+      <spirit:internalPortReference spirit:componentRef="i_Leon2Platform" spirit:portRef="mp3Decode_dac_data" spirit:left="23" spirit:right="0"/>
+    </spirit:adHocConnection>
+    <spirit:adHocConnection>
+      <spirit:name>gpo</spirit:name>
+      <spirit:internalPortReference spirit:componentRef="i_i2c_gpio" spirit:portRef="gpo" spirit:left="3" spirit:right="0"/>
+      <spirit:externalPortReference spirit:portRef="gpo"/>
+    </spirit:adHocConnection>
+  </spirit:adHocConnections>
+</spirit:design>

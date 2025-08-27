@@ -1,0 +1,9 @@
+PORT2PORT,CSV Module's Input Ports,Driving Instance,Driving Instance Pin,Connecting Net Name,MACRO NAME,,
+,clk(0),$,CLK(0) ,,,,
+,noisy(0),$,RESET(0),,,,
+PARAMETERMAP,Param Name,,Constant Value,,,,
+,ndelay,,650000,,,,
+INTERFACE2INTERFACE,This Module's Interface name,Driving Instance Name same as above,Driving interface name,Exclude Ports,Align MSB( 1 or y or yes ),Padded Value,MACRO NAME
+AUTO,,"Other instance name, same as above",,Exclude Ports,Align MSB( 1 or y or yes ),Padded Value,
+CONSTANT,This Module's pin name,Keep This Column Blank,Constant Value,MACRO NAME,,,
+OPEN,This Module's pin name,Keep This Column Blank,Keep This Column Blank,MACRO NAME,,,

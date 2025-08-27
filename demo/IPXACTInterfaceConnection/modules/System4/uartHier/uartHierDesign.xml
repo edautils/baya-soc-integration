@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Christophe Amerijckx (STMicroelectronics) -->
+<!--
+// Description : uartHierDesign.xml
+// Author : SPIRIT Schema Working Group - Christophe Amerijckx
+// Version: 1.0
+//
+// Copyright (c) 2006 SPIRIT.  All rights reserved.
+// www.spiritconsortium.com
+//
+// THIS WORK FORMS PART OF A SPIRIT CONSORTIUM SPECIFICATION.  
+// THIS WORK CONTAINS TRADE SECRETS AND PROPRIETARY INFORMATION 
+// WHICH IS THE EXCLUSIVE PROPERTY OF INDIVIDUAL MEMBERS OF THE 
+// SPIRIT CONSORTIUM. USE OF THESE MATERIALS ARE GOVERNED BY 
+// THE LEGAL TERMS AND CONDITIONS OUTLINED IN THE THE SPIRIT 
+// SPECIFICATION DISCLAIMER AVAILABLE FROM
+// www.spiritconsortium.org
+-->
+<spirit:design xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009 http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009/index.xsd">
+  <spirit:vendor>spiritconsortium.org</spirit:vendor>
+  <spirit:library>Leon2RTL</spirit:library>
+  <spirit:name>uartHierDesign</spirit:name>
+  <spirit:version>1.0</spirit:version>
+  <spirit:componentInstances>
+    <spirit:componentInstance>
+      <spirit:instanceName>i_uart</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="uart" spirit:version="1.2"/>
+    </spirit:componentInstance>
+  </spirit:componentInstances>
+  <spirit:adHocConnections>
+    <spirit:adHocConnection>
+      <spirit:name>scaler</spirit:name>
+      <spirit:internalPortReference spirit:componentRef="i_uart" spirit:portRef="scaler"/>
+      <spirit:externalPortReference spirit:portRef="scaler"/>
+    </spirit:adHocConnection>
+    <spirit:adHocConnection>
+      <spirit:name>txen</spirit:name>
+      <spirit:internalPortReference spirit:componentRef="i_uart" spirit:portRef="txen"/>
+      <spirit:externalPortReference spirit:portRef="txen"/>
+    </spirit:adHocConnection>
+    <spirit:adHocConnection>
+      <spirit:name>flow</spirit:name>
+      <spirit:internalPortReference spirit:componentRef="i_uart" spirit:portRef="flow"/>
+      <spirit:externalPortReference spirit:portRef="flow"/>
+    </spirit:adHocConnection>
+  </spirit:adHocConnections>
+  <spirit:hierConnections>
+    <spirit:hierConnection spirit:interfaceRef="APBClk">
+      <spirit:interface spirit:componentRef="i_uart" spirit:busRef="APBClk"/>
+    </spirit:hierConnection>
+    <spirit:hierConnection spirit:interfaceRef="APBReset">
+      <spirit:interface spirit:componentRef="i_uart" spirit:busRef="APBReset"/>
+    </spirit:hierConnection>
+    <spirit:hierConnection spirit:interfaceRef="Interrupt">
+      <spirit:interface spirit:componentRef="i_uart" spirit:busRef="Interrupt"/>
+    </spirit:hierConnection>
+    <spirit:hierConnection spirit:interfaceRef="serial">
+      <spirit:interface spirit:componentRef="i_uart" spirit:busRef="serial"/>
+    </spirit:hierConnection>
+    <spirit:hierConnection spirit:interfaceRef="ambaAPB">
+      <spirit:interface spirit:componentRef="i_uart" spirit:busRef="ambaAPB"/>
+    </spirit:hierConnection>
+  </spirit:hierConnections>
+</spirit:design>

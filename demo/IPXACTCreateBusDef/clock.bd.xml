@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spirit:busDefinition xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009 http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009/index.xsd">
+    <spirit:vendor>spiritconsortium.org</spirit:vendor>
+    <spirit:library>busdef.clock</spirit:library>
+    <spirit:name>clock</spirit:name>
+    <spirit:version>1.0</spirit:version>
+    <spirit:directConnection>true</spirit:directConnection>
+    <spirit:isAddressable>false</spirit:isAddressable>
+    <spirit:description>This is Clock Bus Definition is created with the EDAUtils IP-XACT Tcl commands</spirit:description>
+</spirit:busDefinition>

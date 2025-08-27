@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+// Description: design_ahbbusSparse33.xml
+// Author:      The SPIRIT Consortium
+// 
+// Revision:    $Revision: 1.1 $
+// Date:        $Date: 2014/12/27 22:48:13 $
+// 
+// Copyright (c) 2008, 2009 The SPIRIT Consortium.
+// 
+// This work forms part of a deliverable of The SPIRIT Consortium.
+// 
+// Use of these materials are governed by the legal terms and conditions
+// outlined in the disclaimer available from www.spiritconsortium.org.
+// 
+// This source file is provided on an AS IS basis.  The SPIRIT
+// Consortium disclaims any warranty express or implied including
+// any warranty of merchantability and fitness for use for a
+// particular purpose.
+// 
+// The user of the source file shall indemnify and hold The SPIRIT
+// Consortium and its members harmless from any damages or liability.
+// Users are requested to provide feedback to The SPIRIT Consortium
+// using either mailto:feedback@lists.spiritconsortium.org or the forms at 
+// http://www.spiritconsortium.org/about/contact_us/
+// 
+// This file may be copied, and distributed, with or without
+// modifications; this notice must be included on any copy.
+-->
+<spirit:design xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009 http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009/index.xsd">
+  <spirit:vendor>spiritconsortium.org</spirit:vendor>
+  <spirit:library>Leon2RTL</spirit:library>
+  <spirit:name>design_ahbbusSparse33</spirit:name>
+  <spirit:version>1.0</spirit:version>
+  <spirit:componentInstances>
+    <spirit:componentInstance>
+      <spirit:instanceName>ubridge</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="ahbbusSparseBridge33" spirit:version="1.0"/>
+    </spirit:componentInstance>
+    <spirit:componentInstance>
+      <spirit:instanceName>uahbSlaveChannel0</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="ahbbusSparseChannel" spirit:version="1.0"/>
+    </spirit:componentInstance>
+    <spirit:componentInstance>
+      <spirit:instanceName>uahbSlaveChannel1</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="ahbbusSparseChannel" spirit:version="1.0"/>
+    </spirit:componentInstance>
+    <spirit:componentInstance>
+      <spirit:instanceName>uahbSlaveChannel2</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="ahbbusSparseChannel" spirit:version="1.0"/>
+    </spirit:componentInstance>
+    <spirit:componentInstance>
+      <spirit:instanceName>uahbMasterChannel0</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="ahbbusSparseChannel" spirit:version="1.0"/>
+      <spirit:configurableElementValues>
+        <spirit:configurableElementValue spirit:referenceId="start_addr_slv0_mirror">0x00000000</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="range_slv0_mirror">0x00040000</spirit:configurableElementValue>
+      </spirit:configurableElementValues>
+    </spirit:componentInstance>
+    <spirit:componentInstance>
+      <spirit:instanceName>uahbMasterChannel1</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="ahbbusSparseChannel" spirit:version="1.0"/>
+      <spirit:configurableElementValues>
+        <spirit:configurableElementValue spirit:referenceId="start_addr_slv0_mirror">0x30000000</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="range_slv0_mirror">0x00020000</spirit:configurableElementValue>
+      </spirit:configurableElementValues>
+    </spirit:componentInstance>
+    <spirit:componentInstance>
+      <spirit:instanceName>uahbMasterChannel2</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="ahbbusSparseChannel" spirit:version="1.0"/>
+      <spirit:configurableElementValues>
+        <spirit:configurableElementValue spirit:referenceId="start_addr_slv0_mirror">0x80000000</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="range_slv0_mirror">0x40000000</spirit:configurableElementValue>
+      </spirit:configurableElementValues>
+    </spirit:componentInstance>
+  </spirit:componentInstances>
+  <spirit:interconnections>
+    <spirit:interconnection>
+      <spirit:name>defaultid4489840</spirit:name>
+      <spirit:activeInterface spirit:componentRef="ubridge" spirit:busRef="ambaAHBmaster0"/>
+      <spirit:activeInterface spirit:componentRef="uahbMasterChannel0" spirit:busRef="MirroredMaster"/>
+    </spirit:interconnection>
+    <spirit:interconnection>
+      <spirit:name>defaultid4489857</spirit:name>
+      <spirit:activeInterface spirit:componentRef="ubridge" spirit:busRef="ambaAHBmaster1"/>
+      <spirit:activeInterface spirit:componentRef="uahbMasterChannel1" spirit:busRef="MirroredMaster"/>
+    </spirit:interconnection>
+    <spirit:interconnection>
+      <spirit:name>defaultid4489874</spirit:name>
+      <spirit:activeInterface spirit:componentRef="ubridge" spirit:busRef="ambaAHBmaster2"/>
+      <spirit:activeInterface spirit:componentRef="uahbMasterChannel2" spirit:busRef="MirroredMaster"/>
+    </spirit:interconnection>
+    <spirit:interconnection>
+      <spirit:name>defaultid4489891</spirit:name>
+      <spirit:activeInterface spirit:componentRef="ubridge" spirit:busRef="ambaAHBslave0"/>
+      <spirit:activeInterface spirit:componentRef="uahbSlaveChannel0" spirit:busRef="MirroredSlave"/>
+    </spirit:interconnection>
+    <spirit:interconnection>
+      <spirit:name>defaultid4489908</spirit:name>
+      <spirit:activeInterface spirit:componentRef="ubridge" spirit:busRef="ambaAHBslave1"/>
+      <spirit:activeInterface spirit:componentRef="uahbSlaveChannel1" spirit:busRef="MirroredSlave"/>
+    </spirit:interconnection>
+    <spirit:interconnection>
+      <spirit:name>defaultid4489925</spirit:name>
+      <spirit:activeInterface spirit:componentRef="ubridge" spirit:busRef="ambaAHBslave2"/>
+      <spirit:activeInterface spirit:componentRef="uahbSlaveChannel2" spirit:busRef="MirroredSlave"/>
+    </spirit:interconnection>
+  </spirit:interconnections>
+  <spirit:hierConnections>
+    <spirit:hierConnection spirit:interfaceRef="MirroredSlave0">
+      <spirit:interface spirit:componentRef="uahbMasterChannel0" spirit:busRef="MirroredSlave"/>
+    </spirit:hierConnection>
+    <spirit:hierConnection spirit:interfaceRef="MirroredSlave1">
+      <spirit:interface spirit:componentRef="uahbMasterChannel1" spirit:busRef="MirroredSlave"/>
+    </spirit:hierConnection>
+    <spirit:hierConnection spirit:interfaceRef="MirroredSlave2">
+      <spirit:interface spirit:componentRef="uahbMasterChannel2" spirit:busRef="MirroredSlave"/>
+    </spirit:hierConnection>
+    <spirit:hierConnection spirit:interfaceRef="MirroredMaster0">
+      <spirit:interface spirit:componentRef="uahbSlaveChannel0" spirit:busRef="MirroredMaster"/>
+    </spirit:hierConnection>
+    <spirit:hierConnection spirit:interfaceRef="MirroredMaster1">
+      <spirit:interface spirit:componentRef="uahbSlaveChannel1" spirit:busRef="MirroredMaster"/>
+    </spirit:hierConnection>
+    <spirit:hierConnection spirit:interfaceRef="MirroredMaster2">
+      <spirit:interface spirit:componentRef="uahbSlaveChannel2" spirit:busRef="MirroredMaster"/>
+    </spirit:hierConnection>
+  </spirit:hierConnections>
+</spirit:design>

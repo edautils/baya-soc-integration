@@ -1,0 +1,886 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+// Description : processor.xml
+// Author : SPIRIT Schema Working Group - Christophe Amerijckx
+// Version: 1.2
+// 
+// Revision:    $Revision: 1.1 $
+// Date:        $Date: 2014/12/27 22:48:47 $
+// 
+// Copyright (c) 2006, 2008, 2009 The SPIRIT Consortium.
+// 
+// This work forms part of a deliverable of The SPIRIT Consortium.
+// 
+// Use of these materials are governed by the legal terms and conditions
+// outlined in the disclaimer available from www.spiritconsortium.org.
+// 
+// This source file is provided on an AS IS basis.  The SPIRIT
+// Consortium disclaims any warranty express or implied including
+// any warranty of merchantability and fitness for use for a
+// particular purpose.
+// 
+// The user of the source file shall indemnify and hold The SPIRIT
+// Consortium and its members harmless from any damages or liability.
+// Users are requested to provide feedback to The SPIRIT Consortium
+// using either mailto:feedback@lists.spiritconsortium.org or the forms at 
+// http://www.spiritconsortium.org/about/contact_us/
+// 
+// This file may be copied, and distributed, with or without
+// modifications; this notice must be included on any copy.
+-->
+<spirit:component xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009 http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009/index.xsd">
+  <spirit:vendor>spiritconsortium.org</spirit:vendor>
+  <spirit:library>Leon2RTL</spirit:library>
+  <spirit:name>processor</spirit:name>
+  <spirit:version>1.2</spirit:version>
+  <spirit:busInterfaces>
+    <spirit:busInterface>
+      <spirit:name>AHBClk</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.clock" spirit:name="clock" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.clock" spirit:name="clock_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>CLK</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>hclk</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>AHBReset</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.reset" spirit:name="reset" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.reset" spirit:name="reset_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>RESETn</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>hresetn</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>AHBmaster</spirit:name>
+      <spirit:busType spirit:vendor="amba.com" spirit:library="AMBA2" spirit:name="AHB" spirit:version="r2p0_6"/>
+      <spirit:abstractionType spirit:vendor="amba.com" spirit:library="AMBA2" spirit:name="AHB_rtl" spirit:version="r2p0_6"/>
+      <spirit:master>
+        <spirit:addressSpaceRef spirit:addressSpaceRef="main"/>
+      </spirit:master>
+      <spirit:connectionRequired>true</spirit:connectionRequired>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>HRDATA</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>hrdata</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>HGRANTx</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>hgrant</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>HADDR</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>haddr</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>HTRANS</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>htrans</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>HWRITE</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>hwrite</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>HSIZE</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>hsize</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>HBURST</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>hburst</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>HPROT</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>hprot</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>HWDATA</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>hwdata</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>HBUSREQx</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>hbusreq</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>HREADY</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>hready</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>HRESP</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>hresp</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>HCLK</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>hclk</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>HRESETn</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>hresetn</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>APBClk</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.clock" spirit:name="clock" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.clock" spirit:name="clock_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>CLK</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>pclk</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>APBReset</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.reset" spirit:name="reset" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.reset" spirit:name="reset_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>RESETn</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>presetn</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>APBslave</spirit:name>
+      <spirit:busType spirit:vendor="amba.com" spirit:library="AMBA2" spirit:name="APB" spirit:version="r2p0_4"/>
+      <spirit:abstractionType spirit:vendor="amba.com" spirit:library="AMBA2" spirit:name="APB_rtl" spirit:version="r2p0_4"/>
+      <spirit:slave>
+        <spirit:memoryMapRef spirit:memoryMapRef="ambaAPB"/>
+      </spirit:slave>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>PADDR</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>paddr</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>PWDATA</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>pwdata</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>PRDATA</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>prdata</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>PWRITE</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>pwrite</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>PSELx</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>psel</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>PENABLE</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>penable</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>PCLK</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>pclk</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>PRESETn</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>presetn</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>SlaveIntController</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.leon2" spirit:name="IntProc" spirit:version="v1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.leon2" spirit:name="IntProc_rtl" spirit:version="v1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>IRL</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>irl</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>IRQVEC</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>irqvec</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>INTack</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>intack</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>JTAG</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.jtag" spirit:name="jtag" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.jtag" spirit:name="jtag_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>TCK</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>tck</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>NTRST</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>ntrst</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>TMS</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>tms</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>TDI</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>tdi</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>TDO</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>tdo</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+  </spirit:busInterfaces>
+  <spirit:addressSpaces>
+    <spirit:addressSpace>
+      <spirit:name>main</spirit:name>
+      <spirit:range>4G</spirit:range>
+      <spirit:width>32</spirit:width>
+      <spirit:localMemoryMap>
+        <spirit:name>defaultid4490216</spirit:name>
+        <spirit:addressBlock>
+          <spirit:name>defaultid4490218</spirit:name>
+          <spirit:baseAddress spirit:resolve="user" spirit:id="start_addr_local" spirit:choiceRef="BaseAddressChoices" spirit:configGroups="requiredConfig" spirit:prompt="Local Memory Map Starting Address:">0x10000000</spirit:baseAddress>
+          <spirit:range spirit:resolve="user" spirit:id="range_local" spirit:configGroups="requiredConfig" spirit:prompt="Local Memory Map Range (bytes):" spirit:choiceRef="RangeChoice">4096</spirit:range>
+          <spirit:width spirit:id="width">32</spirit:width>
+          <spirit:usage>memory</spirit:usage>
+        </spirit:addressBlock>
+      </spirit:localMemoryMap>
+    </spirit:addressSpace>
+  </spirit:addressSpaces>
+  <spirit:memoryMaps>
+    <spirit:memoryMap>
+      <spirit:name>ambaAPB</spirit:name>
+      <spirit:bank spirit:bankAlignment="serial">
+        <spirit:name>defaultid4490282</spirit:name>
+        <spirit:baseAddress>0</spirit:baseAddress>
+        <spirit:addressBlock>
+          <spirit:name>registers</spirit:name>
+          <spirit:range>4</spirit:range>
+          <spirit:width>32</spirit:width>
+          <spirit:usage>register</spirit:usage>
+          <spirit:access>read-only</spirit:access>
+          <spirit:register>
+            <spirit:name>Failures</spirit:name>
+            <spirit:addressOffset>0x0</spirit:addressOffset>
+            <spirit:size>32</spirit:size>
+            <spirit:access>read-only</spirit:access>
+            <spirit:field>
+              <spirit:name>NumFailures</spirit:name>
+              <spirit:description>Number of failures from the AHB BFM</spirit:description>
+              <spirit:bitOffset>0</spirit:bitOffset>
+              <spirit:bitWidth>32</spirit:bitWidth>
+              <spirit:access>read-only</spirit:access>
+            </spirit:field>
+          </spirit:register>
+        </spirit:addressBlock>
+        <spirit:addressBlock>
+          <spirit:name>lowest1k</spirit:name>
+          <spirit:range>1020</spirit:range>
+          <spirit:width>32</spirit:width>
+          <spirit:usage>memory</spirit:usage>
+          <spirit:access>read-write</spirit:access>
+        </spirit:addressBlock>
+        <spirit:addressBlock>
+          <spirit:name>midlow1k</spirit:name>
+          <spirit:range>1k</spirit:range>
+          <spirit:width>32</spirit:width>
+          <spirit:usage>memory</spirit:usage>
+          <spirit:access>read-write</spirit:access>
+        </spirit:addressBlock>
+        <spirit:addressBlock>
+          <spirit:name>midhigh1k</spirit:name>
+          <spirit:range>1k</spirit:range>
+          <spirit:width>32</spirit:width>
+          <spirit:usage>memory</spirit:usage>
+          <spirit:access>read-write</spirit:access>
+        </spirit:addressBlock>
+        <spirit:bank spirit:bankAlignment="parallel">
+          <spirit:name>defaultid4490406</spirit:name>
+          <spirit:addressBlock>
+            <spirit:name>highest1kx7_0</spirit:name>
+            <spirit:range>1k</spirit:range>
+            <spirit:width>8</spirit:width>
+            <spirit:usage>memory</spirit:usage>
+            <spirit:access>read-write</spirit:access>
+          </spirit:addressBlock>
+          <spirit:addressBlock>
+            <spirit:name>highest1kx15_8</spirit:name>
+            <spirit:range>1k</spirit:range>
+            <spirit:width>8</spirit:width>
+            <spirit:usage>memory</spirit:usage>
+            <spirit:access>read-write</spirit:access>
+          </spirit:addressBlock>
+          <spirit:addressBlock>
+            <spirit:name>highest1kx23_16</spirit:name>
+            <spirit:range>1k</spirit:range>
+            <spirit:width>8</spirit:width>
+            <spirit:usage>memory</spirit:usage>
+            <spirit:access>read-write</spirit:access>
+          </spirit:addressBlock>
+          <spirit:addressBlock>
+            <spirit:name>highest1kx31_24</spirit:name>
+            <spirit:range>1k</spirit:range>
+            <spirit:width>8</spirit:width>
+            <spirit:usage>memory</spirit:usage>
+            <spirit:access>read-write</spirit:access>
+          </spirit:addressBlock>
+          <spirit:usage>memory</spirit:usage>
+          <spirit:access>read-write</spirit:access>
+        </spirit:bank>
+        <spirit:usage>memory</spirit:usage>
+        <spirit:access>read-write</spirit:access>
+      </spirit:bank>
+    </spirit:memoryMap>
+  </spirit:memoryMaps>
+  <spirit:model>
+    <spirit:views>
+      <spirit:view>
+        <spirit:name>vhdlsource</spirit:name>
+        <spirit:envIdentifier>:modelsim.mentor.com:</spirit:envIdentifier>
+        <spirit:envIdentifier>:ncsim.cadence.com:</spirit:envIdentifier>
+        <spirit:envIdentifier>:vcs.synopsys.com:</spirit:envIdentifier>
+        <spirit:envIdentifier>:designcompiler.synopsys.com:</spirit:envIdentifier>
+        <spirit:language spirit:strict="true">vhdl</spirit:language>
+        <spirit:modelName>processor(bfm)</spirit:modelName>
+        <spirit:fileSetRef>
+          <spirit:localName>fs-vhdlSource</spirit:localName>
+        </spirit:fileSetRef>
+        <spirit:whiteboxElementRefs>
+          <spirit:whiteboxElementRef spirit:name="simDonePin">
+            <spirit:whiteboxPath>
+              <spirit:pathName>SimDone</spirit:pathName>
+            </spirit:whiteboxPath>
+          </spirit:whiteboxElementRef>
+          <spirit:whiteboxElementRef spirit:name="failReg">
+            <spirit:whiteboxPath>
+              <spirit:pathName>ahbMaster/failures</spirit:pathName>
+              <spirit:left>31</spirit:left>
+              <spirit:right>0</spirit:right>
+            </spirit:whiteboxPath>
+          </spirit:whiteboxElementRef>
+          <spirit:whiteboxElementRef spirit:name="failSignal">
+            <spirit:whiteboxPath>
+              <spirit:pathName>ahbMaster/failures</spirit:pathName>
+              <spirit:left>31</spirit:left>
+              <spirit:right>0</spirit:right>
+            </spirit:whiteboxPath>
+          </spirit:whiteboxElementRef>
+        </spirit:whiteboxElementRefs>
+      </spirit:view>
+    </spirit:views>
+    <spirit:ports>
+      <spirit:port>
+        <spirit:name>rst_an</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>clk</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>clkn</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>pclk</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>presetn</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>psel</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>penable</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>paddr</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left>11</spirit:left>
+            <spirit:right>0</spirit:right>
+          </spirit:vector>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>pwrite</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>pwdata</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left>31</spirit:left>
+            <spirit:right>0</spirit:right>
+          </spirit:vector>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>prdata</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:vector>
+            <spirit:left>31</spirit:left>
+            <spirit:right>0</spirit:right>
+          </spirit:vector>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>hclk</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>hresetn</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>hgrant</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>hready</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>hresp</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left>1</spirit:left>
+            <spirit:right>0</spirit:right>
+          </spirit:vector>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>hrdata</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left>31</spirit:left>
+            <spirit:right>0</spirit:right>
+          </spirit:vector>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>hbusreq</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>htrans</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:vector>
+            <spirit:left>1</spirit:left>
+            <spirit:right>0</spirit:right>
+          </spirit:vector>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>haddr</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:vector>
+            <spirit:left>31</spirit:left>
+            <spirit:right>0</spirit:right>
+          </spirit:vector>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>hwrite</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>hsize</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:vector>
+            <spirit:left>2</spirit:left>
+            <spirit:right>0</spirit:right>
+          </spirit:vector>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>hburst</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:vector>
+            <spirit:left>2</spirit:left>
+            <spirit:right>0</spirit:right>
+          </spirit:vector>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>hprot</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:vector>
+            <spirit:left>3</spirit:left>
+            <spirit:right>0</spirit:right>
+          </spirit:vector>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>hwdata</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:vector>
+            <spirit:left>31</spirit:left>
+            <spirit:right>0</spirit:right>
+          </spirit:vector>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>irl</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left>3</spirit:left>
+            <spirit:right>0</spirit:right>
+          </spirit:vector>
+          <spirit:driver>
+            <spirit:defaultValue>0x0</spirit:defaultValue>
+          </spirit:driver>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>intack</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>irqvec</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:vector>
+            <spirit:left>3</spirit:left>
+            <spirit:right>0</spirit:right>
+          </spirit:vector>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>tck</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:driver>
+            <spirit:defaultValue>0x0</spirit:defaultValue>
+          </spirit:driver>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>ntrst</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:driver>
+            <spirit:defaultValue>0x0</spirit:defaultValue>
+          </spirit:driver>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>tms</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:driver>
+            <spirit:defaultValue>0x0</spirit:defaultValue>
+          </spirit:driver>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>tdi</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:driver>
+            <spirit:defaultValue>0x0</spirit:defaultValue>
+          </spirit:driver>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>tdo</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>SimDone</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+    </spirit:ports>
+    <spirit:modelParameters>
+      <spirit:modelParameter spirit:dataType="integer">
+        <spirit:name>local_memory_start_addr</spirit:name>
+        <spirit:value spirit:resolve="dependent" spirit:id="local_memory_start_addr" spirit:dependency="(spirit:decode(id('start_addr_local'))) div 65536" spirit:prompt="Upper 16 bits of the address">0x1000</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="integer">
+        <spirit:name>local_memory_addr_bits</spirit:name>
+        <spirit:value spirit:resolve="dependent" spirit:id="local_memory_addr_bits" spirit:dependency="floor(spirit:log(2,id('range_local')+1))" spirit:prompt="Number of address bit for the local memoryMap">12</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="string">
+        <spirit:name>code_file</spirit:name>
+        <spirit:value spirit:resolve="user" spirit:id="code_file" spirit:configGroups="requiredConfig" spirit:prompt="File to read commands from:">master.tbl</spirit:value>
+      </spirit:modelParameter>
+    </spirit:modelParameters>
+  </spirit:model>
+  <spirit:choices>
+    <spirit:choice>
+      <spirit:name>BaseAddressChoices</spirit:name>
+      <spirit:enumeration spirit:text="0x00000000">0x00000000</spirit:enumeration>
+      <spirit:enumeration spirit:text="0x10000000">0x10000000</spirit:enumeration>
+      <spirit:enumeration spirit:text="0x20000000">0x20000000</spirit:enumeration>
+      <spirit:enumeration spirit:text="0x30000000">0x30000000</spirit:enumeration>
+      <spirit:enumeration spirit:text="0x40000000">0x40000000</spirit:enumeration>
+      <spirit:enumeration spirit:text="0x50000000">0x50000000</spirit:enumeration>
+      <spirit:enumeration spirit:text="0x60000000">0x60000000</spirit:enumeration>
+      <spirit:enumeration spirit:text="0x70000000">0x70000000</spirit:enumeration>
+      <spirit:enumeration spirit:text="0x80000000">0x80000000</spirit:enumeration>
+      <spirit:enumeration spirit:text="0x90000000">0x90000000</spirit:enumeration>
+      <spirit:enumeration spirit:text="0xa0000000">0xa0000000</spirit:enumeration>
+      <spirit:enumeration spirit:text="0xb0000000">0xb0000000</spirit:enumeration>
+      <spirit:enumeration spirit:text="0xc0000000">0xc0000000</spirit:enumeration>
+      <spirit:enumeration spirit:text="0xd0000000">0xd0000000</spirit:enumeration>
+      <spirit:enumeration spirit:text="0xe0000000">0xe0000000</spirit:enumeration>
+      <spirit:enumeration spirit:text="0xf0000000">0xf0000000</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>RangeChoice</spirit:name>
+      <spirit:enumeration spirit:text="0">0</spirit:enumeration>
+      <spirit:enumeration spirit:text="128">128</spirit:enumeration>
+      <spirit:enumeration spirit:text="256">256</spirit:enumeration>
+      <spirit:enumeration spirit:text="1k">1024</spirit:enumeration>
+      <spirit:enumeration spirit:text="2k">2048</spirit:enumeration>
+      <spirit:enumeration spirit:text="4k">4096</spirit:enumeration>
+      <spirit:enumeration spirit:text="8k">8192</spirit:enumeration>
+      <spirit:enumeration spirit:text="16k">16384</spirit:enumeration>
+    </spirit:choice>
+  </spirit:choices>
+  <spirit:fileSets>
+    <spirit:fileSet>
+      <spirit:name>fs-vhdlSource</spirit:name>
+      <spirit:file>
+        <spirit:name>hdlsrc/processorPackage.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>processor_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdlsrc/processorApbSlave.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>processor_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdlsrc/processorAhbMaster.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>processor_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdlsrc/processor.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>processor_lib</spirit:logicalName>
+      </spirit:file>
+    </spirit:fileSet>
+  </spirit:fileSets>
+  <spirit:whiteboxElements>
+    <spirit:whiteboxElement>
+      <spirit:name>simDonePin</spirit:name>
+      <spirit:description>Pin that indicates that the AHB BFM model is done processing commands</spirit:description>
+      <spirit:whiteboxType>pin</spirit:whiteboxType>
+    </spirit:whiteboxElement>
+    <spirit:whiteboxElement>
+      <spirit:name>failReg</spirit:name>
+      <spirit:description>Register with the number of failures in the AHB BFM model</spirit:description>
+      <spirit:whiteboxType>register</spirit:whiteboxType>
+      <spirit:registerRef>ambaAPB/registers/Failures</spirit:registerRef>
+    </spirit:whiteboxElement>
+    <spirit:whiteboxElement>
+      <spirit:name>failSignal</spirit:name>
+      <spirit:description>A signal internat to the model that indicates the number of failures in the AHB BFM model</spirit:description>
+      <spirit:whiteboxType>signal</spirit:whiteboxType>
+    </spirit:whiteboxElement>
+  </spirit:whiteboxElements>
+  <spirit:cpus>
+    <spirit:cpu>
+      <spirit:name>processor</spirit:name>
+      <spirit:addressSpaceRef spirit:addressSpaceRef="main"/>
+    </spirit:cpu>
+  </spirit:cpus>
+</spirit:component>

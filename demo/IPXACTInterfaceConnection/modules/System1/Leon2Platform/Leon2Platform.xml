@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+// Description: Leon2Platform.xml
+// Author:      The SPIRIT Consortium
+// Revision:    $Revision: 1.1 $
+// Date:        $Date: 2014/12/27 22:47:54 $
+//
+// Copyright (c) 2009 The SPIRIT Consortium.
+//
+// This work forms part of a deliverable of The SPIRIT Consortium.
+//
+// Use of these materials are governed by the legal terms and conditions
+// outlined in the disclaimer available from www.spiritconsortium.org.
+//
+// This source file is provided on an AS IS basis.  The SPIRIT
+// Consortium disclaims any warranty express or implied including
+// any warranty of merchantability and fitness for use for a
+// particular purpose.
+//
+// The user of the source file shall indemnify and hold The SPIRIT
+// Consortium and its members harmless from any damages or liability.
+// Users are requested to provide feedback to The SPIRIT Consortium
+// using either mailto:feedback@lists.spiritconsortium.org or the forms at
+// http://www.spiritconsortium.org/about/contact_us/
+//
+// This file may be copied, and distributed, with or without
+// modifications; this notice must be included on any copy.
+-->
+
+<spirit:component xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009 http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009/index.xsd">
+  <spirit:vendor>spiritconsortium.org</spirit:vendor>
+  <spirit:library>Leon2RTL</spirit:library>
+  <spirit:name>Leon2Platform</spirit:name>
+  <spirit:version>1.0</spirit:version>
+  <spirit:model>
+    <spirit:views>
+      <spirit:view>
+        <spirit:name>spirit-design</spirit:name>
+        <spirit:envIdentifier>::Hierarchy</spirit:envIdentifier>
+        <spirit:hierarchyRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="design_Leon2Platform" spirit:version="1.0"/>
+      </spirit:view>
+<!-- Not a valid view, the fileSet is not complete.
+      <spirit:view>
+        <spirit:name>RTL</spirit:name>
+        <spirit:envIdentifier>:*Synthesis:</spirit:envIdentifier>
+        <spirit:language spirit:strict="true">vhdl</spirit:language>
+        <spirit:modelName>Leon2Platform(structure)</spirit:modelName>
+        <spirit:fileSetRef>source-code</spirit:fileSetRef>
+      </spirit:view>
+      -->
+    </spirit:views>
+    <spirit:ports>
+      <spirit:port>
+        <spirit:name>clkin</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:driver>
+            <spirit:clockDriver spirit:clockName="clk">
+              <spirit:clockPeriod>100</spirit:clockPeriod>
+              <spirit:clockPulseOffset>50</spirit:clockPulseOffset>
+              <spirit:clockPulseValue>1</spirit:clockPulseValue>
+              <spirit:clockPulseDuration>50</spirit:clockPulseDuration>
+            </spirit:clockDriver>
+          </spirit:driver>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>rstin_an</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:driver>
+            <spirit:singleShotDriver>
+              <spirit:singleShotOffset>500</spirit:singleShotOffset>
+              <spirit:singleShotValue>1</spirit:singleShotValue>
+              <spirit:singleShotDuration>1000</spirit:singleShotDuration>
+            </spirit:singleShotDriver>
+          </spirit:driver>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>SimDone</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+    </spirit:ports>
+  </spirit:model>
+  <spirit:fileSets>
+    <spirit:fileSet>
+      <spirit:name>source-code</spirit:name>
+      <spirit:file>
+        <spirit:name>hdlsrc/Leon2Platform_ent.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>work</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdlsrc/Leon2Platform_pack.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>work</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>hdlsrc/Leon2Platform_arch.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>work</spirit:logicalName>
+      </spirit:file>
+    </spirit:fileSet>
+  </spirit:fileSets>
+</spirit:component>

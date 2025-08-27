@@ -1,0 +1,8 @@
+PORT2PORT,CSV Module's Input Pin,Driving Instance Name,Driving Instance Pin,Connecting Net Name,MACRO NAME,,
+,strtstop(0),u_strtstop_db,clean(0),,,,
+,reset(0),u_reset_db,clean(0),,,,
+,clk(0),clk_div,clkout(0),,,,
+INTERFACE2INTERFACE,This Module's Interface name,Driving Instance Name same as above,Driving interface name,Exclude Ports,Align MSB( 1 or y or yes ),Padded Value,MACRO NAME
+AUTO,,"Other instance name, same as above",,Exclude Ports,Align MSB( 1 or y or yes ),Padded Value,
+CONSTANT,This Module's pin name,Keep This Column Blank,Constant Value,MACRO NAME,,,
+OPEN,This Module's pin name,Keep This Column Blank,Keep This Column Blank,MACRO NAME,,,

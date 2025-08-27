@@ -1,0 +1,915 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+// Description : irqctrl.xml
+// Author : SPIRIT Schema Working Group - Christophe Amerijckx
+// Version: 1.3
+// 
+// Revision:    $Revision: 1.1 $
+// Date:        $Date: 2014/12/27 22:48:41 $
+// 
+// Copyright (c) 2006, 2008, 2009 The SPIRIT Consortium.
+// 
+// This work forms part of a deliverable of The SPIRIT Consortium.
+// 
+// Use of these materials are governed by the legal terms and conditions
+// outlined in the disclaimer available from www.spiritconsortium.org.
+// 
+// This source file is provided on an AS IS basis.  The SPIRIT
+// Consortium disclaims any warranty express or implied including
+// any warranty of merchantability and fitness for use for a
+// particular purpose.
+// 
+// The user of the source file shall indemnify and hold The SPIRIT
+// Consortium and its members harmless from any damages or liability.
+// Users are requested to provide feedback to The SPIRIT Consortium
+// using either mailto:feedback@lists.spiritconsortium.org or the forms at 
+// http://www.spiritconsortium.org/about/contact_us/
+// 
+// This file may be copied, and distributed, with or without
+// modifications; this notice must be included on any copy.
+-->
+<spirit:component xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009 http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009/index.xsd">
+  <spirit:vendor>spiritconsortium.org</spirit:vendor>
+  <spirit:library>Leon2RTL</spirit:library>
+  <spirit:name>irqctrl</spirit:name>
+  <spirit:version>1.3</spirit:version>
+  <spirit:busInterfaces>
+    <spirit:busInterface>
+      <spirit:name>APBClk</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.clock" spirit:name="clock" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.clock" spirit:name="clock_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>CLK</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>clk</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>APBReset</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.reset" spirit:name="reset" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.reset" spirit:name="reset_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>RESETn</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>rst</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>ambaAPB</spirit:name>
+      <spirit:busType spirit:vendor="amba.com" spirit:library="AMBA2" spirit:name="APB" spirit:version="r2p0_4"/>
+      <spirit:abstractionType spirit:vendor="amba.com" spirit:library="AMBA2" spirit:name="APB_rtl" spirit:version="r2p0_4"/>
+      <spirit:slave>
+        <spirit:memoryMapRef spirit:memoryMapRef="ambaAPB"/>
+      </spirit:slave>
+      <spirit:connectionRequired>true</spirit:connectionRequired>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>PSELx</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>psel</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>PENABLE</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>penable</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>PADDR</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>paddr</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>PWRITE</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>pwrite</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>PWDATA</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>pwdata</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>PRDATA</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>prdata</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>PCLK</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>clk</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>PRESETn</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>rst</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>MasterInt</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.leon2" spirit:name="IntProc" spirit:version="v1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.leon2" spirit:name="IntProc_rtl" spirit:version="v1.0"/>
+      <spirit:master/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>IRL</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>irlout</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>IRQVEC</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>irlin</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>INTack</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>intack</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>SlaveInt14</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>IRQ</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>irq</spirit:name>
+            <spirit:vector>
+              <spirit:left spirit:format="long" spirit:resolve="immediate" spirit:rangeType="float">14</spirit:left>
+              <spirit:right>14</spirit:right>
+            </spirit:vector>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>SlaveInt13</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>IRQ</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>irq</spirit:name>
+            <spirit:vector>
+              <spirit:left spirit:format="long" spirit:resolve="immediate" spirit:rangeType="float">13</spirit:left>
+              <spirit:right>13</spirit:right>
+            </spirit:vector>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>SlaveInt12</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>IRQ</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>irq</spirit:name>
+            <spirit:vector>
+              <spirit:left spirit:format="long" spirit:resolve="immediate" spirit:rangeType="float">12</spirit:left>
+              <spirit:right>12</spirit:right>
+            </spirit:vector>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>SlaveInt11</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>IRQ</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>irq</spirit:name>
+            <spirit:vector>
+              <spirit:left spirit:format="long" spirit:resolve="immediate" spirit:rangeType="float">11</spirit:left>
+              <spirit:right>11</spirit:right>
+            </spirit:vector>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>SlaveInt10</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>IRQ</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>irq</spirit:name>
+            <spirit:vector>
+              <spirit:left spirit:format="long" spirit:resolve="immediate" spirit:rangeType="float">10</spirit:left>
+              <spirit:right>10</spirit:right>
+            </spirit:vector>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>SlaveInt9</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>IRQ</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>irq</spirit:name>
+            <spirit:vector>
+              <spirit:left spirit:format="long" spirit:resolve="immediate" spirit:rangeType="float">9</spirit:left>
+              <spirit:right>9</spirit:right>
+            </spirit:vector>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>SlaveInt8</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>IRQ</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>irq</spirit:name>
+            <spirit:vector>
+              <spirit:left spirit:format="long" spirit:resolve="immediate" spirit:rangeType="float">8</spirit:left>
+              <spirit:right>8</spirit:right>
+            </spirit:vector>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>SlaveInt7</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>IRQ</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>irq</spirit:name>
+            <spirit:vector>
+              <spirit:left spirit:format="long" spirit:resolve="immediate" spirit:rangeType="float">7</spirit:left>
+              <spirit:right>7</spirit:right>
+            </spirit:vector>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>SlaveInt6</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>IRQ</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>irq</spirit:name>
+            <spirit:vector>
+              <spirit:left spirit:format="long" spirit:resolve="immediate" spirit:rangeType="float">6</spirit:left>
+              <spirit:right>6</spirit:right>
+            </spirit:vector>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>SlaveInt5</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>IRQ</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>irq</spirit:name>
+            <spirit:vector>
+              <spirit:left spirit:format="long" spirit:resolve="immediate" spirit:rangeType="float">5</spirit:left>
+              <spirit:right>5</spirit:right>
+            </spirit:vector>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>SlaveInt4</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>IRQ</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>irq</spirit:name>
+            <spirit:vector>
+              <spirit:left spirit:format="long" spirit:resolve="immediate" spirit:rangeType="float">4</spirit:left>
+              <spirit:right>4</spirit:right>
+            </spirit:vector>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>SlaveInt3</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>IRQ</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>irq</spirit:name>
+            <spirit:vector>
+              <spirit:left spirit:format="long" spirit:resolve="immediate" spirit:rangeType="float">3</spirit:left>
+              <spirit:right>3</spirit:right>
+            </spirit:vector>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>SlaveInt2</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>IRQ</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>irq</spirit:name>
+            <spirit:vector>
+              <spirit:left spirit:format="long" spirit:resolve="immediate" spirit:rangeType="float">2</spirit:left>
+              <spirit:right>2</spirit:right>
+            </spirit:vector>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>SlaveInt1</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>IRQ</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>irq</spirit:name>
+            <spirit:vector>
+              <spirit:left spirit:format="long" spirit:resolve="immediate" spirit:rangeType="float">1</spirit:left>
+              <spirit:right>1</spirit:right>
+            </spirit:vector>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>SlaveInt0</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>IRQ</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>irq</spirit:name>
+            <spirit:vector>
+              <spirit:left spirit:format="long" spirit:resolve="immediate" spirit:rangeType="float">0</spirit:left>
+              <spirit:right>0</spirit:right>
+            </spirit:vector>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+  </spirit:busInterfaces>
+  <spirit:memoryMaps>
+    <spirit:memoryMap>
+      <spirit:name>ambaAPB</spirit:name>
+      <spirit:addressBlock>
+        <spirit:name>ablock</spirit:name>
+        <spirit:baseAddress spirit:format="long" spirit:resolve="immediate" spirit:rangeType="float" spirit:prompt="Base Address:">0</spirit:baseAddress>
+        <spirit:range spirit:format="long">64</spirit:range>
+        <spirit:width spirit:format="long" spirit:id="width">32</spirit:width>
+        <spirit:register>
+          <spirit:name>interrupMaskandPriorityLevel</spirit:name>
+          <spirit:displayName>interrupMaskandPriorityLevel</spirit:displayName>
+          <spirit:description>Interrupt Mask and Priority</spirit:description>
+          <spirit:addressOffset>0x0</spirit:addressOffset>
+          <spirit:size>32</spirit:size>
+          <spirit:access>read-write</spirit:access>
+          <spirit:reset>
+            <spirit:value>0x0</spirit:value>
+            <spirit:mask>0x1FFFF</spirit:mask>
+          </spirit:reset>
+          <spirit:field>
+            <spirit:name>Reserved1</spirit:name>
+            <spirit:description>Reserved</spirit:description>
+            <spirit:bitOffset>0</spirit:bitOffset>
+            <spirit:bitWidth>1</spirit:bitWidth>
+            <spirit:volatile>true</spirit:volatile>
+            <spirit:access>read-write</spirit:access>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>imask</spirit:name>
+            <spirit:description>Indicates if an interrupt is masked (bit=0) or enabled (bit=1)</spirit:description>
+            <spirit:bitOffset>1</spirit:bitOffset>
+            <spirit:bitWidth>15</spirit:bitWidth>
+            <spirit:access>read-write</spirit:access>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>Reserved2</spirit:name>
+            <spirit:description>Reserved</spirit:description>
+            <spirit:bitOffset>16</spirit:bitOffset>
+            <spirit:bitWidth>1</spirit:bitWidth>
+            <spirit:volatile>true</spirit:volatile>
+            <spirit:access>read-write</spirit:access>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>ilevel</spirit:name>
+            <spirit:description>Indicates if an interrupt belongs to priority level 1 (bit=1) or 0 (bit=0)</spirit:description>
+            <spirit:bitOffset>17</spirit:bitOffset>
+            <spirit:bitWidth>15</spirit:bitWidth>
+            <spirit:volatile>true</spirit:volatile>
+            <spirit:access>read-write</spirit:access>
+          </spirit:field>
+        </spirit:register>
+        <spirit:register>
+          <spirit:name>interruptPendingRegister</spirit:name>
+          <spirit:displayName>interruptPendingRegister</spirit:displayName>
+          <spirit:description>Indicates if an interrupt is pending</spirit:description>
+          <spirit:addressOffset>0x4</spirit:addressOffset>
+          <spirit:size>32</spirit:size>
+          <spirit:access>read-write</spirit:access>
+          <spirit:reset>
+            <spirit:value>0x0</spirit:value>
+            <spirit:mask>0xFFFF0001</spirit:mask>
+          </spirit:reset>
+          <spirit:field>
+            <spirit:name>Reserved1</spirit:name>
+            <spirit:description>Reserved</spirit:description>
+            <spirit:bitOffset>0</spirit:bitOffset>
+            <spirit:bitWidth>1</spirit:bitWidth>
+            <spirit:access>read-write</spirit:access>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>ipend</spirit:name>
+            <spirit:description>Indicates if an interrupt is pending (bit=1)</spirit:description>
+            <spirit:bitOffset>1</spirit:bitOffset>
+            <spirit:bitWidth>15</spirit:bitWidth>
+            <spirit:volatile>true</spirit:volatile>
+            <spirit:access>read-write</spirit:access>
+            <spirit:testable>false</spirit:testable>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>Reserved2</spirit:name>
+            <spirit:description>Reserved</spirit:description>
+            <spirit:bitOffset>16</spirit:bitOffset>
+            <spirit:bitWidth>16</spirit:bitWidth>
+            <spirit:access>read-only</spirit:access>
+          </spirit:field>
+        </spirit:register>
+        <spirit:register>
+          <spirit:name>interruptForceRegister</spirit:name>
+          <spirit:displayName>interruptForceRegister</spirit:displayName>
+          <spirit:description>Indicates if an interrupt is being forced</spirit:description>
+          <spirit:addressOffset>0x8</spirit:addressOffset>
+          <spirit:size>32</spirit:size>
+          <spirit:access>read-write</spirit:access>
+          <spirit:reset>
+	    <spirit:value>0x0</spirit:value>
+	    <spirit:mask>0xFFFF0001</spirit:mask>
+          </spirit:reset>
+          <spirit:field>
+            <spirit:name>Reserved1</spirit:name>
+            <spirit:description>Reserved</spirit:description>
+            <spirit:bitOffset>0</spirit:bitOffset>
+            <spirit:bitWidth>1</spirit:bitWidth>
+            <spirit:access>read-only</spirit:access>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>iforce</spirit:name>
+            <spirit:description>Indicates if an interrupt is being forced (bit=1)</spirit:description>
+            <spirit:bitOffset>1</spirit:bitOffset>
+            <spirit:bitWidth>15</spirit:bitWidth>
+            <spirit:volatile>true</spirit:volatile>
+            <spirit:access>read-write</spirit:access>
+            <spirit:testable>false</spirit:testable>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>Reserved2</spirit:name>
+            <spirit:description>Reserved</spirit:description>
+            <spirit:bitOffset>16</spirit:bitOffset>
+            <spirit:bitWidth>16</spirit:bitWidth>
+            <spirit:access>read-only</spirit:access>
+          </spirit:field>
+        </spirit:register>
+        <spirit:register>
+          <spirit:name>interruptClearRegister</spirit:name>
+          <spirit:displayName>interruptClearRegister</spirit:displayName>
+          <spirit:description>If written with a '1', will clear corresponding bit(s) in interrupt pending register.</spirit:description>
+          <spirit:addressOffset>0xc</spirit:addressOffset>
+          <spirit:size>32</spirit:size>
+          <spirit:access>write-only</spirit:access>
+          <spirit:field>
+            <spirit:name>Reserved1</spirit:name>
+            <spirit:description>Reserved - write should be ignored</spirit:description>
+            <spirit:bitOffset>0</spirit:bitOffset>
+            <spirit:bitWidth>1</spirit:bitWidth>
+            <spirit:access>read-only</spirit:access>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>iclear</spirit:name>
+            <spirit:description>If written with a '1', will clear corresponding bit(s) in interrupt pending register.</spirit:description>
+            <spirit:bitOffset>1</spirit:bitOffset>
+            <spirit:bitWidth>15</spirit:bitWidth>
+            <spirit:volatile>true</spirit:volatile>
+            <spirit:access>read-write</spirit:access>
+            <spirit:modifiedWriteValue>oneToClear</spirit:modifiedWriteValue>
+            <spirit:testable>false</spirit:testable>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>Reserved2</spirit:name>
+            <spirit:description>Reserved - write should be ignored</spirit:description>
+            <spirit:bitOffset>16</spirit:bitOffset>
+            <spirit:bitWidth>16</spirit:bitWidth>
+            <spirit:access>read-only</spirit:access>
+          </spirit:field>
+        </spirit:register>
+        <spirit:register>
+          <spirit:name>interruptClearRegisterRead</spirit:name>
+          <spirit:displayName>interruptClearRegisterRead</spirit:displayName>
+          <spirit:description>A read returns X.</spirit:description>
+          <spirit:addressOffset>0xc</spirit:addressOffset>
+          <spirit:size>32</spirit:size>
+          <spirit:access>read-only</spirit:access>
+          <spirit:reset>
+	    <spirit:value>0x0</spirit:value>
+	    <spirit:mask>0xFFFFFFFF</spirit:mask>
+          </spirit:reset>
+          <spirit:field>
+            <spirit:name>Reserved1</spirit:name>
+            <spirit:description>Reserved</spirit:description>
+            <spirit:bitOffset>0</spirit:bitOffset>
+            <spirit:bitWidth>32</spirit:bitWidth>
+            <spirit:access>read-only</spirit:access>
+          </spirit:field>
+        </spirit:register>
+        <spirit:register>
+          <spirit:name>interruptReadClearPendingRegister</spirit:name>
+          <spirit:displayName>interruptReadClearPendingRegister</spirit:displayName>
+          <spirit:description>interruptReadClearPendingRegister</spirit:description>
+          <spirit:addressOffset>0x10</spirit:addressOffset>
+          <spirit:size>32</spirit:size>
+          <spirit:access>read-write</spirit:access>
+          <spirit:reset>
+	    <spirit:value>0x0</spirit:value>
+	    <spirit:mask>0xFFFFFFF0</spirit:mask>
+          </spirit:reset>
+          <spirit:field>
+            <spirit:name>pendIntEncode</spirit:name>
+            <spirit:description>Pending encoded interrupt</spirit:description>
+            <spirit:bitOffset>0</spirit:bitOffset>
+            <spirit:bitWidth>4</spirit:bitWidth>
+            <spirit:volatile>true</spirit:volatile>
+            <spirit:access>read-only</spirit:access>
+            <spirit:readAction>modify</spirit:readAction>
+            <spirit:testable>false</spirit:testable>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>Reserved</spirit:name>
+            <spirit:description>Reserved</spirit:description>
+            <spirit:bitOffset>4</spirit:bitOffset>
+            <spirit:bitWidth>28</spirit:bitWidth>
+            <spirit:access>read-only</spirit:access>
+          </spirit:field>
+        </spirit:register>
+      </spirit:addressBlock>
+    </spirit:memoryMap>
+  </spirit:memoryMaps>
+  <spirit:model>
+    <spirit:views>
+      <spirit:view>
+        <spirit:name>vhdlsource</spirit:name>
+        <spirit:envIdentifier>:modelsim.mentor.com:</spirit:envIdentifier>
+        <spirit:envIdentifier>:ncsim.cadence.com:</spirit:envIdentifier>
+        <spirit:envIdentifier>:vcs.synopsys.com:</spirit:envIdentifier>
+        <spirit:envIdentifier>:designcompiler.synopsys.com:</spirit:envIdentifier>
+        <spirit:language>vhdl</spirit:language>
+        <spirit:modelName>leon2Irqctrl(struct)</spirit:modelName>
+        <spirit:fileSetRef>
+          <spirit:localName>fs-vhdlSource</spirit:localName>
+        </spirit:fileSetRef>
+      </spirit:view>
+    </spirit:views>
+    <spirit:ports>
+      <spirit:port>
+        <spirit:name>clk</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>rst</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>psel</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>penable</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>paddr</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long" spirit:resolve="immediate" spirit:rangeType="float">31</spirit:left>
+            <spirit:right>0</spirit:right>
+          </spirit:vector>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>pwrite</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>pwdata</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long" spirit:resolve="immediate" spirit:rangeType="float">31</spirit:left>
+            <spirit:right>0</spirit:right>
+          </spirit:vector>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>prdata</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long" spirit:resolve="immediate" spirit:rangeType="float">31</spirit:left>
+            <spirit:right>0</spirit:right>
+          </spirit:vector>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>irq</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long" spirit:resolve="immediate" spirit:rangeType="float">14</spirit:left>
+            <spirit:right>0</spirit:right>
+          </spirit:vector>
+          <spirit:driver>
+            <spirit:defaultValue spirit:format="long" spirit:id="sigdefVal_irq" spirit:resolve="immediate" spirit:rangeType="float">0</spirit:defaultValue>
+          </spirit:driver>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>intack</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:driver>
+            <spirit:defaultValue spirit:format="long" spirit:id="sigdefVal_intack" spirit:resolve="immediate" spirit:rangeType="float">0</spirit:defaultValue>
+          </spirit:driver>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>irlin</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long" spirit:resolve="immediate" spirit:rangeType="float">3</spirit:left>
+            <spirit:right>0</spirit:right>
+          </spirit:vector>
+          <spirit:driver>
+            <spirit:defaultValue spirit:format="long" spirit:id="sigdefVal_irlin" spirit:resolve="immediate" spirit:rangeType="float">0</spirit:defaultValue>
+          </spirit:driver>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>irlout</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long" spirit:resolve="immediate" spirit:rangeType="float">3</spirit:left>
+            <spirit:right>0</spirit:right>
+          </spirit:vector>
+        </spirit:wire>
+      </spirit:port>
+    </spirit:ports>
+  </spirit:model>
+  <spirit:fileSets>
+    <spirit:fileSet>
+      <spirit:name>fs-vhdlSource</spirit:name>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/target.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2irqctrl_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/device.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2irqctrl_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/config.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2irqctrl_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/sparcv8.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2irqctrl_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/iface.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2irqctrl_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/amba.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2irqctrl_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/ambacomp.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2irqctrl_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/macro.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2irqctrl_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/tech_generic.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2irqctrl_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/tech_atc25.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2irqctrl_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/tech_atc35.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2irqctrl_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/tech_fs90.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2irqctrl_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/tech_umc18.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2irqctrl_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/tech_virtex.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2irqctrl_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/tech_tsmc25.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2irqctrl_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/tech_proasic.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2irqctrl_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/tech_axcel.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2irqctrl_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/multlib.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2irqctrl_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/tech_map.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2irqctrl_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../1.2/hdlsrc/irqctrl_rdack.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2irqctrl_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../1.2/hdlsrc/leon2Irqctrl.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2irqctrl_lib</spirit:logicalName>
+      </spirit:file>
+    </spirit:fileSet>
+  </spirit:fileSets>
+  <spirit:description>Interrupt controller with improved register description</spirit:description>
+</spirit:component>

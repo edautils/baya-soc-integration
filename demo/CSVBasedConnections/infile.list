@@ -1,0 +1,5 @@
+src/bus_intf.v
+src/master.v
+src/slave.v
+src/top.v
+

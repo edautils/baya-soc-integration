@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+// Description : designConfig_apbSubSystem.xml
+// Author : SPIRIT Schema Working Group - Christophe Amerijckx
+// Version: 1.0
+//
+// Copyright (c) 2007 SPIRIT.  All rights reserved.
+// www.spiritconsortium.com
+//
+// THIS WORK FORMS PART OF A SPIRIT CONSORTIUM SPECIFICATION.  
+// THIS WORK CONTAINS TRADE SECRETS AND PROPRIETARY INFORMATION 
+// WHICH IS THE EXCLUSIVE PROPERTY OF INDIVIDUAL MEMBERS OF THE 
+// SPIRIT CONSORTIUM. USE OF THESE MATERIALS ARE GOVERNED BY 
+// THE LEGAL TERMS AND CONDITIONS OUTLINED IN THE THE SPIRIT 
+// SPECIFICATION DISCLAIMER AVAILABLE FROM
+// www.spiritconsortium.org
+-->
+<spirit:designConfiguration xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009 http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009/index.xsd">
+  <spirit:vendor>spiritconsortium.org</spirit:vendor>
+  <spirit:library>Leon2RTL</spirit:library>
+  <spirit:name>designConfig_apbSubSystem</spirit:name>
+  <spirit:version>4.0</spirit:version>
+  <spirit:designRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="design_apbSubSystem" spirit:version="4.0"/>
+  <spirit:interconnectionConfiguration>
+    <spirit:interconnectionRef>defaultid4490193</spirit:interconnectionRef>
+    <spirit:abstractors>
+      <spirit:abstractor>
+        <spirit:instanceName>i_ArmAPB2SpiritAPB</spirit:instanceName>
+        <spirit:abstractorRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="ArmAPB2SpiritAPB" spirit:version="1.0"/>
+        <spirit:viewName>vhdlsource</spirit:viewName>
+      </spirit:abstractor>
+    </spirit:abstractors>
+  </spirit:interconnectionConfiguration>
+  <spirit:interconnectionConfiguration>
+    <spirit:interconnectionRef>defaultid4490210</spirit:interconnectionRef>
+    <spirit:abstractors>
+      <spirit:abstractor>
+        <spirit:instanceName>i_ArmAPB2SpiritAPB_1</spirit:instanceName>
+        <spirit:abstractorRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="ArmAPB2SpiritAPB" spirit:version="1.0"/>
+        <spirit:viewName>vhdlsource</spirit:viewName>
+      </spirit:abstractor>
+    </spirit:abstractors>
+  </spirit:interconnectionConfiguration>
+</spirit:designConfiguration>

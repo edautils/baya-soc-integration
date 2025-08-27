@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+// Description: design_apbSubSystem.xml
+// Author:      The SPIRIT Consortium
+// Revision:    $Revision: 1.1 $
+// Date:        $Date: 2014/12/27 22:47:55 $
+//
+// Copyright (c) 2009 The SPIRIT Consortium.
+//
+// This work forms part of a deliverable of The SPIRIT Consortium.
+//
+// Use of these materials are governed by the legal terms and conditions
+// outlined in the disclaimer available from www.spiritconsortium.org.
+//
+// This source file is provided on an AS IS basis.  The SPIRIT
+// Consortium disclaims any warranty express or implied including
+// any warranty of merchantability and fitness for use for a
+// particular purpose.
+//
+// The user of the source file shall indemnify and hold The SPIRIT
+// Consortium and its members harmless from any damages or liability.
+// Users are requested to provide feedback to The SPIRIT Consortium
+// using either mailto:feedback@lists.spiritconsortium.org or the forms at
+// http://www.spiritconsortium.org/about/contact_us/
+//
+// This file may be copied, and distributed, with or without
+// modifications; this notice must be included on any copy.
+-->
+
+<spirit:design xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009 http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009/index.xsd">
+  <spirit:vendor>spiritconsortium.org</spirit:vendor>
+  <spirit:library>Leon2RTL</spirit:library>
+  <spirit:name>design_apbSubSystem</spirit:name>
+  <spirit:version>1.0</spirit:version>
+  <spirit:componentInstances>
+    <spirit:componentInstance>
+      <spirit:instanceName>i_apbbus8</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="apbbus8" spirit:version="1.3"/>
+      <spirit:configurableElementValues>
+        <spirit:configurableElementValue spirit:referenceId="rangeSlv0">4096</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="rangeSlv1">4096</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="rangeSlv2">4096</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="rangeSlv3">4096</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="rangeSlv4">4096</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="rangeSlv5">4096</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="rangeSlv6">4096</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="rangeSlv7">4096</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="remapAddressSlv0">0x0</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="remapAddressSlv1">0x1000</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="remapAddressSlv2">0x2000</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="remapAddressSlv3">0x3000</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="remapAddressSlv4">0x4000</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="remapAddressSlv5">0x5000</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="remapAddressSlv6">0x6000</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="remapAddressSlv7">0x7000</spirit:configurableElementValue>
+      </spirit:configurableElementValues>
+    </spirit:componentInstance>
+    <spirit:componentInstance>
+      <spirit:instanceName>i_apbmst</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="apbmst" spirit:version="1.2"/>
+      <spirit:configurableElementValues>
+        <spirit:configurableElementValue spirit:referenceId="masterRange">1M</spirit:configurableElementValue>
+      </spirit:configurableElementValues>
+    </spirit:componentInstance>
+    <spirit:componentInstance>
+      <spirit:instanceName>i_irqctrl</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="irqctrl" spirit:version="1.2"/>
+    </spirit:componentInstance>
+    <spirit:componentInstance>
+      <spirit:instanceName>i_timers</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="timers" spirit:version="1.2"/>
+      <spirit:configurableElementValues>
+        <spirit:configurableElementValue spirit:referenceId="TPRESC">22</spirit:configurableElementValue>
+      </spirit:configurableElementValues>
+    </spirit:componentInstance>
+    <spirit:componentInstance>
+      <spirit:instanceName>i_uart</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="uart" spirit:version="1.2"/>
+      <spirit:configurableElementValues>
+        <spirit:configurableElementValue spirit:referenceId="ClockPeriod">8</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="ClockPulseDuration">4</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="ClockPulseOffset">4</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="ClockPulseValue">1</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="EXTBAUD">false</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="VirtualClockPeriod">8</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="VirtualClockPulseDuration">4</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="VirtualClockPulseOffset">4</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="VirtualClockPulseValue">1</spirit:configurableElementValue>
+      </spirit:configurableElementValues>
+    </spirit:componentInstance>
+    <spirit:componentInstance>
+      <spirit:instanceName>i_uart_1</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="uart" spirit:version="1.2"/>
+      <spirit:configurableElementValues>
+        <spirit:configurableElementValue spirit:referenceId="ClockPeriod">8</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="ClockPulseDuration">4</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="ClockPulseOffset">4</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="ClockPulseValue">1</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="EXTBAUD">false</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="id_OutputFileName">default.htm</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="VirtualClockPeriod">8</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="VirtualClockPulseDuration">4</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="VirtualClockPulseOffset">4</spirit:configurableElementValue>
+        <spirit:configurableElementValue spirit:referenceId="VirtualClockPulseValue">1</spirit:configurableElementValue>
+      </spirit:configurableElementValues>
+    </spirit:componentInstance>
+    <spirit:componentInstance>
+      <spirit:instanceName>i_uartcrosser</spirit:instanceName>
+      <spirit:componentRef spirit:vendor="spiritconsortium.org" spirit:library="Leon2RTL" spirit:name="uartcrosser" spirit:version="1.2"/>
+      <spirit:configurableElementValues>
+        <spirit:configurableElementValue spirit:referenceId="ScalerValue">0x1</spirit:configurableElementValue>
+      </spirit:configurableElementValues>
+    </spirit:componentInstance>
+  </spirit:componentInstances>
+  <spirit:interconnections>
+    <spirit:interconnection>
+      <spirit:name>defaultid4490143</spirit:name>
+      <spirit:activeInterface spirit:componentRef="i_apbmst" spirit:busRef="ambaAPB"/>
+      <spirit:activeInterface spirit:componentRef="i_apbbus8" spirit:busRef="MirroredMaster"/>
+    </spirit:interconnection>
+    <spirit:interconnection>
+      <spirit:name>defaultid4490160</spirit:name>
+      <spirit:activeInterface spirit:componentRef="i_irqctrl" spirit:busRef="ambaAPB"/>
+      <spirit:activeInterface spirit:componentRef="i_apbbus8" spirit:busRef="MirroredSlave0"/>
+    </spirit:interconnection>
+    <spirit:interconnection>
+      <spirit:name>defaultid4490176</spirit:name>
+      <spirit:activeInterface spirit:componentRef="i_timers" spirit:busRef="ambaAPB"/>
+      <spirit:activeInterface spirit:componentRef="i_apbbus8" spirit:busRef="MirroredSlave1"/>
+    </spirit:interconnection>
+    <spirit:interconnection>
+      <spirit:name>defaultid4490193</spirit:name>
+      <spirit:activeInterface spirit:componentRef="i_uart" spirit:busRef="ambaAPB"/>
+      <spirit:activeInterface spirit:componentRef="i_apbbus8" spirit:busRef="MirroredSlave2"/>
+    </spirit:interconnection>
+    <spirit:interconnection>
+      <spirit:name>defaultid4490210</spirit:name>
+      <spirit:activeInterface spirit:componentRef="i_uart_1" spirit:busRef="ambaAPB"/>
+      <spirit:activeInterface spirit:componentRef="i_apbbus8" spirit:busRef="MirroredSlave3"/>
+    </spirit:interconnection>
+    <spirit:interconnection>
+      <spirit:name>defaultid4490226</spirit:name>
+      <spirit:activeInterface spirit:componentRef="i_irqctrl" spirit:busRef="SlaveInt1"/>
+      <spirit:activeInterface spirit:componentRef="i_timers" spirit:busRef="Int0"/>
+    </spirit:interconnection>
+    <spirit:interconnection>
+      <spirit:name>defaultid4490243</spirit:name>
+      <spirit:activeInterface spirit:componentRef="i_irqctrl" spirit:busRef="SlaveInt2"/>
+      <spirit:activeInterface spirit:componentRef="i_timers" spirit:busRef="Int1"/>
+    </spirit:interconnection>
+    <spirit:interconnection>
+      <spirit:name>defaultid4490260</spirit:name>
+      <spirit:activeInterface spirit:componentRef="i_irqctrl" spirit:busRef="SlaveInt0"/>
+      <spirit:activeInterface spirit:componentRef="i_uart" spirit:busRef="Interrupt"/>
+    </spirit:interconnection>
+    <spirit:interconnection>
+      <spirit:name>defaultid4490276</spirit:name>
+      <spirit:activeInterface spirit:componentRef="i_irqctrl" spirit:busRef="SlaveInt3"/>
+      <spirit:activeInterface spirit:componentRef="i_uart_1" spirit:busRef="Interrupt"/>
+    </spirit:interconnection>
+    <spirit:interconnection>
+      <spirit:name>defaultid4490293</spirit:name>
+      <spirit:activeInterface spirit:componentRef="i_uart" spirit:busRef="serial"/>
+      <spirit:activeInterface spirit:componentRef="i_uartcrosser" spirit:busRef="Uart0"/>
+    </spirit:interconnection>
+    <spirit:interconnection>
+      <spirit:name>defaultid4490309</spirit:name>
+      <spirit:activeInterface spirit:componentRef="i_uart_1" spirit:busRef="serial"/>
+      <spirit:activeInterface spirit:componentRef="i_uartcrosser" spirit:busRef="Uart1"/>
+    </spirit:interconnection>
+  </spirit:interconnections>
+  <spirit:adHocConnections>
+    <spirit:adHocConnection>
+      <spirit:name>id4490329</spirit:name>
+      <spirit:internalPortReference spirit:componentRef="i_uart_1" spirit:portRef="scaler" spirit:left="7" spirit:right="0"/>
+      <spirit:internalPortReference spirit:componentRef="i_uart" spirit:portRef="scaler" spirit:left="7" spirit:right="0"/>
+      <spirit:internalPortReference spirit:componentRef="i_uartcrosser" spirit:portRef="scaler" spirit:left="7" spirit:right="0"/>
+    </spirit:adHocConnection>
+    <spirit:adHocConnection spirit:tiedValue="1">
+      <spirit:name>logic_one</spirit:name>
+      <spirit:internalPortReference spirit:componentRef="i_timers" spirit:portRef="freezetime"/>
+    </spirit:adHocConnection>
+    <spirit:adHocConnection spirit:tiedValue="0">
+      <spirit:name>logic_zero</spirit:name>
+      <spirit:internalPortReference spirit:componentRef="i_irqctrl" spirit:portRef="irq" spirit:left="14" spirit:right="4"/>
+      <spirit:internalPortReference spirit:componentRef="i_timers" spirit:portRef="dresp"/>
+      <spirit:internalPortReference spirit:componentRef="i_timers" spirit:portRef="dsuact"/>
+      <spirit:internalPortReference spirit:componentRef="i_timers" spirit:portRef="dsubre"/>
+      <spirit:internalPortReference spirit:componentRef="i_timers" spirit:portRef="dsuen"/>
+      <spirit:internalPortReference spirit:componentRef="i_timers" spirit:portRef="lresp"/>
+      <spirit:internalPortReference spirit:componentRef="i_timers" spirit:portRef="ntrace"/>
+    </spirit:adHocConnection>
+  </spirit:adHocConnections>
+  <spirit:hierConnections>
+    <spirit:hierConnection spirit:interfaceRef="i_apbbus_slv4">
+      <spirit:interface spirit:componentRef="i_apbbus8" spirit:busRef="MirroredSlave4"/>
+    </spirit:hierConnection>
+    <spirit:hierConnection spirit:interfaceRef="ex_ambaAHB">
+      <spirit:interface spirit:componentRef="i_apbmst" spirit:busRef="ambaAHB"/>
+    </spirit:hierConnection>
+    <spirit:hierConnection spirit:interfaceRef="i_apbbus_slv5">
+      <spirit:interface spirit:componentRef="i_apbbus8" spirit:busRef="MirroredSlave5"/>
+    </spirit:hierConnection>
+    <spirit:hierConnection spirit:interfaceRef="i_apbbus_slv6">
+      <spirit:interface spirit:componentRef="i_apbbus8" spirit:busRef="MirroredSlave6"/>
+    </spirit:hierConnection>
+    <spirit:hierConnection spirit:interfaceRef="i_apbbus_slv7">
+      <spirit:interface spirit:componentRef="i_apbbus8" spirit:busRef="MirroredSlave7"/>
+    </spirit:hierConnection>
+    <spirit:hierConnection spirit:interfaceRef="Interrupt">
+      <spirit:interface spirit:componentRef="i_irqctrl" spirit:busRef="MasterInt"/>
+    </spirit:hierConnection>
+  </spirit:hierConnections>
+</spirit:design>

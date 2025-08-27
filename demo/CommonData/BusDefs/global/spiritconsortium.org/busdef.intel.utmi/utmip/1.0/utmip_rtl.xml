@@ -1,0 +1,779 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Christophe Amerijckx (STMicroelectronics) -->
+<!-- 
+// Description : utmip.xml
+// Author : SPIRIT Schema Working Group 
+// Version: 1.0
+// 
+// Revision:    $Revision: 1.1 $
+// Date:        $Date: 2014/12/27 22:45:52 $
+// 
+// Copyright (c) 2007, 2009 The SPIRIT Consortium.
+// 
+// This work forms part of a deliverable of The SPIRIT Consortium.
+// 
+// Use of these materials are governed by the legal terms and conditions
+// outlined in the disclaimer available from www.spiritconsortium.org.
+// 
+// This source file is provided on an AS IS basis.  The SPIRIT
+// Consortium disclaims any warranty express or implied including
+// any warranty of merchantability and fitness for use for a
+// particular purpose.
+// 
+// The user of the source file shall indemnify and hold The SPIRIT
+// Consortium and its members harmless from any damages or liability.
+// Users are requested to provide feedback to The SPIRIT Consortium
+// using either mailto:feedback@lists.spiritconsortium.org or the forms at 
+// http://www.spiritconsortium.org/about/contact_us/
+// 
+// This file may be copied, and distributed, WITHOUT
+// modifications; this notice must be included on any copy.
+-->
+<!-- UTMI+ Specification -->
+<spirit:abstractionDefinition xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009 http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009/index.xsd">
+  <spirit:vendor>spiritconsortium.org</spirit:vendor>
+  <spirit:library>busdef.intel.utmi</spirit:library>
+  <spirit:name>utmip_rtl</spirit:name>
+  <spirit:version>1.0</spirit:version>
+  <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.intel.utmi" spirit:name="utmip" spirit:version="1.0"/>
+  <spirit:extends spirit:vendor="spiritconsortium.org" spirit:library="busdef.intel.utmi" spirit:name="utmi_rtl" spirit:version="1.0"/>
+  <spirit:ports>
+<!-- This signal is used for clocking receive and transmit parallel data. -->
+    <spirit:port>
+      <spirit:logicalName>clk</spirit:logicalName>
+      <spirit:wire>
+        <spirit:qualifier>
+          <spirit:isClock>true</spirit:isClock>
+        </spirit:qualifier>
+        <spirit:onSystem>
+          <spirit:group>utmiClockGroup</spirit:group>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSystem>
+        <spirit:requiresDriver spirit:driverType="clock">true</spirit:requiresDriver>
+      </spirit:wire>
+    </spirit:port>
+<!-- Reset all state machines in the UTM. -->
+    <spirit:port>
+      <spirit:logicalName>reset</spirit:logicalName>
+      <spirit:wire>
+        <spirit:qualifier>
+          <spirit:isReset>true</spirit:isReset>
+        </spirit:qualifier>
+        <spirit:onSystem>
+          <spirit:group>utmiResetGroup</spirit:group>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSystem>
+        <spirit:requiresDriver spirit:driverType="singleShot">true</spirit:requiresDriver>
+      </spirit:wire>
+    </spirit:port>
+<!-- USB data pin Data+ -->
+    <spirit:port>
+      <spirit:logicalName>dp</spirit:logicalName>
+      <spirit:wire>
+        <spirit:qualifier>
+          <spirit:isData>true</spirit:isData>
+        </spirit:qualifier>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>inout</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>inout</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+<!-- USB data pin Data- -->
+    <spirit:port>
+      <spirit:logicalName>dm</spirit:logicalName>
+      <spirit:wire>
+        <spirit:qualifier>
+          <spirit:isData>true</spirit:isData>
+        </spirit:qualifier>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>inout</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>inout</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+<!-- This signal selects between the LS, FS and HS transceivers -->
+    <spirit:port>
+      <spirit:logicalName>xcvrselect</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+        <spirit:defaultValue>0</spirit:defaultValue>
+      </spirit:wire>
+    </spirit:port>
+<!-- This signal selects between the FS and HS terminations -->
+    <spirit:port>
+      <spirit:logicalName>termselect</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+        <spirit:defaultValue>0</spirit:defaultValue>
+      </spirit:wire>
+    </spirit:port>
+<!-- Places the Macrocell in a mode that draws minimal power from supplies. -->
+    <spirit:port>
+      <spirit:logicalName>suspendm</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+        <spirit:defaultValue>1</spirit:defaultValue>
+      </spirit:wire>
+    </spirit:port>
+<!-- This signal reflects the current state of the single ended receivers. -->
+    <spirit:port>
+      <spirit:logicalName>linestate</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>2</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>2</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+        <spirit:defaultValue>0</spirit:defaultValue>
+      </spirit:wire>
+    </spirit:port>
+<!-- These signals select between various operational modes -->
+    <spirit:port>
+      <spirit:logicalName>opmode</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>2</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>2</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+        <spirit:defaultValue>0</spirit:defaultValue>
+      </spirit:wire>
+    </spirit:port>
+<!-- 8-bit parallel USB data input bus. -->
+    <spirit:port>
+      <spirit:logicalName>datain0_7</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>8</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>8</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+<!-- An 8-bit parallel USB data input bus that transfers the high byte of 16-bit transmit data.-->
+    <spirit:port>
+      <spirit:logicalName>datain8_15</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>8</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>8</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+<!-- Indicates that the DataIn0_7 bus is valid. -->
+    <spirit:port>
+      <spirit:logicalName>txvalid</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+        <spirit:defaultValue>0</spirit:defaultValue>
+      </spirit:wire>
+    </spirit:port>
+<!-- Indicates that the DataIn8_15 bus is valid. -->
+    <spirit:port>
+      <spirit:logicalName>txvalidh</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+        <spirit:defaultValue>0</spirit:defaultValue>
+      </spirit:wire>
+    </spirit:port>
+<!-- Transmit Data Ready -->
+    <spirit:port>
+      <spirit:logicalName>txready</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+        <spirit:defaultValue>0</spirit:defaultValue>
+      </spirit:wire>
+    </spirit:port>
+<!-- 8-bit parallel USB data output bus. -->
+    <spirit:port>
+      <spirit:logicalName>dataout0_7</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>8</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>8</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+<!-- An 8-bit parallel USB data output bus that transfers the high byte of 16-bit receive data. -->
+    <spirit:port>
+      <spirit:logicalName>dataout8_15</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>8</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>8</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+<!-- Indicates that the DataOut0_7 bus has valid data. -->
+    <spirit:port>
+      <spirit:logicalName>rxvalid</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+        <spirit:defaultValue>0</spirit:defaultValue>
+      </spirit:wire>
+    </spirit:port>
+<!-- Indicates that the DataOut8_15 bus has valid data.-->
+    <spirit:port>
+      <spirit:logicalName>rxvalidh</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+        <spirit:defaultValue>0</spirit:defaultValue>
+      </spirit:wire>
+    </spirit:port>
+<!-- Indicates that the receive state machine has detected SYNC and is active. -->
+    <spirit:port>
+      <spirit:logicalName>rxactive</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+        <spirit:defaultValue>0</spirit:defaultValue>
+      </spirit:wire>
+    </spirit:port>
+<!-- Receive Error (0=No Error; 1= Error). -->
+    <spirit:port>
+      <spirit:logicalName>rxerror</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+        <spirit:defaultValue>0</spirit:defaultValue>
+      </spirit:wire>
+    </spirit:port>
+<!-- Selects between 8 and 16 bit data transfers (0=8bits; 1=16 bits). -->
+    <spirit:port>
+      <spirit:logicalName>databus16_8</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+        <spirit:defaultValue>0</spirit:defaultValue>
+      </spirit:wire>
+    </spirit:port>
+<!-- Assertion of this signal loads the Vendor Control register. -->
+    <spirit:port>
+      <spirit:logicalName>vcontrolloadm</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+        <spirit:defaultValue>1</spirit:defaultValue>
+      </spirit:wire>
+    </spirit:port>
+<!-- Vendor defined 4-bit parallel input bus. Note these pins are optional, a macrocell may define partial sets as well.-->
+    <spirit:port>
+      <spirit:logicalName>vcontrol</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+<!-- Vendor defined 8-bit parallel output bus. Note these pins are optional, a macrocell may define partial sets as well. -->
+    <spirit:port>
+      <spirit:logicalName>vstatus</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+<!-- Indicates if the voltage on Vbus is at a valid level for operation (4.4V < Vth < 4.75V). -->
+    <spirit:port>
+      <spirit:logicalName>vbusvalid</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+<!-- Indicates if the session for an A-peripheral is valid (0.8V < Vth < 2V). -->
+    <spirit:port>
+      <spirit:logicalName>avalid</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+<!-- Indicates if the session for an B-peripheral is valid (0.8V < Vth < 4V). -->
+    <spirit:port>
+      <spirit:logicalName>bvalid</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+<!-- Indicates if the voltage on Vbus is valid (0.2V < Vth < 0.8V). -->
+    <spirit:port>
+      <spirit:logicalName>sessend</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+<!-- This signal enables to drive 5V on Vbus -->
+    <spirit:port>
+      <spirit:logicalName>drvvbus</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+<!-- The signal enables charging Vbus. -->
+    <spirit:port>
+      <spirit:logicalName>chrgvbus</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+<!-- The signal enables discharging Vbus. -->
+    <spirit:port>
+      <spirit:logicalName>dischrgvbus</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+<!-- Indicates whether the connected plug is a mini-A or mini-B. -->
+    <spirit:port>
+      <spirit:logicalName>iddig</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+        <spirit:defaultValue>1</spirit:defaultValue>
+      </spirit:wire>
+    </spirit:port>
+<!-- This signal enables the 15k Ohm pull-down resistor on the DP line. -->
+    <spirit:port>
+      <spirit:logicalName>dppulldown</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+<!-- This signal enables the 15k Ohm pull-down resistor on the DM line. -->
+    <spirit:port>
+      <spirit:logicalName>dmpulldown</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+<!-- This signal is used for all types of peripherals connected to it. -->
+    <spirit:port>
+      <spirit:logicalName>hostdisconnect</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+<!-- Signal that enables the sampling of the analog Id line. -->
+    <spirit:port>
+      <spirit:logicalName>idpullup</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+        <spirit:defaultValue>1</spirit:defaultValue>
+      </spirit:wire>
+    </spirit:port>
+<!-- Indicates if the data on the DataOut(7:0) lines needs to be bitstuffed or not. -->
+    <spirit:port>
+      <spirit:logicalName>txbitstuffenable</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+<!-- Indicates if the data on the DataOut(15:8) lines needs to be bitstuffed or not. -->
+    <spirit:port>
+      <spirit:logicalName>txbitstuffenableh</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+<!-- Active low output enable signal. -->
+    <spirit:port>
+      <spirit:logicalName>tx_enable_n</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+<!-- Differential data at D+/D- output -->
+    <spirit:port>
+      <spirit:logicalName>tx_dat</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+<!-- Force Single-Ended Zero -->
+    <spirit:port>
+      <spirit:logicalName>tx_se0</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+<!-- 0b : FS and LS packets are sent using the parallel interface. -->
+<!-- 1b : FS and LS packets are sent using the serial interface. -->
+    <spirit:port>
+      <spirit:logicalName>fslsserialmode</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+<!-- Single-ended receive data, positive terminal. -->
+    <spirit:port>
+      <spirit:logicalName>rx_dp</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+<!-- Single-ended receive data, negative terminal -->
+    <spirit:port>
+      <spirit:logicalName>rx_dm</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+<!-- Receive data -->
+    <spirit:port>
+      <spirit:logicalName>rx_rcv</spirit:logicalName>
+      <spirit:wire>
+        <spirit:onMaster>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>out</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onMaster>
+        <spirit:onSlave>
+          <spirit:width>1</spirit:width>
+          <spirit:direction>in</spirit:direction>
+<!--IP-XACT XSLT Warning#1: Removing empty modeConstraints element-->
+        </spirit:onSlave>
+      </spirit:wire>
+    </spirit:port>
+  </spirit:ports>
+</spirit:abstractionDefinition>

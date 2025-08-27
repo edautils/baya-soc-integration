@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spirit:abstractionDefinition xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009 http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009/index.xsd">
+    <spirit:vendor>http://www.edautils.com</spirit:vendor>
+    <spirit:library>mylib</spirit:library>
+    <spirit:name>clock_rtl</spirit:name>
+    <spirit:version>1.0</spirit:version>
+    <spirit:busType spirit:vendor="edautils.com" spirit:library="busdef.clock" spirit:name="clock" spirit:version="1.0"/>
+    <spirit:ports>
+        <spirit:port>
+            <spirit:logicalName>CLK</spirit:logicalName>
+            <spirit:wire>
+                <spirit:qualifier>
+                    <spirit:isClock>true</spirit:isClock>
+                </spirit:qualifier>
+                <spirit:onMaster>
+                    <spirit:width>1</spirit:width>
+                    <spirit:direction>out</spirit:direction>
+                </spirit:onMaster>
+                <spirit:onSlave>
+                    <spirit:width>20</spirit:width>
+                    <spirit:direction>in</spirit:direction>
+                </spirit:onSlave>
+            </spirit:wire>
+        </spirit:port>
+    </spirit:ports>
+    <spirit:description>This is Clock Abstraction Definition is created with the EDAUtils IP-XACT Tcl commands</spirit:description>
+</spirit:abstractionDefinition>

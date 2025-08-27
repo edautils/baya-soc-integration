@@ -1,0 +1,793 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+// Description : uartSpirit.xml
+// Author : SPIRIT Schema Working Group - Christophe Amerijckx
+// Version: 1.2
+//
+// 
+// Revision:    $Revision: 1.1 $
+// Date:        $Date: 2014/12/27 22:48:50 $
+// 
+// Copyright (c) 2006, 2008, 2009 The SPIRIT Consortium.
+// 
+// This work forms part of a deliverable of The SPIRIT Consortium.
+// 
+// Use of these materials are governed by the legal terms and conditions
+// outlined in the disclaimer available from www.spiritconsortium.org.
+// 
+// This source file is provided on an AS IS basis.  The SPIRIT
+// Consortium disclaims any warranty express or implied including
+// any warranty of merchantability and fitness for use for a
+// particular purpose.
+// 
+// The user of the source file shall indemnify and hold The SPIRIT
+// Consortium and its members harmless from any damages or liability.
+// Users are requested to provide feedback to The SPIRIT Consortium
+// using either mailto:feedback@lists.spiritconsortium.org or the forms at 
+// http://www.spiritconsortium.org/about/contact_us/
+// 
+// This file may be copied, and distributed, with or without
+// modifications; this notice must be included on any copy.
+-->
+<spirit:component xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009 http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009/index.xsd">
+  <spirit:vendor>spiritconsortium.org</spirit:vendor>
+  <spirit:library>Leon2RTL</spirit:library>
+  <spirit:name>uartSpirit</spirit:name>
+  <spirit:version>1.2</spirit:version>
+  <spirit:busInterfaces>
+    <spirit:busInterface>
+      <spirit:name>APBClk</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.clock" spirit:name="clock" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.clock" spirit:name="clock_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>CLK</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>clk</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>APBReset</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.reset" spirit:name="reset" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.reset" spirit:name="reset_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>RESETn</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>rst</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>ambaAPB</spirit:name>
+      <spirit:busType spirit:vendor="amba.com" spirit:library="AMBA2" spirit:name="APB" spirit:version="r2p0_4"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.amba" spirit:name="APB_rtl" spirit:version="1.0"/>
+      <spirit:slave>
+        <spirit:memoryMapRef spirit:memoryMapRef="ambaAPB"/>
+      </spirit:slave>
+      <spirit:connectionRequired>true</spirit:connectionRequired>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>Select</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>psel</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>Enable</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>penable</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>Address</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>paddr</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>Write</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>pwrite</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>WriteData</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>pwdata</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>ReadData</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>prdata</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>Clock</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>clk</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>Resetn</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>rst</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>Interrupt</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt_rtl" spirit:version="1.0"/>
+      <spirit:master/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>IRQ</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>irq</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>serial</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.generic" spirit:name="serial" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.generic" spirit:name="serial_rtl" spirit:version="1.0"/>
+      <spirit:master/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>RxD</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>rxd</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>TxD</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>txd</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>CTSn</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>ctsn</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>RTSn</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>rtsn</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>DTRn</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>rxen</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+  </spirit:busInterfaces>
+  <spirit:memoryMaps>
+    <spirit:memoryMap>
+      <spirit:name>ambaAPB</spirit:name>
+      <spirit:addressBlock>
+        <spirit:name>defaultid4489950</spirit:name>
+        <spirit:baseAddress spirit:resolve="immediate" spirit:prompt="Base Address:" spirit:rangeType="float" spirit:format="long">0</spirit:baseAddress>
+        <spirit:range spirit:format="long" spirit:resolve="immediate" spirit:rangeType="float">16</spirit:range>
+        <spirit:width spirit:format="long" spirit:id="width" spirit:resolve="immediate" spirit:rangeType="float">32</spirit:width>
+        <spirit:register>
+          <spirit:name>data</spirit:name>
+          <spirit:description>Data read/write register</spirit:description>
+          <spirit:addressOffset>0x0</spirit:addressOffset>
+          <spirit:size spirit:resolve="immediate" spirit:rangeType="float" spirit:format="long">32</spirit:size>
+          <spirit:volatile>true</spirit:volatile>
+          <spirit:access>read-write</spirit:access>
+        </spirit:register>
+        <spirit:register>
+          <spirit:name>status</spirit:name>
+          <spirit:description>Status register</spirit:description>
+          <spirit:addressOffset>0x4</spirit:addressOffset>
+          <spirit:size spirit:resolve="immediate" spirit:rangeType="float" spirit:format="long">32</spirit:size>
+          <spirit:access>read-write</spirit:access>
+          <spirit:reset>
+            <spirit:value spirit:resolve="immediate" spirit:rangeType="float" spirit:format="long">0x6</spirit:value>
+            <spirit:mask spirit:resolve="immediate" spirit:rangeType="float" spirit:format="long">0x007F</spirit:mask>
+          </spirit:reset>
+          <spirit:field>
+            <spirit:name>dataReady</spirit:name>
+            <spirit:description>Indicates that new data is available in the receiver holding register</spirit:description>
+            <spirit:bitOffset>0</spirit:bitOffset>
+            <spirit:bitWidth spirit:resolve="immediate" spirit:rangeType="float" spirit:format="long">1</spirit:bitWidth>
+            <spirit:volatile>true</spirit:volatile>
+            <spirit:access>read-only</spirit:access>
+            <spirit:testable>false</spirit:testable>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>transmitShiftRegisterEmpty</spirit:name>
+            <spirit:description>Indicates that the transmitter shift register is empty</spirit:description>
+            <spirit:bitOffset>1</spirit:bitOffset>
+            <spirit:bitWidth spirit:resolve="immediate" spirit:rangeType="float" spirit:format="long">1</spirit:bitWidth>
+            <spirit:volatile>true</spirit:volatile>
+            <spirit:access>read-only</spirit:access>
+            <spirit:testable>false</spirit:testable>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>transmitHoldRegisterEmpty</spirit:name>
+            <spirit:description>Indicates that the transmitter hold register is empty</spirit:description>
+            <spirit:bitOffset>2</spirit:bitOffset>
+            <spirit:bitWidth spirit:resolve="immediate" spirit:rangeType="float" spirit:format="long">1</spirit:bitWidth>
+            <spirit:volatile>true</spirit:volatile>
+            <spirit:access>read-only</spirit:access>
+            <spirit:testable>false</spirit:testable>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>breakReceived</spirit:name>
+            <spirit:description>Indicates that the a BREAK has been received</spirit:description>
+            <spirit:bitOffset>3</spirit:bitOffset>
+            <spirit:bitWidth spirit:resolve="immediate" spirit:rangeType="float" spirit:format="long">1</spirit:bitWidth>
+            <spirit:volatile>true</spirit:volatile>
+            <spirit:access>read-write</spirit:access>
+            <spirit:testable>false</spirit:testable>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>overrun</spirit:name>
+            <spirit:description>Indicates that one or more characters was lost due to an overrun</spirit:description>
+            <spirit:bitOffset>4</spirit:bitOffset>
+            <spirit:bitWidth spirit:resolve="immediate" spirit:rangeType="float" spirit:format="long">1</spirit:bitWidth>
+            <spirit:volatile>true</spirit:volatile>
+            <spirit:access>read-write</spirit:access>
+            <spirit:testable>false</spirit:testable>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>parityError</spirit:name>
+            <spirit:description>Indicates that a parity error was detected</spirit:description>
+            <spirit:bitOffset>5</spirit:bitOffset>
+            <spirit:bitWidth spirit:resolve="immediate" spirit:rangeType="float" spirit:format="long">1</spirit:bitWidth>
+            <spirit:volatile>true</spirit:volatile>
+            <spirit:access>read-write</spirit:access>
+            <spirit:testable>false</spirit:testable>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>framingError</spirit:name>
+            <spirit:description>Indicates thata framing error was detected</spirit:description>
+            <spirit:bitOffset>6</spirit:bitOffset>
+            <spirit:bitWidth spirit:resolve="immediate" spirit:rangeType="float" spirit:format="long">1</spirit:bitWidth>
+            <spirit:volatile>true</spirit:volatile>
+            <spirit:access>read-write</spirit:access>
+            <spirit:testable>false</spirit:testable>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>reserved</spirit:name>
+            <spirit:description>Reserved</spirit:description>
+            <spirit:bitOffset>7</spirit:bitOffset>
+            <spirit:bitWidth spirit:resolve="immediate" spirit:rangeType="float" spirit:format="long">25</spirit:bitWidth>
+            <spirit:volatile>true</spirit:volatile>
+            <spirit:access>read-only</spirit:access>
+            <spirit:testable>false</spirit:testable>
+          </spirit:field>
+        </spirit:register>
+        <spirit:register>
+          <spirit:name>control</spirit:name>
+          <spirit:description>Control register</spirit:description>
+          <spirit:addressOffset>0x8</spirit:addressOffset>
+          <spirit:size spirit:resolve="immediate" spirit:rangeType="float" spirit:format="long">32</spirit:size>
+          <spirit:access>read-write</spirit:access>
+          <spirit:reset>
+            <spirit:value spirit:resolve="immediate" spirit:rangeType="float" spirit:format="long">0x0</spirit:value>
+            <spirit:mask spirit:resolve="immediate" spirit:rangeType="float" spirit:format="long">0x0143</spirit:mask>
+          </spirit:reset>
+          <spirit:field>
+            <spirit:name>receiverEnable</spirit:name>
+            <spirit:description>If set, enables receiver</spirit:description>
+            <spirit:bitOffset>0</spirit:bitOffset>
+            <spirit:bitWidth spirit:resolve="immediate" spirit:rangeType="float" spirit:format="long">1</spirit:bitWidth>
+            <spirit:access>read-write</spirit:access>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>transmitterEnable</spirit:name>
+            <spirit:description>If set, enables transmitter</spirit:description>
+            <spirit:bitOffset>1</spirit:bitOffset>
+            <spirit:bitWidth spirit:resolve="immediate" spirit:rangeType="float" spirit:format="long">1</spirit:bitWidth>
+            <spirit:access>read-write</spirit:access>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>receiverInterruptEnable</spirit:name>
+            <spirit:description>If set, enables generation of receive interrupt</spirit:description>
+            <spirit:bitOffset>2</spirit:bitOffset>
+            <spirit:bitWidth spirit:resolve="immediate" spirit:rangeType="float" spirit:format="long">1</spirit:bitWidth>
+            <spirit:access>read-write</spirit:access>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>transmitterInterruptEnable</spirit:name>
+            <spirit:description>If set, enables generation of transmit interrupt</spirit:description>
+            <spirit:bitOffset>3</spirit:bitOffset>
+            <spirit:bitWidth spirit:resolve="immediate" spirit:rangeType="float" spirit:format="long">1</spirit:bitWidth>
+            <spirit:access>read-write</spirit:access>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>paritySelect</spirit:name>
+            <spirit:description>Selects parity polarity (0=odd parity, 1=even parity)</spirit:description>
+            <spirit:bitOffset>4</spirit:bitOffset>
+            <spirit:bitWidth spirit:resolve="immediate" spirit:rangeType="float" spirit:format="long">1</spirit:bitWidth>
+            <spirit:access>read-write</spirit:access>
+            <spirit:enumeratedValues>
+              <spirit:enumeratedValue>
+                <spirit:name>oddParity</spirit:name>
+                <spirit:description>oddParity</spirit:description>
+                <spirit:value>0</spirit:value>
+              </spirit:enumeratedValue>
+              <spirit:enumeratedValue>
+                <spirit:name>evenParity</spirit:name>
+                <spirit:description>evenParity</spirit:description>
+                <spirit:value>1</spirit:value>
+              </spirit:enumeratedValue>
+            </spirit:enumeratedValues>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>parityEnable</spirit:name>
+            <spirit:description>If set, enables parity generation and checking</spirit:description>
+            <spirit:bitOffset>5</spirit:bitOffset>
+            <spirit:bitWidth spirit:resolve="immediate" spirit:rangeType="float" spirit:format="long">1</spirit:bitWidth>
+            <spirit:access>read-write</spirit:access>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>flowControl</spirit:name>
+            <spirit:description>If set, enables flow control using CTS/RTS</spirit:description>
+            <spirit:bitOffset>6</spirit:bitOffset>
+            <spirit:bitWidth spirit:resolve="immediate" spirit:rangeType="float" spirit:format="long">1</spirit:bitWidth>
+            <spirit:access>read-write</spirit:access>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>loopBack</spirit:name>
+            <spirit:description>If set, loopback mode will be enabled</spirit:description>
+            <spirit:bitOffset>7</spirit:bitOffset>
+            <spirit:bitWidth spirit:resolve="immediate" spirit:rangeType="float" spirit:format="long">1</spirit:bitWidth>
+            <spirit:access>read-write</spirit:access>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>externalClock</spirit:name>
+            <spirit:description>If set, the UART scaler will be clocked from EXTCLK</spirit:description>
+            <spirit:bitOffset>8</spirit:bitOffset>
+            <spirit:bitWidth spirit:resolve="immediate" spirit:rangeType="float" spirit:format="long">1</spirit:bitWidth>
+            <spirit:access>read-write</spirit:access>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>reserved</spirit:name>
+            <spirit:description>Reserved</spirit:description>
+            <spirit:bitOffset>9</spirit:bitOffset>
+            <spirit:bitWidth spirit:resolve="immediate" spirit:rangeType="float" spirit:format="long">23</spirit:bitWidth>
+            <spirit:access>read-only</spirit:access>
+          </spirit:field>
+        </spirit:register>
+        <spirit:register>
+          <spirit:name>scalarReload</spirit:name>
+          <spirit:description>Scalar Reload register</spirit:description>
+          <spirit:addressOffset>0xc</spirit:addressOffset>
+          <spirit:size spirit:resolve="immediate" spirit:rangeType="float" spirit:format="long">32</spirit:size>
+          <spirit:access>read-write</spirit:access>
+          <spirit:field>
+            <spirit:name>scalarReloadValue</spirit:name>
+            <spirit:description>Scalar reload value</spirit:description>
+            <spirit:bitOffset>0</spirit:bitOffset>
+            <spirit:bitWidth spirit:resolve="immediate" spirit:rangeType="float" spirit:format="long">12</spirit:bitWidth>
+            <spirit:access>read-write</spirit:access>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>reserved</spirit:name>
+            <spirit:description>Reserved</spirit:description>
+            <spirit:bitOffset>12</spirit:bitOffset>
+            <spirit:bitWidth spirit:resolve="immediate" spirit:rangeType="float" spirit:format="long">20</spirit:bitWidth>
+            <spirit:access>read-only</spirit:access>
+          </spirit:field>
+        </spirit:register>
+      </spirit:addressBlock>
+    </spirit:memoryMap>
+  </spirit:memoryMaps>
+  <spirit:model>
+    <spirit:views>
+      <spirit:view>
+        <spirit:name>vhdlsource</spirit:name>
+        <spirit:envIdentifier>:modelsim.mentor.com:</spirit:envIdentifier>
+        <spirit:envIdentifier>:ncsim.cadence.com:</spirit:envIdentifier>
+        <spirit:envIdentifier>:vcs.synopsys.com:</spirit:envIdentifier>
+        <spirit:envIdentifier>:designcompiler.synopsys.com:</spirit:envIdentifier>
+        <spirit:language spirit:strict="false">vhdl</spirit:language>
+        <spirit:modelName>leon2Uart(struct)</spirit:modelName>
+        <spirit:fileSetRef>
+          <spirit:localName>fs-vhdlSource</spirit:localName>
+        </spirit:fileSetRef>
+        <spirit:constraintSetRef>normal</spirit:constraintSetRef>
+      </spirit:view>
+    </spirit:views>
+    <spirit:ports>
+      <spirit:port>
+        <spirit:name>clk</spirit:name>
+        <spirit:wire spirit:allLogicalDirectionsAllowed="false">
+          <spirit:direction>in</spirit:direction>
+          <spirit:driver>
+            <spirit:clockDriver spirit:clockName="clk">
+              <spirit:clockPeriod spirit:id="ClockPeriod" spirit:prompt="Clock Pulse Period:" spirit:resolve="user" spirit:rangeType="float" spirit:units="ns" spirit:format="float">8</spirit:clockPeriod>
+              <spirit:clockPulseOffset spirit:id="ClockPulseOffset" spirit:prompt="Clock Pulse Offset:" spirit:resolve="user" spirit:rangeType="float" spirit:units="ns" spirit:format="float">4</spirit:clockPulseOffset>
+              <spirit:clockPulseValue spirit:id="ClockPulseValue" spirit:prompt="Clock Pulse Value:" spirit:resolve="user" spirit:rangeType="float" spirit:format="long">1</spirit:clockPulseValue>
+              <spirit:clockPulseDuration spirit:id="ClockPulseDuration" spirit:prompt="Clock Pulse Duration:" spirit:resolve="user" spirit:rangeType="float" spirit:units="ns" spirit:format="float">4</spirit:clockPulseDuration>
+            </spirit:clockDriver>
+          </spirit:driver>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>rst</spirit:name>
+        <spirit:wire spirit:allLogicalDirectionsAllowed="false">
+          <spirit:direction>in</spirit:direction>
+          <spirit:constraintSets>
+            <spirit:constraintSet spirit:constraintSetId="default">
+              <spirit:timingConstraint spirit:clockName="virtual_clk" spirit:clockEdge="rise">50</spirit:timingConstraint>
+            </spirit:constraintSet>
+          </spirit:constraintSets>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>psel</spirit:name>
+        <spirit:wire spirit:allLogicalDirectionsAllowed="false">
+          <spirit:direction>in</spirit:direction>
+          <spirit:constraintSets>
+            <spirit:constraintSet spirit:constraintSetId="default">
+              <spirit:timingConstraint spirit:clockName="virtual_clk" spirit:clockEdge="rise">50</spirit:timingConstraint>
+            </spirit:constraintSet>
+          </spirit:constraintSets>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>penable</spirit:name>
+        <spirit:wire spirit:allLogicalDirectionsAllowed="false">
+          <spirit:direction>in</spirit:direction>
+          <spirit:constraintSets>
+            <spirit:constraintSet spirit:constraintSetId="default">
+              <spirit:timingConstraint spirit:clockName="virtual_clk" spirit:clockEdge="rise">50</spirit:timingConstraint>
+            </spirit:constraintSet>
+          </spirit:constraintSets>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>paddr</spirit:name>
+        <spirit:wire spirit:allLogicalDirectionsAllowed="false">
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:resolve="immediate" spirit:rangeType="float" spirit:format="long">31</spirit:left>
+            <spirit:right spirit:resolve="immediate" spirit:rangeType="float" spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:constraintSets>
+            <spirit:constraintSet spirit:constraintSetId="default">
+              <spirit:timingConstraint spirit:clockName="virtual_clk" spirit:clockEdge="rise">50</spirit:timingConstraint>
+            </spirit:constraintSet>
+          </spirit:constraintSets>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>pwrite</spirit:name>
+        <spirit:wire spirit:allLogicalDirectionsAllowed="false">
+          <spirit:direction>in</spirit:direction>
+          <spirit:constraintSets>
+            <spirit:constraintSet spirit:constraintSetId="default">
+              <spirit:timingConstraint spirit:clockName="virtual_clk" spirit:clockEdge="rise">50</spirit:timingConstraint>
+            </spirit:constraintSet>
+          </spirit:constraintSets>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>pwdata</spirit:name>
+        <spirit:wire spirit:allLogicalDirectionsAllowed="false">
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:resolve="immediate" spirit:rangeType="float" spirit:format="long">31</spirit:left>
+            <spirit:right spirit:resolve="immediate" spirit:rangeType="float" spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:constraintSets>
+            <spirit:constraintSet spirit:constraintSetId="default">
+              <spirit:timingConstraint spirit:clockName="virtual_clk" spirit:clockEdge="rise">50</spirit:timingConstraint>
+            </spirit:constraintSet>
+          </spirit:constraintSets>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>prdata</spirit:name>
+        <spirit:wire spirit:allLogicalDirectionsAllowed="false">
+          <spirit:direction>out</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:resolve="immediate" spirit:rangeType="float" spirit:format="long">31</spirit:left>
+            <spirit:right spirit:resolve="immediate" spirit:rangeType="float" spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:constraintSets>
+            <spirit:constraintSet spirit:constraintSetId="default">
+              <spirit:timingConstraint spirit:clockName="virtual_clk" spirit:clockEdge="rise">90</spirit:timingConstraint>
+            </spirit:constraintSet>
+          </spirit:constraintSets>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>irq</spirit:name>
+        <spirit:wire spirit:allLogicalDirectionsAllowed="false">
+          <spirit:direction>out</spirit:direction>
+          <spirit:constraintSets>
+            <spirit:constraintSet spirit:constraintSetId="default">
+              <spirit:timingConstraint spirit:clockName="virtual_clk" spirit:clockEdge="rise">80</spirit:timingConstraint>
+            </spirit:constraintSet>
+          </spirit:constraintSets>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>scaler</spirit:name>
+        <spirit:wire spirit:allLogicalDirectionsAllowed="false">
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:resolve="immediate" spirit:rangeType="float" spirit:format="long">7</spirit:left>
+            <spirit:right spirit:resolve="immediate" spirit:rangeType="float" spirit:format="long">0</spirit:right>
+          </spirit:vector>
+          <spirit:driver>
+            <spirit:defaultValue spirit:format="long" spirit:id="sigdefVal_scaler" spirit:resolve="immediate" spirit:rangeType="float">0x0</spirit:defaultValue>
+          </spirit:driver>
+          <spirit:constraintSets>
+            <spirit:constraintSet spirit:constraintSetId="default">
+              <spirit:timingConstraint spirit:clockName="virtual_clk" spirit:clockEdge="rise">75</spirit:timingConstraint>
+            </spirit:constraintSet>
+          </spirit:constraintSets>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>rxd</spirit:name>
+        <spirit:wire spirit:allLogicalDirectionsAllowed="false">
+          <spirit:direction>in</spirit:direction>
+          <spirit:driver>
+            <spirit:defaultValue spirit:format="long" spirit:id="sigdefVal_rxd" spirit:resolve="immediate" spirit:rangeType="float">0</spirit:defaultValue>
+          </spirit:driver>
+          <spirit:constraintSets>
+            <spirit:constraintSet spirit:constraintSetId="default">
+              <spirit:timingConstraint spirit:clockName="virtual_clk" spirit:clockEdge="rise">75</spirit:timingConstraint>
+            </spirit:constraintSet>
+          </spirit:constraintSets>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>rxen</spirit:name>
+        <spirit:wire spirit:allLogicalDirectionsAllowed="false">
+          <spirit:direction>out</spirit:direction>
+          <spirit:constraintSets>
+            <spirit:constraintSet spirit:constraintSetId="default">
+              <spirit:timingConstraint spirit:clockName="virtual_clk" spirit:clockEdge="rise">60</spirit:timingConstraint>
+            </spirit:constraintSet>
+          </spirit:constraintSets>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>txd</spirit:name>
+        <spirit:wire spirit:allLogicalDirectionsAllowed="false">
+          <spirit:direction>out</spirit:direction>
+          <spirit:constraintSets>
+            <spirit:constraintSet spirit:constraintSetId="default">
+              <spirit:timingConstraint spirit:clockName="virtual_clk" spirit:clockEdge="rise">60</spirit:timingConstraint>
+            </spirit:constraintSet>
+          </spirit:constraintSets>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>txen</spirit:name>
+        <spirit:wire spirit:allLogicalDirectionsAllowed="false">
+          <spirit:direction>out</spirit:direction>
+          <spirit:constraintSets>
+            <spirit:constraintSet spirit:constraintSetId="default">
+              <spirit:timingConstraint spirit:clockName="virtual_clk" spirit:clockEdge="rise">60</spirit:timingConstraint>
+            </spirit:constraintSet>
+          </spirit:constraintSets>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>flow</spirit:name>
+        <spirit:wire spirit:allLogicalDirectionsAllowed="false">
+          <spirit:direction>out</spirit:direction>
+          <spirit:constraintSets>
+            <spirit:constraintSet spirit:constraintSetId="default">
+              <spirit:timingConstraint spirit:clockName="virtual_clk" spirit:clockEdge="rise">60</spirit:timingConstraint>
+            </spirit:constraintSet>
+          </spirit:constraintSets>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>rtsn</spirit:name>
+        <spirit:wire spirit:allLogicalDirectionsAllowed="false">
+          <spirit:direction>out</spirit:direction>
+          <spirit:constraintSets>
+            <spirit:constraintSet spirit:constraintSetId="default">
+              <spirit:timingConstraint spirit:clockName="virtual_clk" spirit:clockEdge="rise">60</spirit:timingConstraint>
+            </spirit:constraintSet>
+          </spirit:constraintSets>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>ctsn</spirit:name>
+        <spirit:wire spirit:allLogicalDirectionsAllowed="false">
+          <spirit:direction>in</spirit:direction>
+          <spirit:driver>
+            <spirit:defaultValue spirit:format="long" spirit:id="sigdefVal_ctsn" spirit:resolve="immediate" spirit:rangeType="float">0</spirit:defaultValue>
+          </spirit:driver>
+          <spirit:constraintSets>
+            <spirit:constraintSet spirit:constraintSetId="default">
+              <spirit:timingConstraint spirit:clockName="virtual_clk" spirit:clockEdge="rise">75</spirit:timingConstraint>
+            </spirit:constraintSet>
+          </spirit:constraintSets>
+        </spirit:wire>
+      </spirit:port>
+    </spirit:ports>
+    <spirit:modelParameters>
+      <spirit:modelParameter spirit:dataType="boolean" spirit:usageType="nontyped">
+        <spirit:name>EXTBAUD</spirit:name>
+        <spirit:value spirit:resolve="user" spirit:id="EXTBAUD" spirit:choiceRef="EXTBAUDChoice" spirit:configGroups="requiredConfig" spirit:prompt="Set baud rate externally:" spirit:rangeType="float" spirit:format="string">false</spirit:value>
+      </spirit:modelParameter>
+    </spirit:modelParameters>
+  </spirit:model>
+  <!--IP-XACT XSLT Warning#32:Removing componentGenerators element since it contains only LGI references-->
+  <spirit:choices>
+    <spirit:choice>
+      <spirit:name>EXTBAUDChoice</spirit:name>
+      <spirit:enumeration spirit:text="false">false</spirit:enumeration>
+      <spirit:enumeration spirit:text="true">true</spirit:enumeration>
+    </spirit:choice>
+  </spirit:choices>
+  <spirit:fileSets>
+    <spirit:fileSet>
+      <spirit:name>fs-vhdlSource</spirit:name>
+      <spirit:file>
+        <spirit:name spirit:resolve="immediate" spirit:rangeType="float" spirit:format="string">../../common/target.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName spirit:default="false">leon2uart_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:resolve="immediate" spirit:rangeType="float" spirit:format="string">../../common/device.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName spirit:default="false">leon2uart_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:resolve="immediate" spirit:rangeType="float" spirit:format="string">../../common/config.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName spirit:default="false">leon2uart_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:resolve="immediate" spirit:rangeType="float" spirit:format="string">../../common/sparcv8.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName spirit:default="false">leon2uart_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:resolve="immediate" spirit:rangeType="float" spirit:format="string">../../common/iface.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName spirit:default="false">leon2uart_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:resolve="immediate" spirit:rangeType="float" spirit:format="string">../../common/amba.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName spirit:default="false">leon2uart_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:resolve="immediate" spirit:rangeType="float" spirit:format="string">../../common/ambacomp.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName spirit:default="false">leon2uart_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:resolve="immediate" spirit:rangeType="float" spirit:format="string">../../common/macro.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName spirit:default="false">leon2uart_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:resolve="immediate" spirit:rangeType="float" spirit:format="string">../../common/tech_generic.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName spirit:default="false">leon2uart_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:resolve="immediate" spirit:rangeType="float" spirit:format="string">../../common/tech_atc25.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName spirit:default="false">leon2uart_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:resolve="immediate" spirit:rangeType="float" spirit:format="string">../../common/tech_atc35.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName spirit:default="false">leon2uart_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:resolve="immediate" spirit:rangeType="float" spirit:format="string">../../common/tech_fs90.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName spirit:default="false">leon2uart_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:resolve="immediate" spirit:rangeType="float" spirit:format="string">../../common/tech_umc18.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName spirit:default="false">leon2uart_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:resolve="immediate" spirit:rangeType="float" spirit:format="string">../../common/tech_virtex.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName spirit:default="false">leon2uart_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:resolve="immediate" spirit:rangeType="float" spirit:format="string">../../common/tech_tsmc25.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName spirit:default="false">leon2uart_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:resolve="immediate" spirit:rangeType="float" spirit:format="string">../../common/tech_proasic.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName spirit:default="false">leon2uart_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:resolve="immediate" spirit:rangeType="float" spirit:format="string">../../common/tech_axcel.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName spirit:default="false">leon2uart_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:resolve="immediate" spirit:rangeType="float" spirit:format="string">../../common/multlib.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName spirit:default="false">leon2uart_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:resolve="immediate" spirit:rangeType="float" spirit:format="string">../../common/tech_map.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName spirit:default="false">leon2uart_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:resolve="immediate" spirit:rangeType="float" spirit:format="string">hdlsrc/uart.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName spirit:default="false">leon2uart_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:resolve="immediate" spirit:rangeType="float" spirit:format="string">hdlsrc/leon2Uart.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName spirit:default="false">leon2uart_lib</spirit:logicalName>
+      </spirit:file>
+    </spirit:fileSet>
+  </spirit:fileSets>
+  <!--IP-XACT XSLT Warning#5:Removing element componentConstraintSets-->
+  <spirit:otherClockDrivers>
+    <spirit:otherClockDriver spirit:clockName="virtual_clock">
+      <spirit:clockPeriod spirit:id="VirtualClockPeriod" spirit:prompt="Virtual Clock Period:" spirit:resolve="user" spirit:rangeType="float" spirit:units="ns" spirit:format="float">8</spirit:clockPeriod>
+      <spirit:clockPulseOffset spirit:id="VirtualClockPulseOffset" spirit:prompt="Virtual Clock Pulse Offset:" spirit:resolve="user" spirit:rangeType="float" spirit:units="ns" spirit:format="float">4</spirit:clockPulseOffset>
+      <spirit:clockPulseValue spirit:id="VirtualClockPulseValue" spirit:prompt="Virtual Clock Pulse Value:" spirit:resolve="user" spirit:rangeType="float" spirit:format="long">1</spirit:clockPulseValue>
+      <spirit:clockPulseDuration spirit:id="VirtualClockPulseDuration" spirit:prompt="Virtual Clock Pulse Duration:" spirit:resolve="user" spirit:rangeType="float" spirit:units="ns" spirit:format="float">4</spirit:clockPulseDuration>
+    </spirit:otherClockDriver>
+  </spirit:otherClockDrivers>
+</spirit:component>

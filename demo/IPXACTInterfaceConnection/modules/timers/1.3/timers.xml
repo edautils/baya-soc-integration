@@ -1,0 +1,799 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+// Description : timers.xml
+// Author : SPIRIT Schema Working Group - Christophe Amerijckx
+// Version: 1.2
+// 
+// Revision:    $Revision: 1.1 $
+// Date:        $Date: 2014/12/27 22:48:50 $
+// 
+// Copyright (c) 2006, 2008, 2009 The SPIRIT Consortium.
+// 
+// This work forms part of a deliverable of The SPIRIT Consortium.
+// 
+// Use of these materials are governed by the legal terms and conditions
+// outlined in the disclaimer available from www.spiritconsortium.org.
+// 
+// This source file is provided on an AS IS basis.  The SPIRIT
+// Consortium disclaims any warranty express or implied including
+// any warranty of merchantability and fitness for use for a
+// particular purpose.
+// 
+// The user of the source file shall indemnify and hold The SPIRIT
+// Consortium and its members harmless from any damages or liability.
+// Users are requested to provide feedback to The SPIRIT Consortium
+// using either mailto:feedback@lists.spiritconsortium.org or the forms at 
+// http://www.spiritconsortium.org/about/contact_us/
+// 
+// This file may be copied, and distributed, with or without
+// modifications; this notice must be included on any copy.
+-->
+<spirit:component xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009 http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009/index.xsd">
+  <spirit:vendor>spiritconsortium.org</spirit:vendor>
+  <spirit:library>Leon2RTL</spirit:library>
+  <spirit:name>timers</spirit:name>
+  <spirit:version>1.3</spirit:version>
+  <spirit:busInterfaces>
+    <spirit:busInterface>
+      <spirit:name>APBClk</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.clock" spirit:name="clock" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.clock" spirit:name="clock_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>CLK</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>clk</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>APBReset</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.reset" spirit:name="reset" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.reset" spirit:name="reset_rtl" spirit:version="1.0"/>
+      <spirit:slave/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>RESETn</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>rst</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>ambaAPB</spirit:name>
+      <spirit:busType spirit:vendor="amba.com" spirit:library="AMBA2" spirit:name="APB" spirit:version="r2p0_4"/>
+      <spirit:abstractionType spirit:vendor="amba.com" spirit:library="AMBA2" spirit:name="APB_rtl" spirit:version="r2p0_4"/>
+      <spirit:slave>
+        <spirit:memoryMapRef spirit:memoryMapRef="ambaAPB"/>
+      </spirit:slave>
+      <spirit:connectionRequired>true</spirit:connectionRequired>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>PSELx</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>psel</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>PENABLE</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>penable</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>PADDR</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>paddr</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>PWRITE</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>pwrite</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>PWDATA</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>pwdata</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>PRDATA</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>prdata</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>PCLK</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>clk</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>PRESETn</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>rst</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>Int0</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt_rtl" spirit:version="1.0"/>
+      <spirit:master/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>IRQ</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>irq0</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+    <spirit:busInterface>
+      <spirit:name>Int1</spirit:name>
+      <spirit:busType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt" spirit:version="1.0"/>
+      <spirit:abstractionType spirit:vendor="spiritconsortium.org" spirit:library="busdef.interrupt" spirit:name="interrupt_rtl" spirit:version="1.0"/>
+      <spirit:master/>
+      <spirit:portMaps>
+        <spirit:portMap>
+          <spirit:logicalPort>
+            <spirit:name>IRQ</spirit:name>
+          </spirit:logicalPort>
+          <spirit:physicalPort>
+            <spirit:name>irq1</spirit:name>
+          </spirit:physicalPort>
+        </spirit:portMap>
+      </spirit:portMaps>
+    </spirit:busInterface>
+  </spirit:busInterfaces>
+  <spirit:memoryMaps>
+    <spirit:memoryMap>
+      <spirit:name>ambaAPB</spirit:name>
+      <spirit:addressBlock>
+        <spirit:name>defaultid4489914</spirit:name>
+        <spirit:baseAddress spirit:format="long" spirit:resolve="immediate" spirit:rangeType="float" spirit:prompt="Base Address:">0</spirit:baseAddress>
+        <spirit:range spirit:format="long">0x28</spirit:range>
+        <spirit:width spirit:format="long" spirit:id="width">32</spirit:width>
+        <spirit:register>
+          <spirit:name>watchdogCounter</spirit:name>
+          <spirit:displayName>watchdogCounter</spirit:displayName>
+          <spirit:description>Watchdog 1 value</spirit:description>
+          <spirit:addressOffset>0xc</spirit:addressOffset>
+          <spirit:size>32</spirit:size>
+          <spirit:access>read-write</spirit:access>
+	  <spirit:reset>
+	    <spirit:value>0x0</spirit:value>
+	    <spirit:mask>0xFF000000</spirit:mask>
+	  </spirit:reset>
+          <spirit:field>
+            <spirit:name>watchdogValue</spirit:name>
+            <spirit:description>Watchdog 1 value</spirit:description>
+            <spirit:bitOffset>0</spirit:bitOffset>
+            <spirit:bitWidth>24</spirit:bitWidth>
+            <spirit:volatile>true</spirit:volatile>
+            <spirit:access>read-write</spirit:access>
+            <spirit:testable>false</spirit:testable>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>reserved</spirit:name>
+            <spirit:description>Reserved</spirit:description>
+            <spirit:bitOffset>24</spirit:bitOffset>
+            <spirit:bitWidth>8</spirit:bitWidth>
+            <spirit:volatile>true</spirit:volatile>
+            <spirit:access>read-only</spirit:access>
+            <spirit:testable>true</spirit:testable>
+          </spirit:field>
+        </spirit:register>
+
+        <spirit:register>
+          <spirit:name>prescalerCounter</spirit:name>
+          <spirit:displayName>prescalerCounter</spirit:displayName>
+          <spirit:description>Prescaler Counter</spirit:description>
+          <spirit:addressOffset>0x20</spirit:addressOffset>
+          <spirit:size>32</spirit:size>
+          <spirit:access>read-write</spirit:access>
+	  <spirit:reset>
+	    <spirit:value>0x0</spirit:value>
+	    <spirit:mask>0xFFFFFC00</spirit:mask>
+	  </spirit:reset>
+          <spirit:field>
+            <spirit:name>reloadValue</spirit:name>
+            <spirit:description>Prescaler Counter Value</spirit:description>
+            <spirit:bitOffset>0</spirit:bitOffset>
+            <spirit:bitWidth>10</spirit:bitWidth>
+            <spirit:volatile>true</spirit:volatile>
+            <spirit:access>read-write</spirit:access>
+            <spirit:testable>false</spirit:testable>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>reserved</spirit:name>
+            <spirit:description>Reserved</spirit:description>
+            <spirit:bitOffset>10</spirit:bitOffset>
+            <spirit:bitWidth>22</spirit:bitWidth>
+            <spirit:access>read-only</spirit:access>
+            <spirit:testable>true</spirit:testable>
+          </spirit:field>
+        </spirit:register>
+
+        <spirit:register>
+          <spirit:name>prescalerReloadValue</spirit:name>
+          <spirit:displayName>prescalerReloadValue</spirit:displayName>
+          <spirit:description>Prescaler Reload Value</spirit:description>
+          <spirit:addressOffset>0x24</spirit:addressOffset>
+          <spirit:size>32</spirit:size>
+          <spirit:access>read-write</spirit:access>
+	  <spirit:reset>
+	    <spirit:value>0x0</spirit:value>
+	    <spirit:mask>0xFFFFFC00</spirit:mask>
+	  </spirit:reset>
+          <spirit:field>
+            <spirit:name>reloadValue</spirit:name>
+            <spirit:description>Prescaler Reload Value</spirit:description>
+            <spirit:bitOffset>0</spirit:bitOffset>
+            <spirit:bitWidth>10</spirit:bitWidth>
+            <spirit:access>read-write</spirit:access>
+            <spirit:testable>true</spirit:testable>
+          </spirit:field>
+          <spirit:field>
+            <spirit:name>reserved</spirit:name>
+            <spirit:description>Reserved</spirit:description>
+            <spirit:bitOffset>10</spirit:bitOffset>
+            <spirit:bitWidth>22</spirit:bitWidth>
+            <spirit:volatile>true</spirit:volatile>
+            <spirit:access>read-write</spirit:access>
+            <spirit:testable>false</spirit:testable>
+          </spirit:field>
+        </spirit:register>
+	<spirit:registerFile>
+          <spirit:name>timer1</spirit:name>
+	  <spirit:addressOffset>0</spirit:addressOffset>
+	  <spirit:typeIdentifier>timerStruct</spirit:typeIdentifier>
+	  <spirit:range spirit:format="long">0x0C</spirit:range>
+	  <spirit:register>
+	    <spirit:name>timerCounter</spirit:name>
+	    <spirit:displayName>timerCounter</spirit:displayName>
+	    <spirit:description>Timer value</spirit:description>
+	    <spirit:addressOffset>0x0</spirit:addressOffset>
+	    <spirit:size>32</spirit:size>
+	    <spirit:access>read-write</spirit:access>
+	    <spirit:reset>
+	      <spirit:value>0x0</spirit:value>
+	      <spirit:mask>0xFF000000</spirit:mask>
+	    </spirit:reset>
+	    <spirit:field>
+	      <spirit:name>timerValue</spirit:name>
+	      <spirit:description>Value of Timer</spirit:description>
+	      <spirit:bitOffset>0</spirit:bitOffset>
+	      <spirit:bitWidth>24</spirit:bitWidth>
+	      <spirit:volatile>true</spirit:volatile>
+	      <spirit:access>read-write</spirit:access>
+	      <spirit:testable>true</spirit:testable>
+	    </spirit:field>
+	    <spirit:field>
+	      <spirit:name>reserved</spirit:name>
+	      <spirit:description>Reserved</spirit:description>
+	      <spirit:bitOffset>24</spirit:bitOffset>
+	      <spirit:bitWidth>8</spirit:bitWidth>
+	      <spirit:access>read-only</spirit:access>
+	      <spirit:testable>true</spirit:testable>
+	    </spirit:field>
+	  </spirit:register>
+	  <spirit:register>
+	    <spirit:name>timerReload</spirit:name>
+	    <spirit:displayName>timerReload</spirit:displayName>
+	    <spirit:description>Timer Reload Value</spirit:description>
+	    <spirit:addressOffset>0x4</spirit:addressOffset>
+	    <spirit:size>32</spirit:size>
+	    <spirit:access>read-write</spirit:access>
+	    <spirit:reset>
+	      <spirit:value>0x0</spirit:value>
+	      <spirit:mask>0xFF000000</spirit:mask>
+	    </spirit:reset>
+	    <spirit:field>
+	      <spirit:name>timerReloadValue</spirit:name>
+	      <spirit:description>Timer Reload Value</spirit:description>
+	      <spirit:bitOffset>0</spirit:bitOffset>
+	      <spirit:bitWidth>24</spirit:bitWidth>
+	      <spirit:access>read-write</spirit:access>
+	      <spirit:testable>true</spirit:testable>
+	    </spirit:field>
+	    <spirit:field>
+	      <spirit:name>reserved</spirit:name>
+	      <spirit:description>Reserved</spirit:description>
+	      <spirit:bitOffset>24</spirit:bitOffset>
+	      <spirit:bitWidth>8</spirit:bitWidth>
+	      <spirit:access>read-only</spirit:access>
+	      <spirit:testable>true</spirit:testable>
+	    </spirit:field>
+	  </spirit:register>
+	  <spirit:register>
+	    <spirit:name>timerControl</spirit:name>
+	    <spirit:displayName>timerControl</spirit:displayName>
+	    <spirit:description>Timer Control Register</spirit:description>
+	    <spirit:addressOffset>0x8</spirit:addressOffset>
+	    <spirit:size>32</spirit:size>
+	    <spirit:access>read-write</spirit:access>
+	    <spirit:reset>
+	      <spirit:value>0x0</spirit:value>
+	      <spirit:mask>0xFFFFFFF9</spirit:mask>
+	    </spirit:reset>
+	    <spirit:field>
+	      <spirit:name>enable</spirit:name>
+	      <spirit:description>Enables the timer when set.</spirit:description>
+	      <spirit:bitOffset>0</spirit:bitOffset>
+	      <spirit:bitWidth>1</spirit:bitWidth>
+	      <spirit:volatile>true</spirit:volatile>
+	      <spirit:access>read-write</spirit:access>
+	      <spirit:testable spirit:testConstraint="restore">true</spirit:testable>
+	    </spirit:field>
+	    <spirit:field>
+	      <spirit:name>reloadCounter</spirit:name>
+	      <spirit:description>When set to 1 the counter will automatically be reloaded with the reload value after each underflow.</spirit:description>
+	      <spirit:bitOffset>1</spirit:bitOffset>
+	      <spirit:bitWidth>1</spirit:bitWidth>
+	      <spirit:access>read-write</spirit:access>
+	      <spirit:testable>true</spirit:testable>
+	    </spirit:field>
+	    <spirit:field>
+	      <spirit:name>loadCounter</spirit:name>
+	      <spirit:description>When written with 1, will load the timer reload register into the timer counter register. Always reads as a 0.</spirit:description>
+	      <spirit:bitOffset>2</spirit:bitOffset>
+	      <spirit:bitWidth>1</spirit:bitWidth>
+	      <spirit:access>read-write</spirit:access>
+	      <spirit:modifiedWriteValue>oneToClear</spirit:modifiedWriteValue>
+	      <spirit:testable>true</spirit:testable>
+	    </spirit:field>
+	    <spirit:field>
+	      <spirit:name>reserved</spirit:name>
+	      <spirit:description>Reserved</spirit:description>
+	      <spirit:bitOffset>3</spirit:bitOffset>
+	      <spirit:bitWidth>29</spirit:bitWidth>
+	      <spirit:access>read-only</spirit:access>
+	      <spirit:testable>true</spirit:testable>
+	    </spirit:field>
+	  </spirit:register>
+	</spirit:registerFile>
+
+	<spirit:registerFile>
+          <spirit:name>timer2</spirit:name>
+	  <spirit:addressOffset>0x10</spirit:addressOffset>
+	  <spirit:typeIdentifier>timerStruct</spirit:typeIdentifier>
+	  <spirit:range spirit:format="long">0x0C</spirit:range>
+	  <spirit:register>
+	    <spirit:name>timerCounter</spirit:name>
+	    <spirit:displayName>timerCounter</spirit:displayName>
+	    <spirit:description>Timer value</spirit:description>
+	    <spirit:addressOffset>0x0</spirit:addressOffset>
+	    <spirit:size>32</spirit:size>
+	    <spirit:access>read-write</spirit:access>
+	    <spirit:reset>
+	      <spirit:value>0x0</spirit:value>
+	      <spirit:mask>0xFF000000</spirit:mask>
+	    </spirit:reset>
+	    <spirit:field>
+	      <spirit:name>timerValue</spirit:name>
+	      <spirit:description>Value of Timer</spirit:description>
+	      <spirit:bitOffset>0</spirit:bitOffset>
+	      <spirit:bitWidth>24</spirit:bitWidth>
+	      <spirit:volatile>true</spirit:volatile>
+	      <spirit:access>read-write</spirit:access>
+	      <spirit:testable>true</spirit:testable>
+	    </spirit:field>
+	    <spirit:field>
+	      <spirit:name>reserved</spirit:name>
+	      <spirit:description>Reserved</spirit:description>
+	      <spirit:bitOffset>24</spirit:bitOffset>
+	      <spirit:bitWidth>8</spirit:bitWidth>
+	      <spirit:access>read-only</spirit:access>
+	      <spirit:testable>true</spirit:testable>
+	    </spirit:field>
+	  </spirit:register>
+	  <spirit:register>
+	    <spirit:name>timerReload</spirit:name>
+	    <spirit:displayName>timerReload</spirit:displayName>
+	    <spirit:description>Timer Reload Value</spirit:description>
+	    <spirit:addressOffset>0x4</spirit:addressOffset>
+	    <spirit:size>32</spirit:size>
+	    <spirit:access>read-write</spirit:access>
+	    <spirit:reset>
+	      <spirit:value>0x0</spirit:value>
+	      <spirit:mask>0xFF000000</spirit:mask>
+	    </spirit:reset>
+	    <spirit:field>
+	      <spirit:name>timerReloadValue</spirit:name>
+	      <spirit:description>Timer Reload Value</spirit:description>
+	      <spirit:bitOffset>0</spirit:bitOffset>
+	      <spirit:bitWidth>24</spirit:bitWidth>
+	      <spirit:access>read-write</spirit:access>
+	      <spirit:testable>true</spirit:testable>
+	    </spirit:field>
+	    <spirit:field>
+	      <spirit:name>reserved</spirit:name>
+	      <spirit:description>Reserved</spirit:description>
+	      <spirit:bitOffset>24</spirit:bitOffset>
+	      <spirit:bitWidth>8</spirit:bitWidth>
+	      <spirit:access>read-only</spirit:access>
+	      <spirit:testable>true</spirit:testable>
+	    </spirit:field>
+	  </spirit:register>
+	  <spirit:register>
+	    <spirit:name>timerControl</spirit:name>
+	    <spirit:displayName>timerControl</spirit:displayName>
+	    <spirit:description>Timer Control Register</spirit:description>
+	    <spirit:addressOffset>0x8</spirit:addressOffset>
+	    <spirit:size>32</spirit:size>
+	    <spirit:access>read-write</spirit:access>
+	    <spirit:reset>
+	      <spirit:value>0x0</spirit:value>
+	      <spirit:mask>0xFFFFFFF9</spirit:mask>
+	    </spirit:reset>
+	    <spirit:field>
+	      <spirit:name>enable</spirit:name>
+	      <spirit:description>Enables the timer when set.</spirit:description>
+	      <spirit:bitOffset>0</spirit:bitOffset>
+	      <spirit:bitWidth>1</spirit:bitWidth>
+	      <spirit:volatile>true</spirit:volatile>
+	      <spirit:access>read-write</spirit:access>
+	      <spirit:enumeratedValues>
+		<spirit:enumeratedValue spirit:usage="read">
+		  <spirit:name>TIMERENABLED</spirit:name>
+		  <spirit:value>0x1</spirit:value>
+		</spirit:enumeratedValue>
+		<spirit:enumeratedValue spirit:usage="write">
+		  <spirit:name>ENABLETIMER</spirit:name>
+		  <spirit:value>0x1</spirit:value>
+		</spirit:enumeratedValue>
+		<spirit:enumeratedValue spirit:usage="read">
+		  <spirit:name>TIMERDISABLED</spirit:name>
+		  <spirit:value>0x0</spirit:value>
+		</spirit:enumeratedValue>
+		<spirit:enumeratedValue spirit:usage="write">
+		  <spirit:name>DISABLETIMER</spirit:name>
+		  <spirit:value>0x0</spirit:value>
+		</spirit:enumeratedValue>
+	      </spirit:enumeratedValues>
+	      <spirit:testable spirit:testConstraint="restore">true</spirit:testable>
+	    </spirit:field>
+	    <spirit:field>
+	      <spirit:name>reloadCounter</spirit:name>
+	      <spirit:description>When set to 1 the counter will automatically be reloaded with the reload value after each underflow.</spirit:description>
+	      <spirit:bitOffset>1</spirit:bitOffset>
+	      <spirit:bitWidth>1</spirit:bitWidth>
+	      <spirit:access>read-write</spirit:access>
+	      <spirit:testable>true</spirit:testable>
+	    </spirit:field>
+	    <spirit:field>
+	      <spirit:name>loadCounter</spirit:name>
+	      <spirit:description>When written with 1, will load the timer reload register into the timer counter register. Always reads as a 0.</spirit:description>
+	      <spirit:bitOffset>2</spirit:bitOffset>
+	      <spirit:bitWidth>1</spirit:bitWidth>
+	      <spirit:access>read-write</spirit:access>
+	      <spirit:modifiedWriteValue>oneToClear</spirit:modifiedWriteValue>
+	      <spirit:testable>true</spirit:testable>
+	    </spirit:field>
+	    <spirit:field>
+	      <spirit:name>reserved</spirit:name>
+	      <spirit:description>Reserved</spirit:description>
+	      <spirit:bitOffset>3</spirit:bitOffset>
+	      <spirit:bitWidth>29</spirit:bitWidth>
+	      <spirit:access>read-only</spirit:access>
+	      <spirit:testable>true</spirit:testable>
+	    </spirit:field>
+	  </spirit:register>
+	</spirit:registerFile>
+
+
+      </spirit:addressBlock>
+    </spirit:memoryMap>
+  </spirit:memoryMaps>
+  <spirit:model>
+    <spirit:views>
+      <spirit:view>
+        <spirit:name>vhdlsource</spirit:name>
+        <spirit:envIdentifier>:modelsim.mentor.com:</spirit:envIdentifier>
+        <spirit:envIdentifier>:ncsim.cadence.com:</spirit:envIdentifier>
+        <spirit:envIdentifier>:vcs.synopsys.com:</spirit:envIdentifier>
+        <spirit:envIdentifier>:designcompiler.synopsys.com:</spirit:envIdentifier>
+        <spirit:language spirit:strict="true">vhdl</spirit:language>
+        <spirit:modelName>leon2Timers(struct)</spirit:modelName>
+        <spirit:fileSetRef>
+          <spirit:localName>fs-vhdlSource</spirit:localName>
+        </spirit:fileSetRef>
+      </spirit:view>
+    </spirit:views>
+    <spirit:ports>
+      <spirit:port>
+        <spirit:name>clk</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>rst</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>psel</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>penable</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>paddr</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long" spirit:resolve="immediate" spirit:rangeType="float">31</spirit:left>
+            <spirit:right>0</spirit:right>
+          </spirit:vector>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>pwrite</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>pwdata</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long" spirit:resolve="immediate" spirit:rangeType="float">31</spirit:left>
+            <spirit:right>0</spirit:right>
+          </spirit:vector>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>prdata</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+          <spirit:vector>
+            <spirit:left spirit:format="long" spirit:resolve="immediate" spirit:rangeType="float">31</spirit:left>
+            <spirit:right>0</spirit:right>
+          </spirit:vector>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>irq0</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>irq1</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>tick</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>wdog</spirit:name>
+        <spirit:wire>
+          <spirit:direction>out</spirit:direction>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>dsuact</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:driver>
+            <spirit:defaultValue spirit:format="long" spirit:id="sigdefVal_dsuact" spirit:resolve="immediate" spirit:rangeType="float">0</spirit:defaultValue>
+          </spirit:driver>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>ntrace</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:driver>
+            <spirit:defaultValue spirit:format="long" spirit:id="sigdefVal_ntrace" spirit:resolve="immediate" spirit:rangeType="float">0</spirit:defaultValue>
+          </spirit:driver>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>freezetime</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:driver>
+            <spirit:defaultValue spirit:format="long" spirit:id="sigdefVal_freezetime" spirit:resolve="immediate" spirit:rangeType="float">1</spirit:defaultValue>
+          </spirit:driver>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>lresp</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:driver>
+            <spirit:defaultValue spirit:format="long" spirit:id="sigdefVal_lresp" spirit:resolve="immediate" spirit:rangeType="float">0</spirit:defaultValue>
+          </spirit:driver>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>dresp</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:driver>
+            <spirit:defaultValue spirit:format="long" spirit:id="sigdefVal_dresp" spirit:resolve="immediate" spirit:rangeType="float">0</spirit:defaultValue>
+          </spirit:driver>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>dsuen</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:driver>
+            <spirit:defaultValue spirit:format="long" spirit:id="sigdefVal_dsuen" spirit:resolve="immediate" spirit:rangeType="float">0</spirit:defaultValue>
+          </spirit:driver>
+        </spirit:wire>
+      </spirit:port>
+      <spirit:port>
+        <spirit:name>dsubre</spirit:name>
+        <spirit:wire>
+          <spirit:direction>in</spirit:direction>
+          <spirit:driver>
+            <spirit:defaultValue spirit:format="long" spirit:id="sigdefVal_dsubre" spirit:resolve="immediate" spirit:rangeType="float">0</spirit:defaultValue>
+          </spirit:driver>
+        </spirit:wire>
+      </spirit:port>
+    </spirit:ports>
+    <spirit:modelParameters>
+      <spirit:modelParameter spirit:dataType="integer">
+        <spirit:name>TPRESC</spirit:name>
+        <spirit:value spirit:resolve="user" spirit:id="TPRESC" spirit:configGroups="requiredConfig" spirit:prompt="System Clock Frequency at boot (Hz):">22</spirit:value>
+      </spirit:modelParameter>
+    </spirit:modelParameters>
+  </spirit:model>
+  <spirit:fileSets>
+    <spirit:fileSet>
+      <spirit:name>fs-vhdlSource</spirit:name>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/target.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2timers_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/device.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2timers_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/config.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2timers_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/sparcv8.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2timers_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/iface.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2timers_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/amba.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2timers_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/ambacomp.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2timers_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/macro.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2timers_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/tech_generic.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2timers_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/tech_atc25.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2timers_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/tech_atc35.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2timers_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/tech_fs90.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2timers_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/tech_umc18.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2timers_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/tech_virtex.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2timers_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/tech_tsmc25.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2timers_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/tech_proasic.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2timers_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/tech_axcel.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2timers_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/multlib.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2timers_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../../common/tech_map.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2timers_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../1.2/hdlsrc/timers.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2timers_lib</spirit:logicalName>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name spirit:format="string" spirit:resolve="immediate" spirit:rangeType="float">../1.2/hdlsrc/leon2Timers.vhd</spirit:name>
+        <spirit:fileType>vhdlSource</spirit:fileType>
+        <spirit:logicalName>leon2timers_lib</spirit:logicalName>
+      </spirit:file>
+    </spirit:fileSet>
+  </spirit:fileSets>
+  <spirit:description>Dual timer with enhanced register description using register files</spirit:description>
+</spirit:component>
