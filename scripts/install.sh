@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
 
+echo "Install script, curr dir : $PWD"
 BAYA_DIR="baya_releases"
 EXTRACTED_DIR="."
 EXAMPLES_DIR="examples"
